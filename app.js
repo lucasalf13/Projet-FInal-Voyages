@@ -59,6 +59,6 @@ app.use(mainRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/voyages', travelRoutes);
 
-app.listen(8000, () => {
-  console.log('Le serveur écoute sur le port 8000');
+app.listen(process.env.PORT, () => {
+  console.log(`Le serveur écoute sur le port ${process.env.PORT}`);
 });
