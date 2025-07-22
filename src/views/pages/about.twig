@@ -1,0 +1,28 @@
+{% extends "../layouts/base.twig" %}
+
+{% set headerClass = 'header-banner-large' %}
+{% set slogan =  t('slogan') %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/style.css"/>
+{% endblock %}
+
+{% block title %}
+	<title>
+		{{ t('about_title') }}
+		| GoOnTheWorld
+	</title>
+{% endblock %}
+
+{% block main %}
+	<div class="about-container">
+		<h2>{{ t('about_us') }}</h2>
+		<p style="white-space: pre-line;">{{ t('about_description') }}</p>
+		<div class="don-button" style="margin:32px 0;text-align:center;">
+			<a href="https://www.buymeacoffee.com/GoOnTheWorld" target="_blank" rel="noopener">
+				<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Achetez-moi un café" style="height: 60px !important;width: 217px !important;">
+			</a>
+			<p style="white-space: pre-line;">{{ t('about_donation_message') }}</p>
+		</div>
+	</div>
+{% endblock %}

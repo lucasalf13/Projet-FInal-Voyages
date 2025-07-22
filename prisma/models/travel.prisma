@@ -1,0 +1,14 @@
+model Travel {
+    id             Int     @id @default(autoincrement())
+    name           String  @unique
+    photos         String? @db.Text
+    destination    String
+    duration       String
+    itinerary      String @db.Text
+    budget         Int
+    accommodation  String @db.Text
+    weather        String
+    todoList       String? @db.Text
+    practicalInfos String? @db.Text
+    favorisDe      User[]  @relation("Favoris")
+}

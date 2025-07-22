@@ -1,0 +1,60 @@
+{% extends "../layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/style.css"/>
+{% endblock %}
+
+{% block title %}
+	<title>
+		{{ t('login_title') }}
+		| GoOnTheWorld
+	</title>
+{% endblock %}
+
+{% block main %}
+	<div class="auth-container">
+		{% if success %}
+			<div class="success-message">
+				{{ success }}
+			</div>
+		{% endif %}
+
+		<h2>{{ t('login') }}</h2>
+		<p>{{ t('login_subtitle') }}</p>
+
+		<form class="auth-form" action="" method="post" autocomplete="on">
+			<div>
+				<label for="mail">{{ t('email') }}</label>
+				<input type="email" name="mail" id="mail" required autocomplete="username"/>
+			</div>
+			<div>
+				<label for="password">{{ t('password') }}</label>
+				<input type="password" name="password" id="password" minlength="3" required autocomplete="current-password"/>
+			</div>
+
+			{% if error %}
+				<div class="error-message">
+					{% if error.message %}
+						<p>{{ error.message }}</p>
+					{% endif %}
+					{% if error.mail %}
+						<p>{{ error.mail }}</p>
+					{% endif %}
+					{% if error.password %}
+						<p>{{ error.password }}</p>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			<button class="btn-primary" type="submit">{{ t('login_button') }}</button>
+		</form>
+
+		<div class="auth-links">
+			<a href="/api/auth/forgotpassword">{{ t('forgot_password') }}</a>
+			<span>
+				|
+			</span>
+			<a href="/register">{{ t('create_account') }}</a>
+		</div>
+	</div>
+{% endblock %}

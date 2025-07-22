@@ -1,0 +1,160 @@
+{% extends "../layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/style.css"/>
+{% endblock %}
+
+{% block main %}
+	<main>
+		<h2>
+			{% if edit %}
+				{{ t('edit_trip') }}
+			{% else %}
+				{{ t('create_new_trip') }}
+			{% endif %}
+		</h2>
+		{% if error %}
+			<p class="error">{{ error }}</p>
+		{% endif %}
+		<form method="post" enctype="multipart/form-data" class="create-travel-form" action="{% if edit %}/voyages/{{ voyage.id }}/edit{% else %}/voyages/new{% endif %}">
+			<label for="name">{{ t('trip_name') }}
+				:</label>
+			<input type="text" id="name" name="name" required value="{{ voyage.name|default('') }}">
+
+			<label for="destination">{{ t('destination') }}
+				:</label>
+			<select id="destination" name="destination" required>
+				<option value="Sud-Est" {{ voyage.destination == 'Sud-Est' ? 'selected' : '' }}>{{ t('Sud-Est') }}</option>
+				<option value="Sud-Ouest" {{ voyage.destination == 'Sud-Ouest' ? 'selected' : '' }}>{{ t('Sud-Ouest') }}</option>
+				<option value="Nord-Est" {{ voyage.destination == 'Nord-Est' ? 'selected' : '' }}>{{ t('Nord-Est') }}</option>
+				<option value="Nord-Ouest" {{ voyage.destination == 'Nord-Ouest' ? 'selected' : '' }}>{{ t('Nord-Ouest') }}</option>
+			</select>
+
+			<label for="photos">{{ t('photos') }}
+				:</label>
+			{% if edit and photosArray|length > 0 %}
+				<div class="voyage-photo-banner" style="margin-bottom:12px;">
+					{% for photo in photosArray %}
+						<div style="display:inline-block; text-align:center; margin-right:10px;">
+							<img src="/assets/img/{{ photo }}" alt="{{ t('existing_photo') }}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;display:block;">
+							<label style="font-size:0.95em; display:block; margin-top:4px;">
+								<input type="checkbox" name="delete_photos" value="{{ photo }}">
+								{{ t('delete') }}
+							</label>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="custom-file-upload">
+				<label for="photos" class="custom-file-label">
+					{{ t('choose_file') }}
+				</label>
+				<input type="file" id="photos" name="photos" accept="image/*" multiple style="display:none;">
+				<span id="file-chosen">{{ t('no_file_chosen') }}</span>
+			</div>
+
+			<button type="button" class="add-photo-btn" id="add-photo-btn">{{ t('add_photo') }}</button>
+
+			<label for="duration">{{ t('duration') }}
+				:</label>
+			<input type="text" id="duration" name="duration" required value="{{ voyage.duration|default('') }}">
+
+			<label for="itinerary">{{ t('itinerary') }}
+				:</label>
+			<textarea id="itinerary" name="itinerary" required>{{ voyage.itinerary|default('') }}</textarea>
+
+			<label for="budget">{{ t('budget') }}
+				:</label>
+			<input type="number" id="budget" name="budget" required value="{{ voyage.budget|default('') }}">
+
+			<label for="accommodation">{{ t('accommodation') }}
+				:</label>
+			<textarea id="accommodation" name="accommodation" required>{{ voyage.accommodation|default('') }}</textarea>
+
+			<label for="weather">{{ t('weather') }}
+				:</label>
+			<input type="text" id="weather" name="weather" required value="{{ voyage.weather|default('') }}">
+
+			<label for="todoList">{{ t('todo_list') }}
+				:</label>
+			<textarea id="todoList" name="todoList" required>{{ voyage.todoList|default('') }}</textarea>
+
+			<label for="practicalInfos">{{ t('practical_infos') }}
+				:</label>
+			<textarea id="practicalInfos" name="practicalInfos" required>{{ voyage.practicalInfos|default('') }}</textarea>
+
+			<button type="submit">
+				{% if edit %}
+					{{ t('edit') }}
+				{% else %}
+					{{ t('create') }}
+				{% endif %}
+			</button>
+		</form>
+<script>
+const t_choose_file = "{{ t('choose_file')|e('js') }}";
+const t_no_file_chosen = "{{ t('no_file_chosen')|e('js') }}";
+
+window.addEventListener('DOMContentLoaded', function () {
+    const label = document.querySelector('.custom-file-upload .custom-file-label');
+    const input = document.querySelector('.custom-file-upload input[type="file"]');
+    const fileNameDisplay = document.querySelector('.custom-file-upload .file-chosen, #file-chosen');
+    if (label && input && fileNameDisplay) {
+        label.addEventListener('click', function () {
+            input.click();
+        });
+        input.addEventListener('change', function () {
+            fileNameDisplay.textContent = (input.files.length > 0)
+                ? input.files[0].name
+                : t_no_file_chosen;
+        });
+    }
+});
+</script>
+<script>
+document.getElementById('add-photo-btn').addEventListener('click', function () {
+    const form = this.form;
+
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('custom-file-upload');
+    wrapper.style.marginBottom = '8px';
+
+    const uniqueId = 'photos-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+
+    const label = document.createElement('label');
+    label.setAttribute('for', uniqueId);
+    label.className = 'custom-file-label';
+    label.textContent = t_choose_file;
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'photos';
+    input.accept = 'image/*';
+    input.id = uniqueId;
+    input.style.display = 'none';
+
+    const fileNameDisplay = document.createElement('span');
+    fileNameDisplay.className = 'file-chosen';
+    fileNameDisplay.textContent = t_no_file_chosen;
+
+    label.addEventListener('click', function () {
+        input.click();
+    });
+
+    input.addEventListener('change', function () {
+        fileNameDisplay.textContent = (input.files.length > 0)
+            ? input.files[0].name
+            : t_no_file_chosen;
+    });
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(input);
+    wrapper.appendChild(fileNameDisplay);
+
+    form.insertBefore(wrapper, this);
+});
+</script>
+
+
+	</main>
+{% endblock %}

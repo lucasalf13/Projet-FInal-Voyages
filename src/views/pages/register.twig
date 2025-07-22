@@ -1,0 +1,79 @@
+{% extends "../layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/style.css"/>
+{% endblock %}
+
+{% block title %}
+	<title>
+		{{ t('register_title') }}
+		| GoOnTheWorld
+	</title>
+{% endblock %}
+
+{% block main %}
+	<div class="auth-container">
+		<h2>{{ t('register') }}</h2>
+		<p>{{ t('register_subtitle') }}</p>
+
+		<form class="auth-form" action="" method="post" autocomplete="on">
+			<div>
+				<label for="firstName">{{ t('first_name') }}</label>
+				<input type="text" id="firstName" name="firstName" value="{{ formData.firstName|e }}" pattern="[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}" required>
+			</div>
+			<div>
+				<label for="lastName">{{ t('last_name') }}</label>
+				<input type="text" id="lastName" name="lastName" value="{{ formData.lastName|e }}" pattern="[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}" required>
+			</div>
+			<div>
+				<label for="mail">{{ t('email') }}</label>
+				<input type="email" id="mail" name="mail" value="{{ formData.mail|e }}" required autocomplete="username">
+			</div>
+			<div>
+				<label for="country">{{ t('country') }}</label>
+				<input type="text" id="country" name="country" value="{{ formData.country|e }}" pattern="[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}" required>
+			</div>
+			<div>
+				<label for="password">{{ t('your_password') }}</label>
+				<input type="password" id="password" name="password" minlength="3" required autocomplete="new-password">
+			</div>
+			<div>
+				<label for="confirmPassword">{{ t('confirm_password') }}</label>
+				<input type="password" id="confirmPassword" name="confirmPassword" minlength="3" required autocomplete="new-password">
+			</div>
+
+			{% if error %}
+				<div class="error-message">
+					{% if error.message %}
+						<p>{{ error.message }}</p>
+					{% endif %}
+					{% if error.firstName %}
+						<p>{{ error.firstName }}</p>
+					{% endif %}
+					{% if error.lastName %}
+						<p>{{ error.lastName }}</p>
+					{% endif %}
+					{% if error.mail %}
+						<p>{{ error.mail }}</p>
+					{% endif %}
+					{% if error.country %}
+						<p>{{ error.country }}</p>
+					{% endif %}
+					{% if error.password %}
+						<p>{{ error.password }}</p>
+					{% endif %}
+					{% if error.confirmPassword %}
+						<p>{{ error.confirmPassword }}</p>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			<button class="btn-primary" type="submit">{{ t('create_account_button') }}</button>
+		</form>
+
+		<div class="auth-links">
+			{{ t('already_member') }}
+			<a href="/login">{{ t('login') }}</a>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{{ app.language|default('fr') }}">
+	<head>
+		<meta charset="UTF-8">
+		<title>{{ t('trip') }}
+			:
+			{{ voyage.name }}</title>
+		<style>
+			html,
+			body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				background: #f5faff;
+			}
+			body {
+				min-height: 100vh;
+				font-family: 'Arial', sans-serif;
+				color: #222;
+				box-sizing: border-box;
+				display: flex;
+				align-items: stretch;
+				justify-content: stretch;
+			}
+			.pdf-container {
+				width: 100vw;
+				min-height: 100vh;
+				padding: 48px 7vw;
+				background: #fff;
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				border-radius: 0;
+				box-shadow: 0 0 0 0 transparent;
+			}
+			h1 {
+				color: #007bff;
+				margin-bottom: 32px;
+				text-align: center;
+				font-size: 2.2em;
+				letter-spacing: 1px;
+				font-weight: 800;
+			}
+			.pdf-section {
+				margin-bottom: 22px;
+				padding: 18px 24px;
+				background: #f8f9fa;
+				border-radius: 10px;
+				box-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
+				border-left: 5px solid #007bff;
+			}
+			.pdf-section:last-child {
+				margin-bottom: 0;
+			}
+			.pdf-label {
+				font-weight: bold;
+				color: #007bff;
+				font-size: 1.08em;
+				margin-right: 8px;
+			}
+			.pdf-section p {
+				margin: 8px 0 0;
+				font-size: 1.08em;
+				color: #333;
+				line-height: 1.6;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="pdf-container">
+			<h1>{{ voyage.name }}</h1>
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('duration') }}
+					:</span>
+				{{ voyage.duration }}
+			</div>
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('budget') }}
+					:</span>
+				~{{ voyage.budget }}
+				€
+			</div>
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('accommodation') }}
+					:</span>
+				{{ voyage.accommodation|nl2br }}
+			</div>
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('practical_infos') }}
+					:</span>
+				<p>{{ voyage.practicalInfos|nl2br }}</p>
+			</div>
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('todo_list') }}
+					:</span>
+				<p>{{ voyage.todoList|nl2br }}</p>
+			</div>
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('itinerary') }}
+				:</span>
+				<p>{{ voyage.itinerary|nl2br }}</p>
+			</div>
+		</div>
+	</body>
+</html>

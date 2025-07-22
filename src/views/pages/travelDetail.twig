@@ -1,0 +1,123 @@
+{% extends "../layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/style.css"/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+{% endblock %}
+
+{% block title %}
+	<title>
+		{{ t('details') }}
+		| GoOnTheWorld
+	</title>
+{% endblock %}
+
+{% block main %}
+	<main class="voyage-detail-main">
+		<h1>{{ voyage.name }}</h1>
+	<div class="glide voyage-photo-carousel">
+	<div class="glide__track" data-glide-el="track">
+		<ul class="glide__slides">
+			{% for photo in photos %}
+				<li class="glide__slide">
+					<img src="/assets/img/{{ photo }}" alt="{{ t('photo_of') }} {{ voyage.name }} {{ loop.index }}" loading="lazy" class="carousel-img-zoom">
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+		<div class="voyage-grid">
+			<div class="voyage-card detail-card duration">
+				<h3>{{ t('duration') }}</h3>
+				<div class="preserve-linebreaks">{{ voyage.duration }}</div>
+			</div>
+			<div class="voyage-card detail-card budget">
+				<h3>{{ t('budget') }}</h3>
+				<div class="preserve-linebreaks">~{{ voyage.budget }}€</div>
+			</div>
+			<div class="voyage-card detail-card weather">
+				<img src="{% if absoluteUrl %}{{ absoluteUrl }}{% endif %}/assets/img/{{ voyage.weather }}" alt="{{ t('indicative_weather') }}" class="itineraire-img-zoom">
+			</div>
+			<div class="voyage-card detail-card accommodation">
+    <h3>{{ t('accommodation') }}</h3>
+    <div class="preserve-linebreaks">{{ voyage.accommodation }}</div>
+</div>
+			<div class="voyage-card detail-card infos">
+    <h3>{{ t('practical_infos') }}</h3>
+    <div class="preserve-linebreaks">{{ voyage.practicalInfos }}</div>
+</div>
+			<div class="voyage-card detail-card todo">
+    <h3>{{ t('todo_list') }}</h3>
+    <div class="preserve-linebreaks">{{ voyage.todoList }}</div>
+</div>
+<div class="voyage-card detail-card itinerary">
+				<h3>{{ t('itinerary') }}</h3>
+				<div class="preserve-linebreaks">{{ voyage.itinerary }}</div>
+			</div>
+		</div>
+		<div class="download-pdf">
+			<a href="/voyages/{{ voyage.id }}/pdf" class="btn-download">{{ t('download_pdf') }}</a>
+		</div>
+		{% if user and user.role == 'admin' %}
+			<div class="admin-actions" style="text-align:center; margin-top:24px;">
+				<form action="/voyages/{{ voyage.id }}/delete" method="POST" style="display:inline;">
+					<button type="submit" class="btn-delete">{{ t('delete') }}</button>
+				</form>
+				<a href="/voyages/{{ voyage.id }}/edit" class="btn-edit">{{ t('edit') }}</a>
+			</div>
+		{% endif %}
+				<script>
+			document.addEventListener('DOMContentLoaded', function () {
+let overlay = document.getElementById('itineraire-zoom-overlay');
+if (! overlay) {
+overlay = document.createElement('div');
+overlay.id = 'itineraire-zoom-overlay';
+overlay.innerHTML = '<img src="" alt="   {{ t('zoom_photo') }}">';
+document.body.appendChild(overlay);
+}
+const overlayImg = overlay.querySelector('img');
+
+document.querySelectorAll('.carousel-img-zoom').forEach(function (img) {
+img.style.cursor = 'zoom-in';
+img.addEventListener('click', function () {
+overlayImg.src = img.src;
+overlay.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+});
+
+overlay.addEventListener('click', function () {
+overlay.classList.remove('active');
+document.body.style.overflow = '';
+});
+});
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+		<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const glideElement = document.querySelector('.glide');
+  if (glideElement) {
+    const glide = new Glide(glideElement, {
+      type: 'carousel',
+      perView: 3,
+      autoplay: 2000,
+      gap: 25,
+      hoverpause: true,
+      animationDuration: 800,
+      breakpoints: {
+        900: { perView: 2 },
+        600: { perView: 1 }
+      }
+    });
+    glide.mount();
+    glideElement.classList.add('glide--loaded');
+  }
+});
+
+
+		</script>
+	</main>
+{% endblock %}
+
+		
