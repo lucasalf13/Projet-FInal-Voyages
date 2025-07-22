@@ -12,94 +12,109 @@
 				margin: 0;
 				padding: 0;
 				background: #f5faff;
+				font-family: Arial, sans-serif;
+				color: #222;
 			}
 			body {
 				min-height: 100vh;
-				font-family: 'Arial', sans-serif;
-				color: #222;
-				box-sizing: border-box;
+				padding: 48px 7vw;
 				display: flex;
-				align-items: stretch;
-				justify-content: stretch;
+				justify-content: center;
+				align-items: flex-start;
 			}
 			.pdf-container {
-				width: 100vw;
-				min-height: 100vh;
-				padding: 48px 7vw;
+				max-width: 900px;
+				width: 100%;
 				background: #fff;
+				padding: 20px 40px;
+				border-radius: 0;
 				box-sizing: border-box;
 				display: flex;
 				flex-direction: column;
-				justify-content: flex-start;
-				border-radius: 0;
-				box-shadow: 0 0 0 0 transparent;
+				gap: 24px;
 			}
 			h1 {
 				color: #007bff;
-				margin-bottom: 32px;
 				text-align: center;
-				font-size: 2.2em;
-				letter-spacing: 1px;
+				font-size: 2.4em;
+				margin-bottom: 16px;
 				font-weight: 800;
 			}
 			.pdf-section {
-				margin-bottom: 22px;
-				padding: 18px 24px;
+				padding: 16px 24px;
 				background: #f8f9fa;
-				border-radius: 10px;
-				box-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
 				border-left: 5px solid #007bff;
-			}
-			.pdf-section:last-child {
-				margin-bottom: 0;
+				border-radius: 10px;
+				box-shadow: 0 2px 8px rgba(0, 123, 255, .07);
 			}
 			.pdf-label {
 				font-weight: bold;
+				font-size: 1.1em;
 				color: #007bff;
-				font-size: 1.08em;
-				margin-right: 8px;
+				margin-bottom: 8px;
+				display: block;
 			}
-			.pdf-section p {
-				margin: 8px 0 0;
-				font-size: 1.08em;
+			.pdf-content {
+				font-size: 1.05em;
 				color: #333;
-				line-height: 1.6;
+				line-height: 1.5;
+				white-space: pre-wrap;
+			}
+			.photos-container {
+				display: flex;
+				gap: 10px;
+				flex-wrap: wrap;
+				justify-content: center;
+				margin-bottom: 24px;
+			}
+			.photos-container img {
+				max-height: 150px;
+				border-radius: 10px;
+				border: 1px solid #ddd;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="pdf-container">
 			<h1>{{ voyage.name }}</h1>
+
+			{% set photosArray = voyage.photos ? voyage.photos|split(';') : [] %}
+			{% if photosArray|length > 0 %}
+				<div class="photos-container">
+					{% for photo in photosArray %}
+						<img src="{{ absolute_url('/assets/img/' ~ photo) }}" alt="{{ voyage.name }} - photo {{ loop.index }}"/>
+					{% endfor %}
+				</div>
+			{% endif %}
+
 			<div class="pdf-section">
-				<span class="pdf-label">{{ t('duration') }}
+				<span class="pdf-label">{{ t('que_faire') }}
 					:</span>
-				{{ voyage.duration }}
+				<div class="pdf-content">{{ voyage.queFaire|nl2br }}</div>
 			</div>
-			<div class="pdf-section">
-				<span class="pdf-label">{{ t('budget') }}
-					:</span>
-				~{{ voyage.budget }}
-				€
-			</div>
-			<div class="pdf-section">
-				<span class="pdf-label">{{ t('accommodation') }}
-					:</span>
-				{{ voyage.accommodation|nl2br }}
-			</div>
-			<div class="pdf-section">
-				<span class="pdf-label">{{ t('practical_infos') }}
-					:</span>
-				<p>{{ voyage.practicalInfos|nl2br }}</p>
-			</div>
-			<div class="pdf-section">
-				<span class="pdf-label">{{ t('todo_list') }}
-					:</span>
-				<p>{{ voyage.todoList|nl2br }}</p>
-			</div>
+
 			<div class="pdf-section">
 				<span class="pdf-label">{{ t('itinerary') }}
-				:</span>
-				<p>{{ voyage.itinerary|nl2br }}</p>
+					:</span>
+				<div class="pdf-content">{{ voyage.itinerary|nl2br }}</div>
+			</div>
+
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('ou_dormir') }}
+					:</span>
+				<div class="pdf-content">{{ voyage.ouDormir|nl2br }}</div>
+			</div>
+
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('ou_manger') }}
+					:</span>
+				<div class="pdf-content">{{ voyage.ouManger|nl2br }}</div>
+			</div>
+
+			<div class="pdf-section">
+				<span class="pdf-label">{{ t('transports') }}
+					:</span>
+				<div class="pdf-content">{{ voyage.transports|nl2br }}</div>
 			</div>
 		</div>
 	</body>

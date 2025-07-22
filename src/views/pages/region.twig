@@ -1,0 +1,115 @@
+{% extends "../layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/style.css"/>
+{% endblock %}
+
+{% block title %}
+	<title>{{ t(destination) }}
+		| GoOnTheWorld</title>
+{% endblock %}
+
+{% block main %}
+	<main class="home-main">
+
+		<div class="search-bars-row">
+			<input type="text" id="searchBarDestination" placeholder="{{ t('search_destination') }}">
+		</div>
+
+		<section class="region-section">
+			<h2>{{ t(destination) }}</h2>
+			<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png" alt="{{ t(destination) }}">
+
+			<div class="voyages-carousel-multi">
+				<button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
+
+				<div class="carousel-track">
+					{% for voyage in voyages %}
+						<div class="voyage-card home-card {{ voyage.destination|lower }}" data-name="{{ voyage.name | lower }}">
+							<a href="/voyages/{{ voyage.id }}">
+								<div class="voyage-photo">
+{% set photosArray = voyage.photos ? voyage.photos|split(';') : [] %}
+<img src="/assets/img/{{ photosArray[0]|default('default.jpg') }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
+								</div>
+								<div class="voyage-title">{{ voyage.name }}</div>
+							</a>
+							{% if user %}
+								<button class="fav-btn" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}">
+									{% if voyage.isFavori %}❤️{% else %}🤍
+									{% endif %}
+								</button>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+
+				<button class="carousel-arrow right" aria-label="suivant">&#10095;</button>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		// Favoris
+document.querySelectorAll('.fav-btn').forEach(btn => {
+btn.addEventListener('click', function (e) {
+e.preventDefault();
+const voyageId = this.dataset.voyageId;
+fetch (`/favoris/${voyageId}`, {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify({})
+}).then(res => res.json()).then(data => {
+this.innerHTML = data.isFavori ? '❤️' : '🤍';
+});
+});
+});
+
+// Recherche filtres
+function normalize(str) {
+return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+document.getElementById('searchBarDestination').addEventListener('input', function () {
+const val = normalize(this.value.trim());
+document.querySelectorAll('.voyage-card').forEach(card => {
+const name = normalize(card.dataset.name);
+const match = name.startsWith(val);
+card.style.display = match ? '' : 'none';
+});
+});
+
+// Carrousel multi
+document.querySelectorAll('.voyages-carousel-multi').forEach(carousel => {
+const track = carousel.querySelector('.carousel-track');
+const leftBtn = carousel.querySelector('.carousel-arrow.left');
+const rightBtn = carousel.querySelector('.carousel-arrow.right');
+const visibleCount = 4;
+let index = 0;
+
+const cards = carousel.querySelectorAll('.voyage-card');
+const total = cards.length;
+
+function updateCarousel() {
+const offset = index * (100 / visibleCount);
+track.style.transform = `translateX(-${offset}%)`;
+}
+
+leftBtn.addEventListener('click', () => {
+if (index > 0) 
+index--;
+
+updateCarousel();
+});
+
+rightBtn.addEventListener('click', () => {
+if ((index + 1) * visibleCount < total) 
+index++;
+
+updateCarousel();
+});
+
+updateCarousel();
+});
+	</script>
+{% endblock %}

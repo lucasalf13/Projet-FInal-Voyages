@@ -31,25 +31,38 @@ exports.createTravel = async (req, res) => {
     if (!req.session.user || req.session.user.role !== 'admin') {
         return res.status(403).send(req.t('access_denied'));
     }
+
     try {
-        const { name, destination, duration, itinerary, budget, accommodation, weather, todoList, practicalInfos } = req.body;
+        const {
+            name,
+            destination,
+            queFaire,
+            itinerary,
+            ouDormir,
+            ouManger,
+            transports
+        } = req.body;
+
+        // Gestion des fichiers envoyés (photos)
         const photos = req.files ? req.files.map(file => file.filename) : [];
+
         await prisma.travel.create({
             data: {
                 name,
                 destination,
                 photos: photos.join(';'),
-                duration,
+                queFaire,
                 itinerary,
-                budget: parseInt(budget, 10),
-                accommodation,
-                weather,
-                todoList,
-                practicalInfos,
+                ouDormir,
+                ouManger,
+                transports
             }
         });
+
         res.redirect('/home');
+
     } catch (error) {
+        console.error(error); // Utile pour debug
         res.render('pages/createTravel.twig', {
             error: req.t('create_error'),
             user: req.session.user,
@@ -120,48 +133,69 @@ exports.getEditForm = async (req, res) => {
 };
 
 exports.updateTravel = async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
-        return res.status(403).send(req.t('access_denied'));
+  if (!req.session.user || req.session.user.role !== 'admin') {
+    return res.status(403).send(req.t('access_denied'));
+  }
+
+  const id = Number(req.params.id);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).send("ID de voyage manquant ou invalide.");
+  }
+
+  try {
+    const {
+      name,
+      destination,
+      queFaire,
+      itinerary,
+      ouDormir,
+      ouManger,
+      transports
+    } = req.body;
+
+    const oldVoyage = await prisma.travel.findUnique({ where: { id } });
+    if (!oldVoyage) {
+      return res.status(404).send("Voyage introuvable");
     }
-    const id = Number(req.params.id);
-    try {
-        const { name, destination, duration, itinerary, budget, accommodation, weather, todoList, practicalInfos } = req.body;
-        const oldVoyage = await prisma.travel.findUnique({ where: { id } });
-        let photosArray = oldVoyage.photos ? oldVoyage.photos.split(';') : [];
-        // Suppression des photos cochées
-        let toDelete = req.body.delete_photos;
-        if (toDelete) {
-            // Si une seule case cochée, ce sera une string, sinon un tableau
-            if (!Array.isArray(toDelete)) toDelete = [toDelete];
-            photosArray = photosArray.filter(photo => !toDelete.includes(photo));
-        }
-        // Ajout des nouvelles photos uploadées
-        if (req.files && req.files.length > 0) {
-            const uploaded = req.files.map(file => file.filename);
-            photosArray = photosArray.concat(uploaded);
-        }
-        // Recompose la chaîne
-        const photos = photosArray.join(';');
-        await prisma.travel.update({
-            where: { id },
-            data: {
-                name,
-                destination,
-                photos,
-                duration,
-                itinerary,
-                budget: parseInt(budget, 10),
-                accommodation,
-                weather,
-                todoList,
-                practicalInfos,
-            }
-        });
-        res.redirect('/voyages/' + id);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Erreur lors de la modification");
+
+    let photosArray = oldVoyage.photos ? oldVoyage.photos.split(';') : [];
+
+    // Suppression des photos cochées
+    let toDelete = req.body.delete_photos;
+    if (toDelete) {
+      if (!Array.isArray(toDelete)) toDelete = [toDelete];
+      photosArray = photosArray.filter(photo => !toDelete.includes(photo));
     }
+
+    // Ajout des nouvelles photos uploadées
+    if (req.files && req.files.length > 0) {
+      const uploaded = req.files.map(file => file.filename);
+      photosArray = photosArray.concat(uploaded);
+    }
+
+    const photos = photosArray.join(';');
+
+    await prisma.travel.update({
+      where: { id },
+      data: {
+        name,
+        destination,
+        photos,
+        queFaire,
+        itinerary,
+        ouDormir,
+        ouManger,
+        transports
+      }
+    });
+
+    res.redirect('/voyages/' + id);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Erreur lors de la modification");
+  }
 };
 
 exports.downloadPDF = async (req, res) => {
@@ -196,4 +230,26 @@ exports.downloadPDF = async (req, res) => {
             res.status(500).send("Erreur lors de la génération du PDF");
         }
     });
+};
+
+exports.getRegionPage = async (req, res) => {
+  const destination = req.params.destination;
+
+  try {
+    const voyages = await prisma.travel.findMany({
+      where: { destination }
+    });
+
+    res.render('pages/region.twig', {
+      voyages,
+      destination,
+      user: req.session.user,
+      t: req.t,
+      lng: req.language
+    });
+
+  } catch (error) {
+    console.error('Erreur chargement région:', error);
+    res.status(500).send("Erreur lors du chargement de la région");
+  }
 };

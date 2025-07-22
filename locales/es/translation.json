@@ -116,5 +116,9 @@
   "server_error": "Error del servidor",
   "reset_email_subject": "Solicitud de restablecimiento de contraseña",
   "reset_email_body": "Haz clic aquí para restablecer tu contraseña:",
-  "slogan":"Viajemos de otra manera: juntos hacia un futuro sostenible"
+  "slogan":"Viajemos de otra manera: juntos hacia un futuro sostenible",
+  "que_faire": "Qué hacer",
+  "ou_dormir": "Dónde dormir",
+  "ou_manger": "Dónde comer",
+  "transports": "Transportes"
 }

@@ -6,6 +6,8 @@ router.get('/new', travelController.getCreateForm);
 
 router.post('/new', travelController.uploadPhotos, travelController.createTravel);
 
+router.get('/region/:destination', travelController.getRegionPage);
+
 router.get('/:id', travelController.getVoyageDetail);
 
 router.post('/:id/delete', travelController.deleteTravel);

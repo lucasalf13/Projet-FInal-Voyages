@@ -116,7 +116,9 @@
   "server_error": "Server error",
   "reset_email_subject": "Réinitialisation de votre mot de passe",
   "reset_email_body": "Cliquez ici pour réinitialiser votre mot de passe :",
-  "slogan": "Let's travel differently: together towards a sustainable future"
-
-
+  "slogan": "Let's travel differently: together towards a sustainable future",
+  "que_faire": "Things to do",
+  "ou_dormir": "Where to sleep",
+  "ou_manger": "Where to eat",
+  "transports": "Transportation"
 }

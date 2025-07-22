@@ -26,9 +26,12 @@
                 {% if voyages and voyages|length > 0 %}
                 <section class="region-section">
                     <h2>{{ t(destination) }}</h2>
-                    <img class="region-img"
-                         src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png"
-                         alt="{{ t(destination) }}">
+                   <a href="/voyages/region/{{ destination }}">
+  <img class="region-img"
+       src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png"
+       alt="{{ t(destination) }}">
+</a>
+
                     
                     <div class="voyages-carousel" data-slide-index="0">
                         <button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
@@ -63,10 +66,12 @@
                 {% if voyages and voyages|length > 0 %}
                 <section class="region-section">
                     <h2>{{ t(destination) }}</h2>
-                    <img class="region-img"
-                         src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png"
-                         alt="{{ t(destination) }}">
-                    
+                   <a href="/voyages/region/{{ destination }}">
+  <img class="region-img"
+       src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png"
+       alt="{{ t(destination) }}">
+</a>
+
                     <div class="voyages-carousel" data-slide-index="0">
                         <button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
                         {% for voyage in voyages %}
