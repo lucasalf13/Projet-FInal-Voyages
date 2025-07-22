@@ -12,17 +12,21 @@
 
 {% block main %}
 	<main class="voyage-detail-main">
-		<h1>{{ voyage.name }}</h1>
-		<div class="glide voyage-photo-carousel">
+		<h1 class="voyage-title">{{ voyage.name }}</h1>
+		<div class="voyage-photo-carousel glide">
 			<div class="glide__track" data-glide-el="track">
 				<ul class="glide__slides">
-					{% for photo in voyage.photos %}
+					{% for photo in photos %}
 						<li class="glide__slide">
-							<img src="/assets/img/{{ photo }}" alt="{{ t('photo_of') }} {{ voyage.name }} {{ loop.index }}" loading="lazy" class="carousel-img-zoom">
+							<img src="/assets/img/{{ photo }}" alt="{{ t('photo_of') }} {{ voyage.name }} {{ loop.index }}" loading="lazy" class="carousel-img-zoom" style="cursor:pointer;" onclick="showZoom(this.src)"/>
 						</li>
 					{% endfor %}
 				</ul>
 			</div>
+			<div id="itineraire-zoom-overlay" onclick="hideOverlay()">
+				<img id="itineraire-zoom-img" src="" alt="Zoom image"/>
+			</div>
+
 		</div>
 
 		<div class="voyage-grid">
@@ -86,6 +90,7 @@ if (! el)
 return;
 
 
+
 el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 	</script>
@@ -115,5 +120,18 @@ glide.mount();
 glideElement.classList.add('glide--loaded');
 }
 });
+
+function showZoom(src) {
+const overlay = document.getElementById('itineraire-zoom-overlay');
+const imgZoom = document.getElementById('itineraire-zoom-img');
+imgZoom.src = src;
+overlay.classList.add('active');
+}
+
+function hideOverlay() {
+const overlay = document.getElementById('itineraire-zoom-overlay');
+overlay.classList.remove('active');
+document.getElementById('itineraire-zoom-img').src = '';
+}
 	</script>
 {% endblock %}

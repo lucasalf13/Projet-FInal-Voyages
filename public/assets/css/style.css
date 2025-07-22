@@ -435,12 +435,6 @@ h2 {
     position: relative;
 }
 
-.voyage-card.itinerary {
-    grid-column: 1 / -1;
-    max-width: none;
-    width: 100%;
-}
-
 .voyage-card:hover {
     transform: translateY(-6px) scale(1.03);
     box-shadow: var(--shadow-strong);
@@ -535,9 +529,9 @@ a.new:hover {
 .voyage-detail-grid,
 .voyage-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-    margin-bottom: 34px;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+    grid-gap: 20px;
 }
 
 .voyage-detail-card,
@@ -554,6 +548,51 @@ a.new:hover {
     max-height: none;
     overflow: visible;
     box-sizing: border-box;
+}
+
+.voyage-card.que-faire {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.voyage-card.itinerary {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.voyage-card.ou-dormir,
+.voyage-card.ou-manger,
+.voyage-card.transports {
+    grid-row: 2;
+}
+
+.voyage-card.ou-dormir {
+    grid-column: 1;
+}
+
+.voyage-card.ou-manger {
+    grid-column: 2;
+}
+
+.voyage-card.transports {
+    grid-column: 3;
+}
+
+.voyage-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+}
+
+@media (max-width: 768px) {
+    .voyage-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "que-faire"
+            "itinerary"
+            "ou-dormir"
+            "ou-manger"
+            "transports";
+    }
 }
 
 .preserve-linebreaks {
@@ -706,6 +745,7 @@ a.new:hover {
     background: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 #itineraire-zoom-overlay.active {
@@ -718,6 +758,7 @@ a.new:hover {
     border-radius: 14px;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
     background: #fff;
+    object-fit: contain;
 }
 
 /* =========================
@@ -964,65 +1005,6 @@ a.new:hover {
 
     body {
         padding-bottom: 50px;
-    }
-}
-
-/* =========================
-   RESPONSIVE < 400px
-========================= */
-@media (max-width: 400px) {
-
-    h1,
-    h2 {
-        font-size: 1.2rem;
-    }
-
-    .btn-download,
-    .btn-edit,
-    .btn-delete {
-        padding: 8px 10px;
-        font-size: 0.95em;
-    }
-
-    .voyage-title {
-        font-size: 1rem;
-    }
-}
-
-/* =========================
-   RESPONSIVE MOBILE LECTURE (fiche voyage/détail)
-   Une carte par ligne sur mobile (<800px)
-========================= */
-@media (max-width: 830px) {
-
-    .voyage-grid,
-    .voyage-detail-grid {
-        display: grid;
-        grid-template-columns: 1fr !important;
-        gap: 18px;
-        margin: 0 0 28px 0;
-        padding: 0;
-    }
-
-    .voyage-card,
-    .voyage-card.detail-card,
-    .voyage-detail-card {
-        max-width: 100% !important;
-        width: 100% !important;
-        margin: 0 !important;
-        box-sizing: border-box;
-    }
-
-    .voyage-card.itinerary {
-        grid-column: 1 / -1 !important;
-        max-width: 100% !important;
-        width: 100% !important;
-    }
-
-    h1,
-    h2,
-    .voyage-title {
-        font-size: 1.25rem !important;
     }
 }
 
@@ -1293,10 +1275,6 @@ a.new:hover {
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.25s ease;
-}
-
-.glide__slide img:hover {
-    transform: scale(1.05);
 }
 
 @media (prefers-reduced-motion: reduce) {
