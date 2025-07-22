@@ -28,8 +28,8 @@
 						<div class="voyage-card home-card {{ voyage.destination|lower }}" data-name="{{ voyage.name | lower }}">
 							<a href="/voyages/{{ voyage.id }}">
 								<div class="voyage-photo">
-{% set photosArray = voyage.photos ? voyage.photos|split(';') : [] %}
-<img src="/assets/img/{{ photosArray[0]|default('default.jpg') }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
+									{% set photosArray = voyage.photos ? voyage.photos|split(';') : [] %}
+									<img src="/assets/img/{{ photosArray[0]|default('default.jpg') }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
 								</div>
 								<div class="voyage-title">{{ voyage.name }}</div>
 							</a>
@@ -99,12 +99,14 @@ leftBtn.addEventListener('click', () => {
 if (index > 0) 
 index--;
 
+
 updateCarousel();
 });
 
 rightBtn.addEventListener('click', () => {
 if ((index + 1) * visibleCount < total) 
 index++;
+
 
 updateCarousel();
 });

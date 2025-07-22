@@ -56,8 +56,9 @@
 	</nav>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-	<script> // Météo
-		document.addEventListener('DOMContentLoaded', function () {
+	<script>
+		// Météo
+document.addEventListener('DOMContentLoaded', function () {
 const btn = document.getElementById('btn-footer-meteo');
 const carte = document.getElementById('carte-meteo-france');
 let mapLoaded = false;
@@ -275,8 +276,9 @@ carte.style.display = 'none';
 });
 	</script>
 
-	<script> // IA Voyage
-		document.addEventListener('DOMContentLoaded', function () {
+	<script>
+		// IA Voyage
+document.addEventListener('DOMContentLoaded', function () {
 const btnIA = document.getElementById('btn-footer-ia');
 const iaContainer = document.getElementById('ia-voyage-container');
 if (btnIA && iaContainer) {
@@ -291,7 +293,7 @@ iaContainer.scrollIntoView({behavior: 'smooth', block: 'center'});
 const form = document.getElementById('form-ia-voyage');
 if (form) {
 form.addEventListener('submit', function (e) {
-	e.preventDefault();
+e.preventDefault();
 const data = {
 type: form.type.value,
 duree: form.duree.value,
@@ -300,7 +302,7 @@ enfants: form.enfants.value,
 budget: form.budget.value,
 periode: form.periode.value
 };
-document.getElementById('ia-voyage-resultat').innerHTML = '<span class="ia-loading"> {{ t('search_in_progress') }}</span>';
+document.getElementById('ia-voyage-resultat').innerHTML = '<span class="ia-loading">  {{ t('search_in_progress') }}</span>';
 fetch('/api/ia-voyage', {
 method: 'POST',
 headers: {

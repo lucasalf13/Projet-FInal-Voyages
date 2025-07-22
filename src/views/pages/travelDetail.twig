@@ -1,113 +1,119 @@
 {% extends "../layouts/base.twig" %}
 
 {% block style %}
-  <link rel="stylesheet" href="/assets/css/style.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+	<link rel="stylesheet" href="/assets/css/style.css"/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
 {% endblock %}
 
 {% block title %}
-  <title>{{ voyage.name }} | GoOnTheWorld</title>
+	<title>{{ voyage.name }}
+		| GoOnTheWorld</title>
 {% endblock %}
 
 {% block main %}
-<main class="voyage-detail-main">
-  <h1>{{ voyage.name }}</h1>
+	<main class="voyage-detail-main">
+		<h1>{{ voyage.name }}</h1>
+		<div class="glide voyage-photo-carousel">
+			<div class="glide__track" data-glide-el="track">
+				<ul class="glide__slides">
+					{% for photo in voyage.photos %}
+						<li class="glide__slide">
+							<img src="/assets/img/{{ photo }}" alt="{{ t('photo_of') }} {{ voyage.name }} {{ loop.index }}" loading="lazy" class="carousel-img-zoom">
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
 
-  {# Carousel photos #}
-  <div class="glide voyage-photo-carousel">
-    <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides">
-        {% for photo in voyage.photos %}
-          <li class="glide__slide">
-            <img src="/assets/img/{{ photo }}" alt="{{ t('photo_of') }} {{ voyage.name }} {{ loop.index }}" loading="lazy" class="carousel-img-zoom">
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
+		<div class="voyage-grid">
 
-  <div class="voyage-grid">
+			<div class="voyage-card detail-card que-faire">
+				<h3>{{ t('que_faire') }}</h3>
+				<p>{{ voyage.queFaire|nl2br }}</p>
+			</div>
 
-   <div class="voyage-card detail-card que-faire">
-      <h3>{{ t('que_faire') }}</h3>
-      <p>{{ voyage.queFaire|nl2br }}</p>
-    </div>
+			<div class="voyage-card detail-card itinerary">
+				<h3>{{ t('itinerary') }}</h3>
+				<p>{{ voyage.itinerary|nl2br }}</p>
+			</div>
 
-    <div class="voyage-card detail-card itinerary">
-      <h3>{{ t('itinerary') }}</h3>
-      <p>{{ voyage.itinerary|nl2br }}</p>
-    </div>
+			<div class="voyage-card detail-card ou-dormir">
+				<h3>{{ t('ou_dormir') }}</h3>
+				<p>{{ voyage.ouDormir|nl2br }}</p>
+			</div>
 
-    <div class="voyage-card detail-card ou-dormir">
-      <h3>{{ t('ou_dormir') }}</h3>
-      <p>{{ voyage.ouDormir|nl2br }}</p>
-    </div>
+			<div class="voyage-card detail-card ou-manger">
+				<h3>{{ t('ou_manger') }}</h3>
+				<p>{{ voyage.ouManger|nl2br }}</p>
+			</div>
 
-    <div class="voyage-card detail-card ou-manger">
-      <h3>{{ t('ou_manger') }}</h3>
-      <p>{{ voyage.ouManger|nl2br }}</p>
-    </div>
+			<div class="voyage-card detail-card transports">
+				<h3>{{ t('transports') }}</h3>
+				<p>{{ voyage.transports|nl2br }}</p>
+			</div>
 
-    <div class="voyage-card detail-card transports">
-      <h3>{{ t('transports') }}</h3>
-      <p>{{ voyage.transports|nl2br }}</p>
-    </div>
+		</div>
 
-  </div>
+		<div class="download-pdf">
+			<a href="/voyages/{{ voyage.id }}/pdf" class="btn-download">{{ t('download_pdf') }}</a>
+		</div>
 
-  <div class="download-pdf">
-    <a href="/voyages/{{ voyage.id }}/pdf" class="btn-download">{{ t('download_pdf') }}</a>
-  </div>
+		{% if user and user.role == 'admin' %}
+			<div class="admin-actions" style="text-align:center; margin-top:24px;">
+				<form action="/voyages/{{ voyage.id }}/delete" method="POST" style="display:inline;">
+					<button type="submit" class="btn-delete">{{ t('delete') }}</button>
+				</form>
+				<a href="/voyages/{{ voyage.id }}/edit" class="btn-edit">{{ t('edit') }}</a>
+			</div>
+		{% endif %}
+	</main>
 
-  {% if user and user.role == 'admin' %}
-    <div class="admin-actions" style="text-align:center; margin-top:24px;">
-      <form action="/voyages/{{ voyage.id }}/delete" method="POST" style="display:inline;">
-        <button type="submit" class="btn-delete">{{ t('delete') }}</button>
-      </form>
-      <a href="/voyages/{{ voyage.id }}/edit" class="btn-edit">{{ t('edit') }}</a>
-    </div>
-  {% endif %}
-</main>
-
-<script>
-function showPhoto(src) {
-  const img = document.getElementById('que-faire-photo-img');
-  if (!src) {
-    img.style.display = 'none';
-    img.src = '';
-  } else {
-    img.src = src;
-    img.style.display = 'block';
-  }
+	<script>
+		function showPhoto(src) {
+const img = document.getElementById('que-faire-photo-img');
+if (! src) {
+img.style.display = 'none';
+img.src = '';
+} else {
+img.src = src;
+img.style.display = 'block';
+}
 }
 
 function toggleDetails(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.style.display = el.style.display === 'none' ? 'block' : 'none';
-}
-</script>
+const el = document.getElementById(id);
+if (! el) 
+return;
 
-<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const glideElement = document.querySelector('.glide');
-  if (glideElement) {
-    const glide = new Glide(glideElement, {
-      type: 'carousel',
-      perView: 3,
-      autoplay: 2000,
-      gap: 25,
-      hoverpause: true,
-      animationDuration: 800,
-      breakpoints: {
-        900: { perView: 2 },
-        600: { perView: 1 }
-      }
-    });
-    glide.mount();
-    glideElement.classList.add('glide--loaded');
-  }
+
+el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+const glideElement = document.querySelector('.glide');
+if (glideElement) {
+const glide = new Glide(glideElement, {
+type: 'carousel',
+perView: 3,
+autoplay: 2000,
+gap: 25,
+hoverpause: true,
+animationDuration: 800,
+breakpoints: {
+900: {
+perView: 2
+},
+600: {
+perView: 1
+}
+}
 });
-</script>
+glide.mount();
+glideElement.classList.add('glide--loaded');
+}
+});
+	</script>
 {% endblock %}

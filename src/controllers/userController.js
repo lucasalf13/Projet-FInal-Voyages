@@ -164,7 +164,6 @@ exports.toggleFavori = async (req, res) => {
     const userId = req.session.user.id;
     const voyageId = parseInt(req.params.voyageId, 10);
 
-    // Vérifier si déjà favori
     const user = await prisma.user.findUnique({
         where: { id: userId },
         include: { favoris: { where: { id: voyageId } } }
@@ -172,14 +171,12 @@ exports.toggleFavori = async (req, res) => {
 
     let isFavori;
     if (user.favoris.length > 0) {
-        // Déjà favori, on retire
         await prisma.user.update({
             where: { id: userId },
             data: { favoris: { disconnect: { id: voyageId } } }
         });
         isFavori = false;
     } else {
-        // Pas favori, on ajoute
         await prisma.user.update({
             where: { id: userId },
             data: { favoris: { connect: { id: voyageId } } }

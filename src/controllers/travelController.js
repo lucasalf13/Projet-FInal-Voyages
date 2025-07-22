@@ -43,7 +43,6 @@ exports.createTravel = async (req, res) => {
             transports
         } = req.body;
 
-        // Gestion des fichiers envoyés (photos)
         const photos = req.files ? req.files.map(file => file.filename) : [];
 
         await prisma.travel.create({
@@ -62,7 +61,7 @@ exports.createTravel = async (req, res) => {
         res.redirect('/home');
 
     } catch (error) {
-        console.error(error); // Utile pour debug
+        console.error(error);
         res.render('pages/createTravel.twig', {
             error: req.t('create_error'),
             user: req.session.user,
@@ -133,69 +132,67 @@ exports.getEditForm = async (req, res) => {
 };
 
 exports.updateTravel = async (req, res) => {
-  if (!req.session.user || req.session.user.role !== 'admin') {
-    return res.status(403).send(req.t('access_denied'));
-  }
-
-  const id = Number(req.params.id);
-
-  if (!Number.isInteger(id) || id <= 0) {
-    return res.status(400).send("ID de voyage manquant ou invalide.");
-  }
-
-  try {
-    const {
-      name,
-      destination,
-      queFaire,
-      itinerary,
-      ouDormir,
-      ouManger,
-      transports
-    } = req.body;
-
-    const oldVoyage = await prisma.travel.findUnique({ where: { id } });
-    if (!oldVoyage) {
-      return res.status(404).send("Voyage introuvable");
+    if (!req.session.user || req.session.user.role !== 'admin') {
+        return res.status(403).send(req.t('access_denied'));
     }
 
-    let photosArray = oldVoyage.photos ? oldVoyage.photos.split(';') : [];
+    const id = Number(req.params.id);
 
-    // Suppression des photos cochées
-    let toDelete = req.body.delete_photos;
-    if (toDelete) {
-      if (!Array.isArray(toDelete)) toDelete = [toDelete];
-      photosArray = photosArray.filter(photo => !toDelete.includes(photo));
+    if (!Number.isInteger(id) || id <= 0) {
+        return res.status(400).send("ID de voyage manquant ou invalide.");
     }
 
-    // Ajout des nouvelles photos uploadées
-    if (req.files && req.files.length > 0) {
-      const uploaded = req.files.map(file => file.filename);
-      photosArray = photosArray.concat(uploaded);
+    try {
+        const {
+            name,
+            destination,
+            queFaire,
+            itinerary,
+            ouDormir,
+            ouManger,
+            transports
+        } = req.body;
+
+        const oldVoyage = await prisma.travel.findUnique({ where: { id } });
+        if (!oldVoyage) {
+            return res.status(404).send("Voyage introuvable");
+        }
+
+        let photosArray = oldVoyage.photos ? oldVoyage.photos.split(';') : [];
+
+        let toDelete = req.body.delete_photos;
+        if (toDelete) {
+            if (!Array.isArray(toDelete)) toDelete = [toDelete];
+            photosArray = photosArray.filter(photo => !toDelete.includes(photo));
+        }
+
+        if (req.files && req.files.length > 0) {
+            const uploaded = req.files.map(file => file.filename);
+            photosArray = photosArray.concat(uploaded);
+        }
+
+        const photos = photosArray.join(';');
+
+        await prisma.travel.update({
+            where: { id },
+            data: {
+                name,
+                destination,
+                photos,
+                queFaire,
+                itinerary,
+                ouDormir,
+                ouManger,
+                transports
+            }
+        });
+
+        res.redirect('/voyages/' + id);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erreur lors de la modification");
     }
-
-    const photos = photosArray.join(';');
-
-    await prisma.travel.update({
-      where: { id },
-      data: {
-        name,
-        destination,
-        photos,
-        queFaire,
-        itinerary,
-        ouDormir,
-        ouManger,
-        transports
-      }
-    });
-
-    res.redirect('/voyages/' + id);
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Erreur lors de la modification");
-  }
 };
 
 exports.downloadPDF = async (req, res) => {
@@ -233,23 +230,23 @@ exports.downloadPDF = async (req, res) => {
 };
 
 exports.getRegionPage = async (req, res) => {
-  const destination = req.params.destination;
+    const destination = req.params.destination;
 
-  try {
-    const voyages = await prisma.travel.findMany({
-      where: { destination }
-    });
+    try {
+        const voyages = await prisma.travel.findMany({
+            where: { destination }
+        });
 
-    res.render('pages/region.twig', {
-      voyages,
-      destination,
-      user: req.session.user,
-      t: req.t,
-      lng: req.language
-    });
+        res.render('pages/region.twig', {
+            voyages,
+            destination,
+            user: req.session.user,
+            t: req.t,
+            lng: req.language
+        });
 
-  } catch (error) {
-    console.error('Erreur chargement région:', error);
-    res.status(500).send("Erreur lors du chargement de la région");
-  }
+    } catch (error) {
+        console.error('Erreur chargement région:', error);
+        res.status(500).send("Erreur lors du chargement de la région");
+    }
 };

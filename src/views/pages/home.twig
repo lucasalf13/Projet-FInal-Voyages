@@ -1,162 +1,165 @@
 {% extends "../layouts/base.twig" %}
 
 {% block style %}
-    <link rel="stylesheet" href="/assets/css/style.css"/>
+	<link rel="stylesheet" href="/assets/css/style.css"/>
 {% endblock %}
 
 {% block title %}
-    <title>{{ t('home') }} | GoOnTheWorld</title>
+	<title>{{ t('home') }}
+		| GoOnTheWorld</title>
 {% endblock %}
 
 {% block main %}
-<main class="home-main">
+	<main class="home-main">
 
-    <div class="search-bars-row">
-        <input type="text" id="searchBarDestination" placeholder="{{ t('search_destination') }}">
-        {% if user and user.role == 'admin' %}
-            <a href="/voyages/new" class="new">{{ t('create_trip') }}</a>
-        {% endif %}
-    </div>
+		<div class="search-bars-row">
+			<input type="text" id="searchBarDestination" placeholder="{{ t('search_destination') }}">
+			{% if user and user.role == 'admin' %}
+				<a href="/voyages/new" class="new">{{ t('create_trip') }}</a>
+			{% endif %}
+		</div>
 
-    <div class="regions-grid-columns">
-        <!-- Colonne de gauche -->
-        <div class="region-col">
-            {% for destination in ["Nord-Ouest", "Sud-Ouest"] %}
-                {% set voyages = voyagesParDestination[destination] %}
-                {% if voyages and voyages|length > 0 %}
-                <section class="region-section">
-                    <h2>{{ t(destination) }}</h2>
-                   <a href="/voyages/region/{{ destination }}">
-  <img class="region-img"
-       src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png"
-       alt="{{ t(destination) }}">
-</a>
+		<div
+			class="regions-grid-columns">
+			<!-- Colonne de gauche -->
+			<div class="region-col">
+				{% for destination in ["Nord-Ouest", "Sud-Ouest"] %}
+					{% set voyages = voyagesParDestination[destination] %}
+					{% if voyages and voyages|length > 0 %}
+						<section class="region-section">
+							<h2>{{ t(destination) }}</h2>
+							<a href="/voyages/region/{{ destination }}">
+								<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png" alt="{{ t(destination) }}">
+							</a>
 
-                    
-                    <div class="voyages-carousel" data-slide-index="0">
-                        <button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
-                        {% for voyage in voyages %}
-						<div class="carousel-slide{% if loop.index0 == 0 %} active{% endif %}">
-                        <div class="voyage-card home-card {{ voyage.destination|lower }}" data-name="{{ voyage.name | lower }}">
-                            <a href="/voyages/{{ voyage.id }}">
-                                <div class="voyage-photo">
-                                    <img src="/assets/img/{{ voyage.mainPhoto }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
-                                </div>
-                                <div class="voyage-title">{{ voyage.name }}</div>
-                            </a>
-                            {% if user %}
-                                <button class="fav-btn" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}">
-                                    {% if voyage.isFavori %}❤️{% else %}🤍{% endif %}
-                                </button>
-                            {% endif %}
+
+							<div class="voyages-carousel" data-slide-index="0">
+								<button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
+								{% for voyage in voyages %}
+									<div class="carousel-slide{% if loop.index0 == 0 %} active{% endif %}">
+										<div class="voyage-card home-card {{ voyage.destination|lower }}" data-name="{{ voyage.name | lower }}">
+											<a href="/voyages/{{ voyage.id }}">
+												<div class="voyage-photo">
+													<img src="/assets/img/{{ voyage.mainPhoto }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
+												</div>
+												<div class="voyage-title">{{ voyage.name }}</div>
+											</a>
+											{% if user %}
+												<button class="fav-btn" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}">
+													{% if voyage.isFavori %}❤️{% else %}🤍
+													{% endif %}
+												</button>
+											{% endif %}
+										</div>
+									</div>
+								{% endfor %}
+								<button class="carousel-arrow right" aria-label="suivant">&#10095;</button>
 							</div>
-                        </div>
-                        {% endfor %}
-                        <button class="carousel-arrow right" aria-label="suivant">&#10095;</button>
-                    </div>
-                </section>
-                {% endif %}
-            {% endfor %}
-        </div>
+						</section>
+					{% endif %}
+				{% endfor %}
+			</div>
 
-        <!-- Colonne de droite -->
-        <div class="region-col">
-            {% for destination in ["Nord-Est", "Sud-Est"] %}
-                {% set voyages = voyagesParDestination[destination] %}
-                {% if voyages and voyages|length > 0 %}
-                <section class="region-section">
-                    <h2>{{ t(destination) }}</h2>
-                   <a href="/voyages/region/{{ destination }}">
-  <img class="region-img"
-       src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png"
-       alt="{{ t(destination) }}">
-</a>
+			<!-- Colonne de droite -->
+			<div class="region-col">
+				{% for destination in ["Nord-Est", "Sud-Est"] %}
+					{% set voyages = voyagesParDestination[destination] %}
+					{% if voyages and voyages|length > 0 %}
+						<section class="region-section">
+							<h2>{{ t(destination) }}</h2>
+							<a href="/voyages/region/{{ destination }}">
+								<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png" alt="{{ t(destination) }}">
+							</a>
 
-                    <div class="voyages-carousel" data-slide-index="0">
-                        <button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
-                        {% for voyage in voyages %}
-						<div class="carousel-slide{% if loop.index0 == 0 %} active{% endif %}">
-                        <div class="voyage-card home-card {{ voyage.destination|lower }}" data-name="{{ voyage.name | lower }}">
-                            <a href="/voyages/{{ voyage.id }}">
-                                <div class="voyage-photo">
-                                    <img src="/assets/img/{{ voyage.mainPhoto }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
-                                </div>
-                                <div class="voyage-title">{{ voyage.name }}</div>
-                            </a>
-                            {% if user %}
-                                <button class="fav-btn" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}">
-                                    {% if voyage.isFavori %}❤️{% else %}🤍{% endif %}
-                                </button>
-                            {% endif %}
-                        </div>
-						</div>
-                        {% endfor %}
-                        <button class="carousel-arrow right" aria-label="suivant">&#10095;</button>
-                    </div>
-                </section>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-</main>
+							<div class="voyages-carousel" data-slide-index="0">
+								<button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
+								{% for voyage in voyages %}
+									<div class="carousel-slide{% if loop.index0 == 0 %} active{% endif %}">
+										<div class="voyage-card home-card {{ voyage.destination|lower }}" data-name="{{ voyage.name | lower }}">
+											<a href="/voyages/{{ voyage.id }}">
+												<div class="voyage-photo">
+													<img src="/assets/img/{{ voyage.mainPhoto }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
+												</div>
+												<div class="voyage-title">{{ voyage.name }}</div>
+											</a>
+											{% if user %}
+												<button class="fav-btn" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}">
+													{% if voyage.isFavori %}❤️{% else %}🤍
+													{% endif %}
+												</button>
+											{% endif %}
+										</div>
+									</div>
+								{% endfor %}
+								<button class="carousel-arrow right" aria-label="suivant">&#10095;</button>
+							</div>
+						</section>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</main>
 
-<script>
-    // Favoris
-    document.querySelectorAll('.fav-btn').forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const voyageId = this.dataset.voyageId;
-            fetch(`/favoris/${voyageId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({})
-            }).then(res => res.json()).then(data => {
-                this.innerHTML = data.isFavori ? '❤️' : '🤍';
-            });
-        });
-    });
-
-    // Recherche filtres
-    function normalize(str) {
-        return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
-    document.getElementById('searchBarDestination').addEventListener('input', function () {
-        const val = normalize(this.value.trim());
-        document.querySelectorAll('.voyages-carousel').forEach(carousel => {
-            let visibleCount = 0;
-            carousel.querySelectorAll('.voyage-card').forEach(card => {
-                const name = normalize(card.dataset.name);
-                const match = name.startsWith(val);
-                card.style.display = match ? '' : 'none';
-                if (match) visibleCount++;
-            });
-            const section = carousel.closest('section.region-section');
-            section.style.display = visibleCount === 0 ? 'none' : '';
-        });
-    });
-
-  document.querySelectorAll('.voyages-carousel').forEach(carousel => {
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const leftBtn = carousel.querySelector('.carousel-arrow.left');
-    const rightBtn = carousel.querySelector('.carousel-arrow.right');
-    let index = 0;
-    function showSlide(i) {
-        slides.forEach((slide, idx) => {
-            slide.classList.toggle('active', idx === i);
-        });
-        carousel.dataset.slideIndex = i;
-    }
-    leftBtn.addEventListener('click', () => {
-        index = (index - 1 + slides.length) % slides.length;
-        showSlide(index);
-    });
-    rightBtn.addEventListener('click', () => {
-        index = (index + 1) % slides.length;
-        showSlide(index);
-    });
-    // Init
-    showSlide(0);
+	<script>
+		// Favoris
+document.querySelectorAll('.fav-btn').forEach(btn => {
+btn.addEventListener('click', function (e) {
+e.preventDefault();
+const voyageId = this.dataset.voyageId;
+fetch (`/favoris/${voyageId}`, {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify({})
+}).then(res => res.json()).then(data => {
+this.innerHTML = data.isFavori ? '❤️' : '🤍';
+});
+});
 });
 
-</script>
+// Recherche filtres
+function normalize(str) {
+return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+document.getElementById('searchBarDestination').addEventListener('input', function () {
+const val = normalize(this.value.trim());
+document.querySelectorAll('.voyages-carousel').forEach(carousel => {
+let visibleCount = 0;
+carousel.querySelectorAll('.voyage-card').forEach(card => {
+const name = normalize(card.dataset.name);
+const match = name.startsWith(val);
+card.style.display = match ? '' : 'none';
+if (match) 
+visibleCount++;
+
+});
+const section = carousel.closest('section.region-section');
+section.style.display = visibleCount === 0 ? 'none' : '';
+});
+});
+
+document.querySelectorAll('.voyages-carousel').forEach(carousel => {
+const slides = carousel.querySelectorAll('.carousel-slide');
+const leftBtn = carousel.querySelector('.carousel-arrow.left');
+const rightBtn = carousel.querySelector('.carousel-arrow.right');
+let index = 0;
+function showSlide(i) {
+slides.forEach((slide, idx) => {
+slide.classList.toggle('active', idx === i);
+});
+carousel.dataset.slideIndex = i;
+}
+leftBtn.addEventListener('click', () => {
+index = (index - 1 + slides.length) % slides.length;
+showSlide(index);
+});
+rightBtn.addEventListener('click', () => {
+index = (index + 1) % slides.length;
+showSlide(index);
+});
+// Init
+showSlide(0);
+});
+	</script>
 {% endblock %}
