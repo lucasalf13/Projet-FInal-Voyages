@@ -28,8 +28,7 @@
 						<div class="voyage-card home-card {{ voyage.destination|lower }}" data-name="{{ voyage.name | lower }}">
 							<a href="/voyages/{{ voyage.id }}">
 								<div class="voyage-photo">
-									{% set photosArray = voyage.photos ? voyage.photos|split(';') : [] %}
-									<img src="/assets/img/{{ photosArray[0]|default('default.jpg') }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
+<img src="/assets/img/{{ voyage.mainPhoto }}" alt="{{ t('photo_of') }} {{ voyage.name }}" class="cover-img">
 								</div>
 								<div class="voyage-title">{{ voyage.name }}</div>
 							</a>
@@ -68,50 +67,88 @@ this.innerHTML = data.isFavori ? '❤️' : '🤍';
 
 // Recherche filtres
 function normalize(str) {
-return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+
 document.getElementById('searchBarDestination').addEventListener('input', function () {
-const val = normalize(this.value.trim());
-document.querySelectorAll('.voyage-card').forEach(card => {
-const name = normalize(card.dataset.name);
-const match = name.startsWith(val);
-card.style.display = match ? '' : 'none';
+    const val = normalize(this.value.trim());
+    const cards = document.querySelectorAll('.voyage-card');
+    const carouselTrack = document.querySelector('.carousel-track');
+    const visibleCards = [];
+
+    cards.forEach(card => {
+        const name = normalize(card.dataset.name);
+        const match = name.startsWith(val);
+        card.style.display = match ? '' : 'none';
+        if (match) {
+            visibleCards.push(card);
+        }
+    });
+
+    // Si un match est trouvé, scroll jusqu’à lui
+    if (visibleCards.length > 0) {
+        const card = visibleCards[0];
+        const containerRect = carouselTrack.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        const offset = cardRect.left - containerRect.left + carouselTrack.scrollLeft;
+
+        // Convertit l'offset en index pour garder le comportement du carrousel
+        const cardWidth = card.offsetWidth + 16; // marge droite entre les cartes
+        const index = Math.floor(offset / cardWidth);
+
+        // Applique un scroll visuel comme dans updateCarousel
+        carouselTrack.style.transform = `translateX(-${index * cardWidth}px)`;
+    }
 });
-});
+
 
 // Carrousel multi
 document.querySelectorAll('.voyages-carousel-multi').forEach(carousel => {
-const track = carousel.querySelector('.carousel-track');
-const leftBtn = carousel.querySelector('.carousel-arrow.left');
-const rightBtn = carousel.querySelector('.carousel-arrow.right');
-const visibleCount = 4;
-let index = 0;
+	const track = carousel.querySelector('.carousel-track');
+	const leftBtn = carousel.querySelector('.carousel-arrow.left');
+	const rightBtn = carousel.querySelector('.carousel-arrow.right');
+	const cards = carousel.querySelectorAll('.voyage-card');
+	const total = cards.length;
+	let index = 0;
 
-const cards = carousel.querySelectorAll('.voyage-card');
-const total = cards.length;
+	function getVisibleCount() {
+		if (window.innerWidth <= 600) return 2;
+		if (window.innerWidth <= 1024) return 3;
+		return 4;
+	}
 
-function updateCarousel() {
-const offset = index * (100 / visibleCount);
-track.style.transform = `translateX(-${offset}%)`;
+	let visibleCount = getVisibleCount();
+
+	function updateCarousel() {
+	const card = carousel.querySelector('.voyage-card');
+	const cardStyle = window.getComputedStyle(card);
+	const gap = parseInt(cardStyle.marginRight) || 16; // fallback 16px si marginRight non défini
+	const cardWidth = card.offsetWidth + gap;
+	const offset = index * cardWidth;
+	track.style.transform = `translateX(-${offset}px)`;
 }
 
-leftBtn.addEventListener('click', () => {
-if (index > 0) 
-index--;
 
+	leftBtn.addEventListener('click', () => {
+		if (index > 0) {
+			index--;
+			updateCarousel();
+		}
+	});
 
-updateCarousel();
-});
+	rightBtn.addEventListener('click', () => {
+		if ((index + visibleCount) < total) {
+			index++;
+			updateCarousel();
+		}
+	});
 
-rightBtn.addEventListener('click', () => {
-if ((index + 1) * visibleCount < total) 
-index++;
+	window.addEventListener('resize', () => {
+		visibleCount = getVisibleCount();
+		updateCarousel();
+	});
 
-
-updateCarousel();
-});
-
-updateCarousel();
+	updateCarousel();
 });
 	</script>
 {% endblock %}

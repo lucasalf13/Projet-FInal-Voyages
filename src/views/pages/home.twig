@@ -120,23 +120,37 @@ this.innerHTML = data.isFavori ? '❤️' : '🤍';
 
 // Recherche filtres
 function normalize(str) {
-return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
-document.getElementById('searchBarDestination').addEventListener('input', function () {
-const val = normalize(this.value.trim());
-document.querySelectorAll('.voyages-carousel').forEach(carousel => {
-let visibleCount = 0;
-carousel.querySelectorAll('.voyage-card').forEach(card => {
-const name = normalize(card.dataset.name);
-const match = name.startsWith(val);
-card.style.display = match ? '' : 'none';
-if (match) 
-visibleCount++;
 
-});
-const section = carousel.closest('section.region-section');
-section.style.display = visibleCount === 0 ? 'none' : '';
-});
+document.getElementById('searchBarDestination').addEventListener('input', function () {
+	const val = normalize(this.value.trim());
+
+	document.querySelectorAll('.voyages-carousel').forEach(carousel => {
+		const slides = carousel.querySelectorAll('.carousel-slide');
+		let found = false;
+
+		slides.forEach((slide, index) => {
+			const card = slide.querySelector('.voyage-card');
+			const name = normalize(card.dataset.name);
+
+			if (val === "" || name.startsWith(val)) {
+				// Affiche cette slide si elle correspond
+				slide.style.display = '';
+				if (!found) {
+					// Active seulement la première correspondance
+					slides.forEach(s => s.classList.remove('active'));
+					slide.classList.add('active');
+					carousel.dataset.slideIndex = index;
+					found = true;
+				}
+			} else {
+				// Cache les autres
+				slide.style.display = 'none';
+				slide.classList.remove('active');
+			}
+		});
+	});
 });
 
 document.querySelectorAll('.voyages-carousel').forEach(carousel => {

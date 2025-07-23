@@ -230,23 +230,46 @@ exports.downloadPDF = async (req, res) => {
 };
 
 exports.getRegionPage = async (req, res) => {
-    const destination = req.params.destination;
+  const destination = req.params.destination;
+  const userId = req.session.user?.id;
 
-    try {
-        const voyages = await prisma.travel.findMany({
-            where: { destination }
-        });
+  try {
+    // 1. Récupérer tous les voyages de la destination
+    const voyages = await prisma.travel.findMany({
+      where: { destination }
+    });
 
-        res.render('pages/region.twig', {
-            voyages,
-            destination,
-            user: req.session.user,
-            t: req.t,
-            lng: req.language
-        });
-
-    } catch (error) {
-        console.error('Erreur chargement région:', error);
-        res.status(500).send("Erreur lors du chargement de la région");
+    let favorisIds = [];
+    if (userId) {
+      // 2. Récupérer les favoris de l'utilisateur
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { favoris: { select: { id: true } } }
+      });
+      favorisIds = user?.favoris.map(f => f.id) || [];
     }
+
+    // 3. Ajouter isFavori ET mainPhoto à chaque voyage
+    const voyagesWithFavori = voyages.map(voyage => {
+      const mainPhoto = (voyage.photos && voyage.photos.split(';')[0]) || 'default.jpg';
+      return {
+        ...voyage,
+        isFavori: favorisIds.includes(voyage.id),
+        mainPhoto
+      };
+    });
+
+    res.render('pages/region.twig', {
+      voyages: voyagesWithFavori,
+      destination,
+      user: req.session.user,
+      t: req.t,
+      lng: req.language
+    });
+
+  } catch (error) {
+    console.error('Erreur chargement région:', error);
+    res.status(500).send("Erreur lors du chargement de la région");
+  }
 };
+

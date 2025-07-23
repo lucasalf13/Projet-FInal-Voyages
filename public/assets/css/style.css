@@ -442,7 +442,7 @@ h2 {
 
 .voyage-photo {
     width: 100%;
-    height: 190px;
+    aspect-ratio: 3 / 2;
     border-top-left-radius: var(--radius);
     border-top-right-radius: var(--radius);
     overflow: hidden;
@@ -984,9 +984,8 @@ a.new:hover {
         margin: 0;
     }
 
-    .voyage-photo {
-        height: 130px;
-    }
+   
+
 
     .voyage-title {
         font-size: 1.08rem;
@@ -1585,6 +1584,13 @@ body.dark-mode .add-photo-btn:hover {
     pointer-events: none;
 }
 
+@media (max-width: 700px) {
+    .hero-slogan {
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+}
+
 .header-banner::after {
     content: "";
     position: absolute;
@@ -1651,6 +1657,7 @@ body.dark-mode .add-photo-btn:hover {
     align-items: center;
     gap: 20px;
     position: relative;
+    overflow: hidden;
     width: 100%;
     max-width: 320px;
 }
@@ -1739,23 +1746,6 @@ body.dark-mode .add-photo-btn:hover {
     .voyage-card {
         flex: 0 0 calc(50% - 1rem);
     }
-}
-
-.voyage-photo {
-    width: 100%;
-    height: 190px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    overflow: hidden;
-    background: #e3f2fd;
-    position: relative;
-}
-
-.cover-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
 }
 
 .carousel-arrow {
