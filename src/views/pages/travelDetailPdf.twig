@@ -82,7 +82,7 @@
 			{% if photosArray|length > 0 %}
 				<div class="photos-container">
 					{% for photo in photosArray %}
-						<img src="{{ absolute_url('/assets/img/' ~ photo) }}" alt="{{ voyage.name }} - photo {{ loop.index }}"/>
+<img src="{{ absoluteUrl }}/assets/img/{{ photo }}" alt="{{ voyage.name }} - photo {{ loop.index }}"/>
 					{% endfor %}
 				</div>
 			{% endif %}
