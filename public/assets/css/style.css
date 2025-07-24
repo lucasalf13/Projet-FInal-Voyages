@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --primary: #007bff;
     --secondary: #00c6fb;
     --accent: #ffb300;
@@ -10,7 +10,29 @@
     --shadow: 0 4px 18px rgba(0, 123, 255, 0.10);
     --shadow-strong: 0 12px 32px rgba(0, 123, 255, 0.16);
     --transition: 0.18s cubic-bezier(.4, 0, .2, 1);
-    --max-width: 1100px;
+    --max-width: 1100px; 
+} */
+:root {
+    --primary: #2E7D32;
+    /* Vert forêt — couleur principale (CTA, header) */
+    --secondary: #81D4FA;
+    /* Bleu azur — pour éléments secondaires, météo */
+    --accent: #D99156;
+    /* Terre cuite — pour accents, boutons secondaires */
+    --danger: #C62828;
+    /* Rouge sombre naturel — pour alertes, erreurs */
+    --success: #4CAF50;
+    /* Vert naturel — pour succès, validation */
+    --gray-dark: #6E7E85;
+    /* Gris pierre — texte, icônes */
+    --gray-light: #F5F1E3;
+    /* Beige sable — fond clair, sections */
+    --radius: 12px;
+    --shadow: 0 4px 18px rgba(46, 125, 50, 0.10);
+    /* ombre verte douce */
+    --shadow-strong: 0 12px 32px rgba(46, 125, 50, 0.16);
+    /* ombre verte forte */
+    --transition: 0.18s cubic-bezier(.4, 0, .2, 1);
 }
 
 body {
@@ -107,8 +129,10 @@ a {
 
 .header-nav-flex li a:hover,
 .header-nav-flex li a:focus {
-    background: #90caf9;
-    color: #0056b3;
+    background: #C8E6C9;
+    /* Vert doux clair */
+    color: #2E7D32;
+    /* Vert forêt (couleur primaire) */
 }
 
 .nav-mobile {
@@ -200,7 +224,8 @@ footer nav ul li button {
 
 .meteo a,
 .meteo button {
-    background-color: yellowgreen;
+    background-color: #81C784;
+    /* Vert doux, cohérent avec la nature */
     color: #fff;
 }
 
@@ -208,8 +233,10 @@ footer nav ul li a:hover,
 footer nav ul li button:hover,
 footer nav ul li a:focus,
 footer nav ul li button:focus {
-    background: #90caf9;
-    color: #0056b3;
+    background: #C8E6C9;
+    /* Vert pastel */
+    color: #2E7D32;
+    /* Vert forêt */
 }
 
 /* =========================
@@ -307,7 +334,8 @@ footer nav ul li button:focus {
 .auth-form .btn-primary:hover,
 .create-travel-form button[type="submit"]:hover,
 #form-ia-voyage button:hover {
-    background: linear-gradient(90deg, #0056b3 70%, #00a6d6 100%);
+    background: linear-gradient(90deg, #2E7D32 70%, #81C784 100%);
+    transition: background 0.3s ease;
 }
 
 .auth-links {
@@ -325,7 +353,8 @@ footer nav ul li button:focus {
 
 .auth-links a:hover,
 .auth-links a:focus {
-    color: #0056b3;
+    color: #558B2F;
+    /* vert olive doux */
     text-decoration: underline;
 }
 
@@ -349,9 +378,9 @@ footer nav ul li button:focus {
 
 .error-message,
 .create-travel-form .error {
-    background: #fff0f0;
-    color: #b71c1c;
-    border: 1px solid #f5c6cb;
+    background: #fbe9e7;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
 }
 
 /* =========================
@@ -379,18 +408,34 @@ footer nav ul li button:focus {
 .search-bars-row input[type="text"] {
     flex: 1 1 250px;
     max-width: 300px;
-    border: 1.2px solid #b6d4fe;
+    border: 1.2px solid #66bb6a;
     background: #f5faff;
 }
 
+.search-bars-row input[type="text"]:focus {
+    border-color: #4caf50; /* vert doux */
+    outline: none; /* supprime le contour bleu natif */
+    box-shadow: 0 0 6px #4caf50aa; /* ombre verte légère pour indiquer le focus */
+    background: #f5faff; /* même fond, pour être sûr */
+}
+
 .search-bars-row a.new {
-    background-color: #007bff;
-    color: white;
+    background-color: #4caf50;
+    /* Vert doux et positif */
+    color: #fff;
     text-decoration: none;
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.search-bars-row a.new:hover,
+.search-bars-row a.new:focus {
+    background-color: #388e3c;
+    /* Variante plus foncée au survol */
 }
 
 h1,
@@ -420,10 +465,11 @@ h2 {
    VOYAGE CARD
 ========================= */
 .voyage-card {
-    background: #fff;
+    background: #f5fdf7;
+    /* Vert très pâle, léger, apaisant */
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    color: #393939;
+    color: #2e2e2e;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -491,7 +537,8 @@ h2 {
 }
 
 a.new {
-    background: #3887ff;
+    background: #5cb85c;
+    /* vert doux, positif et naturel */
     color: #fff;
     padding: 9px 18px;
     border-radius: 8px;
@@ -508,7 +555,8 @@ a.new {
 }
 
 a.new:hover {
-    background: #2a65c7;
+    background: #449d44;
+    /* une teinte un peu plus foncée au survol */
 }
 
 .voyage-card a,
@@ -631,14 +679,16 @@ a.new:hover {
 }
 
 .btn-download {
-    background: #3887ff;
+    background: #5cb85c;
+    /* vert positif et naturel */
     color: #fff;
     padding: 14px 38px;
     border-radius: 8px;
     font-weight: 700;
     text-decoration: none;
     font-size: 1.13em;
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.09);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+    /* ombre verte douce */
     transition: background var(--transition);
     display: inline-block;
     border: none;
@@ -646,7 +696,8 @@ a.new:hover {
 }
 
 .btn-download:hover {
-    background: #2a65c7;
+    background: #449d44;
+    /* survol plus foncé */
 }
 
 .btn-delete {
@@ -664,6 +715,7 @@ a.new:hover {
 
 .btn-delete:hover {
     background: #b71c1c;
+    /* rouge plus foncé au survol */
 }
 
 .btn-edit {
@@ -712,7 +764,7 @@ a.new:hover {
 }
 
 .custom-file-label {
-    background: #007bff;
+    background: #4caf50;
     color: #fff;
     padding: 7px 16px;
     border-radius: 4px;
@@ -723,7 +775,7 @@ a.new:hover {
 }
 
 .custom-file-label:hover {
-    background: #0056b3;
+    background: #388e3c;
 }
 
 #file-chosen {
@@ -759,6 +811,8 @@ a.new:hover {
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
     background: #fff;
     object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 /* =========================
@@ -779,16 +833,16 @@ a.new:hover {
     margin-top: 18px;
     margin-bottom: 6px;
     font-weight: 600;
-    color: #1a237e;
+    color: #2e7d32;
 }
 
 #ia-voyage-resultat {
     margin-top: 28px;
-    background: #e3f2fd;
-    border-left: 4px solid #1976d2;
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
     border-radius: 8px;
     padding: 18px 16px;
-    color: #0d47a1;
+    color: #1b5e20;
     font-size: 1.08em;
     box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
     min-height: 40px;
@@ -796,7 +850,7 @@ a.new:hover {
 }
 
 .ia-loading {
-    color: #1976d2;
+    color: #4caf50;
     font-style: italic;
     animation: blink 1.2s linear infinite;
 }
@@ -888,7 +942,7 @@ a.new:hover {
         z-index: 100;
         background: rgba(0, 123, 255, 0.13);
         border: none;
-        border-radius: 9px;
+        border-radius: var(--radius);
         padding: 7px 16px;
         font-size: 2.3rem;
         color: #fff;
@@ -984,7 +1038,7 @@ a.new:hover {
         margin: 0;
     }
 
-   
+
 
 
     .voyage-title {
@@ -1060,8 +1114,11 @@ a.new:hover {
 
 #lang-switcher select:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 2px var(--accent);
-    background: linear-gradient(90deg, #0056b3 70%, #00a6d6 100%);
+    box-shadow: 0 0 0 3px var(--accent);
+    background-color: #fff; /* fond clair et neutre */
+    color: var(--gray-dark);
+    outline: none;
+    transition: box-shadow var(--transition), border-color var(--transition);
 }
 
 #lang-switcher::after {
@@ -1134,10 +1191,11 @@ a.new:hover {
 
 .about-link:hover,
 .about-link:focus {
-    background: linear-gradient(90deg, #0056b3 70%, #00a6d6 100%);
+    background: linear-gradient(90deg, #218838 70%, #66bb6a 100%); /* vert foncé vers vert clair */
     color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(33, 136, 56, 0.3); /* ombre verte douce */
     text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .about-container {
@@ -1242,7 +1300,7 @@ a.new:hover {
 
 .reset-password-form button[type="submit"]:hover,
 .reset-password-container .btn.btn-primary:hover {
-    background: linear-gradient(90deg, #0056b3 70%, #00a6d6 100%);
+    background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
 }
 
 .success-message,
@@ -1304,7 +1362,7 @@ a.new:hover {
 
 #darkSwitch:hover,
 #darkSwitch:focus {
-    background: linear-gradient(90deg, #0056b3 70%, #00a6d6 100%);
+    background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
     color: #fff;
     box-shadow: var(--shadow-strong);
     transform: translateY(1px) scale(1.04);
@@ -1327,20 +1385,21 @@ a.new:hover {
 }
 
 body.dark-mode {
-    --primary: #5ab0f6;
-    --secondary: #28d7fb;
-    --accent: #ffc107;
-    --danger: #ef5350;
-    --success: #66bb6a;
-    --gray-dark: #f5f5f5;
-    --gray-light: #1e1e1e;
-    --shadow: 0 4px 18px rgba(255, 255, 255, 0.05);
-    --shadow-strong: 0 12px 32px rgba(255, 255, 255, 0.09);
-    --background-body: #181c1f;
-    --background-card: #23272b;
-    --background-input: #2c2c2c;
-    --text-default: #f1f1f1;
+    --primary: #4aa96c;          /* vert doux pour l’élément principal */
+    --secondary: #88c999;        /* vert clair pour éléments secondaires */
+    --accent: #f2b134;           /* jaune doux, chaleureux */
+    --danger: #d9534f;           /* rouge doux, moins agressif */
+    --success: #81c784;          /* vert tendre */
+    --gray-dark: #e0e0e0;        /* gris clair pour textes foncés */
+    --gray-light: #2e2e2e;       /* gris foncé pour fonds */
+    --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);          /* ombre verte subtile */
+    --shadow-strong: 0 12px 32px rgba(74, 169, 108, 0.25);
+    --background-body: #444444;  /* fond très sombre tirant sur le vert foncé */
+    --background-card: #23272b;  /* fond carte vert très foncé */
+    --background-input: #264126; /* fond input vert foncé */
+    --text-default: #dbe7d8;     /* texte clair et doux */
 }
+
 
 body.dark-mode {
     background: var(--background-body);
@@ -1387,11 +1446,15 @@ body.dark-mode .btn-delete {
 }
 
 body.dark-mode .btn-download:hover {
-    background: #3278cc;
+    background: #3a865d; /* vert foncé tirant vers le teal */
 }
 
 body.dark-mode .btn-edit:hover {
-    background: #ff9800;
+    background: #f2a619; /* jaune orangé doux */
+}
+
+body.dark-mode .btn-delete:hover {
+    background: #b84c48; /* rouge brique atténué */
 }
 
 body.dark-mode nav a,
@@ -1483,17 +1546,17 @@ body.dark-mode .create-travel-form .error {
 }
 
 body.dark-mode #ia-voyage-container button[type="submit"] {
-    background: linear-gradient(90deg, #3376c5 70%, #269bb7 100%);
+    background: linear-gradient(90deg, #388e3c 70%, #66bb6a 100%);
     color: #f0f0f0;
 }
 
 #ia-voyage-resultat {
     margin-top: 28px;
-    background: #e3f2fd;
-    border-left: 4px solid #1976d2;
+    background: #e6f2e6;
+    border-left: 4px solid #4caf50;
     border-radius: 8px;
     padding: 18px 16px;
-    color: #0d47a1;
+    color: #2e7d32;
     font-size: 1.08em;
     box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
     min-height: 40px;
@@ -1501,9 +1564,9 @@ body.dark-mode #ia-voyage-container button[type="submit"] {
 }
 
 body.dark-mode #ia-voyage-resultat {
-    background: #1c2228;
-    color: #7ec7fd;
-    border-left: 4px solid #479df5;
+    background: #1e2a1e;
+    color: #a5d6a7;
+    border-left: 4px solid #388e3c;
 }
 
 body.dark-mode .add-photo-btn {

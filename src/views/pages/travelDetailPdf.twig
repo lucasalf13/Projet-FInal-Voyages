@@ -7,71 +7,82 @@
 			{{ voyage.name }}</title>
 		<style>
 			html,
-			body {
-				height: 100%;
-				margin: 0;
-				padding: 0;
-				background: #f5faff;
-				font-family: Arial, sans-serif;
-				color: #222;
-			}
-			body {
-				min-height: 100vh;
-				padding: 48px 7vw;
-				display: flex;
-				justify-content: center;
-				align-items: flex-start;
-			}
-			.pdf-container {
-				max-width: 900px;
-				width: 100%;
-				background: #fff;
-				padding: 20px 40px;
-				border-radius: 0;
-				box-sizing: border-box;
-				display: flex;
-				flex-direction: column;
-				gap: 24px;
-			}
-			h1 {
-				color: #007bff;
-				text-align: center;
-				font-size: 2.4em;
-				margin-bottom: 16px;
-				font-weight: 800;
-			}
-			.pdf-section {
-				padding: 16px 24px;
-				background: #f8f9fa;
-				border-left: 5px solid #007bff;
-				border-radius: 10px;
-				box-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
-			}
-			.pdf-label {
-				font-weight: bold;
-				font-size: 1.1em;
-				color: #007bff;
-				margin-bottom: 8px;
-				display: block;
-			}
-			.pdf-content {
-				font-size: 1.05em;
-				color: #333;
-				line-height: 1.5;
-				white-space: pre-wrap;
-			}
-			.photos-container {
-				display: flex;
-				gap: 10px;
-				flex-wrap: wrap;
-				justify-content: center;
-				margin-bottom: 24px;
-			}
-			.photos-container img {
-				max-height: 150px;
-				border-radius: 10px;
-				border: 1px solid #ddd;
-			}
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f5faff; /* bleu très clair */
+    font-family: Arial, sans-serif;
+    color: #222; /* texte foncé */
+}
+
+body {
+    min-height: 100vh;
+    padding: 48px 7vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.pdf-container {
+    max-width: 900px;
+    width: 100%;
+    max-width: 95vw;
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+h1 {
+    color: #4caf50; /* vert doux et positif */
+    text-align: center;
+    font-size: 2.4em;
+    margin-bottom: 16px;
+    font-weight: 800;
+}
+
+.pdf-section {
+    padding: 16px 24px;
+    background: #e8f5e9; /* vert très clair pour fond */
+    border-left: 5px solid #4caf50; /* bordure vert */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.07); /* ombre verte légère */
+}
+
+.pdf-label {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #388e3c; /* vert plus foncé */
+    margin-bottom: 8px;
+    display: block;
+}
+
+.pdf-content {
+    font-size: 1.05em;
+    color: #222;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.photos-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.photos-container img {
+    max-height: 150px;
+    border-radius: 10px;
+    border: 1px solid #c8e6c9; /* vert clair bordure */
+    box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
+    object-fit: cover;
+}
 		</style>
 	</head>
 	<body>
