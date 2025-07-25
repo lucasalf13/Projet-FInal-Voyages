@@ -224,8 +224,7 @@ footer nav ul li button {
 
 .meteo a,
 .meteo button {
-    background-color: #81C784;
-    /* Vert doux, cohérent avec la nature */
+    background-color: var(--primary);
     color: #fff;
 }
 
@@ -413,10 +412,14 @@ footer nav ul li button:focus {
 }
 
 .search-bars-row input[type="text"]:focus {
-    border-color: #4caf50; /* vert doux */
-    outline: none; /* supprime le contour bleu natif */
-    box-shadow: 0 0 6px #4caf50aa; /* ombre verte légère pour indiquer le focus */
-    background: #f5faff; /* même fond, pour être sûr */
+    border-color: #4caf50;
+    /* vert doux */
+    outline: none;
+    /* supprime le contour bleu natif */
+    box-shadow: 0 0 6px #4caf50aa;
+    /* ombre verte légère pour indiquer le focus */
+    background: #f5faff;
+    /* même fond, pour être sûr */
 }
 
 .search-bars-row a.new {
@@ -1115,7 +1118,8 @@ a.new:hover {
 #lang-switcher select:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent);
-    background-color: #fff; /* fond clair et neutre */
+    background-color: #fff;
+    /* fond clair et neutre */
     color: var(--gray-dark);
     outline: none;
     transition: box-shadow var(--transition), border-color var(--transition);
@@ -1191,9 +1195,11 @@ a.new:hover {
 
 .about-link:hover,
 .about-link:focus {
-    background: linear-gradient(90deg, #218838 70%, #66bb6a 100%); /* vert foncé vers vert clair */
+    background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
+    /* vert foncé vers vert clair */
     color: #fff;
-    box-shadow: 0 4px 12px rgba(33, 136, 56, 0.3); /* ombre verte douce */
+    box-shadow: 0 4px 12px rgba(33, 136, 56, 0.3);
+    /* ombre verte douce */
     text-decoration: none;
     transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -1385,19 +1391,31 @@ a.new:hover {
 }
 
 body.dark-mode {
-    --primary: #4aa96c;          /* vert doux pour l’élément principal */
-    --secondary: #88c999;        /* vert clair pour éléments secondaires */
-    --accent: #f2b134;           /* jaune doux, chaleureux */
-    --danger: #d9534f;           /* rouge doux, moins agressif */
-    --success: #81c784;          /* vert tendre */
-    --gray-dark: #e0e0e0;        /* gris clair pour textes foncés */
-    --gray-light: #2e2e2e;       /* gris foncé pour fonds */
-    --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);          /* ombre verte subtile */
+    --primary: #4aa96c;
+    /* vert doux pour l’élément principal */
+    --secondary: #88c999;
+    /* vert clair pour éléments secondaires */
+    --accent: #f2b134;
+    /* jaune doux, chaleureux */
+    --danger: #d9534f;
+    /* rouge doux, moins agressif */
+    --success: #81c784;
+    /* vert tendre */
+    --gray-dark: #e0e0e0;
+    /* gris clair pour textes foncés */
+    --gray-light: #2e2e2e;
+    /* gris foncé pour fonds */
+    --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);
+    /* ombre verte subtile */
     --shadow-strong: 0 12px 32px rgba(74, 169, 108, 0.25);
-    --background-body: #444444;  /* fond très sombre tirant sur le vert foncé */
-    --background-card: #23272b;  /* fond carte vert très foncé */
-    --background-input: #264126; /* fond input vert foncé */
-    --text-default: #dbe7d8;     /* texte clair et doux */
+    --background-body: #444444;
+    /* fond très sombre tirant sur le vert foncé */
+    --background-card: #23272b;
+    /* fond carte vert très foncé */
+    --background-input: #264126;
+    /* fond input vert foncé */
+    --text-default: #dbe7d8;
+    /* texte clair et doux */
 }
 
 
@@ -1446,15 +1464,18 @@ body.dark-mode .btn-delete {
 }
 
 body.dark-mode .btn-download:hover {
-    background: #3a865d; /* vert foncé tirant vers le teal */
+    background: #3a865d;
+    /* vert foncé tirant vers le teal */
 }
 
 body.dark-mode .btn-edit:hover {
-    background: #f2a619; /* jaune orangé doux */
+    background: #f2a619;
+    /* jaune orangé doux */
 }
 
 body.dark-mode .btn-delete:hover {
-    background: #b84c48; /* rouge brique atténué */
+    background: #b84c48;
+    /* rouge brique atténué */
 }
 
 body.dark-mode nav a,
