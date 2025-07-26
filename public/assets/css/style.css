@@ -1,37 +1,14 @@
-/* :root {
-    --primary: #007bff;
-    --secondary: #00c6fb;
-    --accent: #ffb300;
-    --danger: #e53935;
-    --success: #218838;
-    --gray-dark: #343a40;
-    --gray-light: #f8f9fa;
-    --radius: 12px;
-    --shadow: 0 4px 18px rgba(0, 123, 255, 0.10);
-    --shadow-strong: 0 12px 32px rgba(0, 123, 255, 0.16);
-    --transition: 0.18s cubic-bezier(.4, 0, .2, 1);
-    --max-width: 1100px; 
-} */
 :root {
     --primary: #2E7D32;
-    /* Vert forêt — couleur principale (CTA, header) */
     --secondary: #81D4FA;
-    /* Bleu azur — pour éléments secondaires, météo */
     --accent: #D99156;
-    /* Terre cuite — pour accents, boutons secondaires */
     --danger: #C62828;
-    /* Rouge sombre naturel — pour alertes, erreurs */
     --success: #4CAF50;
-    /* Vert naturel — pour succès, validation */
     --gray-dark: #6E7E85;
-    /* Gris pierre — texte, icônes */
     --gray-light: #F5F1E3;
-    /* Beige sable — fond clair, sections */
     --radius: 12px;
     --shadow: 0 4px 18px rgba(46, 125, 50, 0.10);
-    /* ombre verte douce */
     --shadow-strong: 0 12px 32px rgba(46, 125, 50, 0.16);
-    /* ombre verte forte */
     --transition: 0.18s cubic-bezier(.4, 0, .2, 1);
 }
 
@@ -130,9 +107,7 @@ a {
 .header-nav-flex li a:hover,
 .header-nav-flex li a:focus {
     background: #C8E6C9;
-    /* Vert doux clair */
     color: #2E7D32;
-    /* Vert forêt (couleur primaire) */
 }
 
 .nav-mobile {
@@ -148,7 +123,6 @@ a {
    MAIN CONTAINER
 ========================= */
 main {
-    max-width: var(--max-width);
     margin: 60px auto;
     padding: 32px 24px 60px 24px;
     background: #fff;
@@ -234,9 +208,7 @@ footer nav ul li button:hover,
 footer nav ul li a:focus,
 footer nav ul li button:focus {
     background: #C8E6C9;
-    /* Vert pastel */
     color: #2E7D32;
-    /* Vert forêt */
 }
 
 /* =========================
@@ -354,7 +326,6 @@ footer nav ul li button:focus {
 .auth-links a:hover,
 .auth-links a:focus {
     color: #558B2F;
-    /* vert olive doux */
     text-decoration: underline;
 }
 
@@ -414,18 +385,13 @@ footer nav ul li button:focus {
 
 .search-bars-row input[type="text"]:focus {
     border-color: #4caf50;
-    /* vert doux */
     outline: none;
-    /* supprime le contour bleu natif */
     box-shadow: 0 0 6px #4caf50aa;
-    /* ombre verte légère pour indiquer le focus */
     background: #f5faff;
-    /* même fond, pour être sûr */
 }
 
 .search-bars-row a.new {
     background-color: #4caf50;
-    /* Vert doux et positif */
     color: #fff;
     text-decoration: none;
     border: none;
@@ -439,7 +405,6 @@ footer nav ul li button:focus {
 .search-bars-row a.new:hover,
 .search-bars-row a.new:focus {
     background-color: #388e3c;
-    /* Variante plus foncée au survol */
 }
 
 h1,
@@ -470,7 +435,6 @@ h2 {
 ========================= */
 .voyage-card {
     background: #f5fdf7;
-    /* Vert très pâle, léger, apaisant */
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     color: #2e2e2e;
@@ -542,7 +506,6 @@ h2 {
 
 a.new {
     background: #5cb85c;
-    /* vert doux, positif et naturel */
     color: #fff;
     padding: 9px 18px;
     border-radius: 8px;
@@ -560,7 +523,6 @@ a.new {
 
 a.new:hover {
     background: #449d44;
-    /* une teinte un peu plus foncée au survol */
 }
 
 .voyage-card a,
@@ -588,15 +550,6 @@ a.new:hover {
     grid-template-columns: 1fr 2fr;
     grid-template-rows: auto auto;
     grid-gap: 20px;
-}
-
-@media (max-width: 500px) {
-
-    .voyage-detail-grid,
-    .voyage-grid {
-        grid-template-columns: 1fr;
-        /* Une seule colonne */
-    }
 }
 
 .voyage-detail-card,
@@ -661,19 +614,19 @@ a.new:hover {
 
 
 @media (max-width: 768px) {
-  .voyage-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-  }
+    .voyage-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
 
-  .voyage-card.que-faire,
-  .voyage-card.itinerary,
-  .voyage-card.ou-dormir,
-  .voyage-card.ou-manger,
-  .voyage-card.transports {
-    grid-column: auto;
-    grid-row: auto;
-  }
+    .voyage-card.que-faire,
+    .voyage-card.itinerary,
+    .voyage-card.ou-dormir,
+    .voyage-card.ou-manger,
+    .voyage-card.transports {
+        grid-column: auto;
+        grid-row: auto;
+    }
 }
 
 .preserve-linebreaks {
@@ -713,7 +666,6 @@ a.new:hover {
 
 .btn-download {
     background: #5cb85c;
-    /* vert positif et naturel */
     color: #fff;
     padding: 14px 38px;
     border-radius: 8px;
@@ -721,7 +673,6 @@ a.new:hover {
     text-decoration: none;
     font-size: 1.13em;
     box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
-    /* ombre verte douce */
     transition: background var(--transition);
     display: inline-block;
     border: none;
@@ -730,7 +681,6 @@ a.new:hover {
 
 .btn-download:hover {
     background: #449d44;
-    /* survol plus foncé */
 }
 
 .btn-delete {
@@ -748,7 +698,6 @@ a.new:hover {
 
 .btn-delete:hover {
     background: #b71c1c;
-    /* rouge plus foncé au survol */
 }
 
 .btn-edit {
@@ -1146,7 +1095,6 @@ a.new:hover {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent);
     background-color: #fff;
-    /* fond clair et neutre */
     color: var(--gray-dark);
     outline: none;
     transition: box-shadow var(--transition), border-color var(--transition);
@@ -1223,16 +1171,13 @@ a.new:hover {
 .about-link:hover,
 .about-link:focus {
     background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
-    /* vert foncé vers vert clair */
     color: #fff;
     box-shadow: 0 4px 12px rgba(33, 136, 56, 0.3);
-    /* ombre verte douce */
     text-decoration: none;
     transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .about-container {
-    max-width: var(--max-width);
     margin: 60px auto;
     padding: 36px 28px 60px 28px;
     background: #fff;
@@ -1420,30 +1365,18 @@ a.new:hover {
 
 body.dark-mode {
     --primary: #4aa96c;
-    /* vert doux pour l’élément principal */
     --secondary: #88c999;
-    /* vert clair pour éléments secondaires */
     --accent: #f2b134;
-    /* jaune doux, chaleureux */
     --danger: #d9534f;
-    /* rouge doux, moins agressif */
     --success: #81c784;
-    /* vert tendre */
     --gray-dark: #e0e0e0;
-    /* gris clair pour textes foncés */
     --gray-light: #2e2e2e;
-    /* gris foncé pour fonds */
     --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);
-    /* ombre verte subtile */
     --shadow-strong: 0 12px 32px rgba(74, 169, 108, 0.25);
     --background-body: #444444;
-    /* fond très sombre tirant sur le vert foncé */
     --background-card: #23272b;
-    /* fond carte vert très foncé */
     --background-input: #264126;
-    /* fond input vert foncé */
     --text-default: #dbe7d8;
-    /* texte clair et doux */
 }
 
 
@@ -1493,17 +1426,14 @@ body.dark-mode .btn-delete {
 
 body.dark-mode .btn-download:hover {
     background: #3a865d;
-    /* vert foncé tirant vers le teal */
 }
 
 body.dark-mode .btn-edit:hover {
     background: #f2a619;
-    /* jaune orangé doux */
 }
 
 body.dark-mode .btn-delete:hover {
     background: #b84c48;
-    /* rouge brique atténué */
 }
 
 body.dark-mode nav a,
@@ -1731,7 +1661,6 @@ body.dark-mode .add-photo-btn:hover {
     grid-template-columns: 1fr 1fr;
     gap: 36px;
     width: 100%;
-    max-width: var(--max-width);
     margin: 0 auto;
 }
 
