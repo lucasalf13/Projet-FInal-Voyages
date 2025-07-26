@@ -11,7 +11,15 @@
 {% endblock %}
 
 {% block main %}
-	<main class="voyage-detail-main">
+	<style>
+		.page-detail .voyage-card.detail-card:hover {
+			transform: none !important;
+			box-shadow: none !important;
+			cursor: default !important;
+		}
+	</style>
+
+	<main class="voyage-detail-main page-detail">
 		<h1 class="voyage-title">{{ voyage.name }}</h1>
 		<div class="voyage-photo-carousel glide">
 			<div class="glide__track" data-glide-el="track">
