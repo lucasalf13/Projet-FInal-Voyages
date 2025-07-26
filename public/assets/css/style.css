@@ -659,20 +659,10 @@ a.new:hover {
     grid-template-rows: auto auto;
 }
 
-@media (max-width: 768px) {
-    .voyage-grid {
-        grid-template-areas:
-            "que-faire"
-            "itinerary"
-            "ou-dormir"
-            "ou-manger"
-            "transports";
-    }
-}
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .voyage-grid {
-    grid-template-columns: 1fr; /* 1 colonne */
+    grid-template-columns: 1fr;
     grid-auto-rows: auto;
   }
 
