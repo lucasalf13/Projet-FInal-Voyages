@@ -670,6 +670,22 @@ a.new:hover {
     }
 }
 
+@media (max-width: 600px) {
+  .voyage-grid {
+    grid-template-columns: 1fr; /* 1 colonne */
+    grid-auto-rows: auto;
+  }
+
+  .voyage-card.que-faire,
+  .voyage-card.itinerary,
+  .voyage-card.ou-dormir,
+  .voyage-card.ou-manger,
+  .voyage-card.transports {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
 .preserve-linebreaks {
     white-space: pre-line;
     height: auto;
@@ -1064,9 +1080,6 @@ a.new:hover {
         width: 100%;
         margin: 0;
     }
-
-
-
 
     .voyage-title {
         font-size: 1.08rem;
