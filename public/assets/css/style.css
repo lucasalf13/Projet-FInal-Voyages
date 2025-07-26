@@ -154,6 +154,7 @@ main {
     background: #fff;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
+    overflow-x: hidden;
 }
 
 /* =========================
@@ -571,10 +572,14 @@ a.new:hover {
    GRIDS & DETAILS
 ========================= */
 .voyage-detail-main {
-    max-width: var(--max-width);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
     background: #fff;
     border-radius: 14px;
     box-shadow: 0 4px 24px rgba(0, 123, 255, 0.12);
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .voyage-detail-grid,
@@ -583,6 +588,15 @@ a.new:hover {
     grid-template-columns: 1fr 2fr;
     grid-template-rows: auto auto;
     grid-gap: 20px;
+}
+
+@media (max-width: 500px) {
+
+    .voyage-detail-grid,
+    .voyage-grid {
+        grid-template-columns: 1fr;
+        /* Une seule colonne */
+    }
 }
 
 .voyage-detail-card,
@@ -599,7 +613,18 @@ a.new:hover {
     max-height: none;
     overflow: visible;
     box-sizing: border-box;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
 }
+
+.voyage-detail-card p,
+.voyage-detail-card span,
+.voyage-detail-card a {
+    word-break: break-word;
+}
+
 
 .voyage-card.que-faire {
     grid-column: 1;
@@ -636,7 +661,6 @@ a.new:hover {
 
 @media (max-width: 768px) {
     .voyage-grid {
-        grid-template-columns: 1fr;
         grid-template-areas:
             "que-faire"
             "itinerary"
