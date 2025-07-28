@@ -42,9 +42,11 @@
 				</div>
 			</div>
 
-			<div class="voyage-card detail-card itinerary">
+			<div class="voyage-card detail-card itinerary wide">
 				<h3>{{ t('itinerary') }}</h3>
-				<p>{{ voyage.itinerary|raw }}</p>
+				<div class="itinerary-content">
+					{{ voyage.itinerary|raw }}
+				</div>
 			</div>
 
 			<div class="voyage-card detail-card ou-dormir">
@@ -165,6 +167,22 @@ function hideOverlay() {
 const overlay = document.getElementById('itineraire-zoom-overlay');
 overlay.classList.remove('active');
 document.getElementById('itineraire-zoom-img').src = '';
+}
+function toggleSingleDetail(openId) {
+  const ids = ['itineraire-1', 'itineraire-3', 'itineraire-5'];
+
+  ids.forEach(id => {
+    const section = document.getElementById(id);
+    const icon = document.getElementById('icon-' + id);
+
+    if (id === openId) {
+      section.style.display = 'block';
+      if (icon) icon.textContent = '▲';
+    } else {
+      section.style.display = 'none';
+      if (icon) icon.textContent = '▼';
+    }
+  });
 }
 	</script>
 {% endblock %}

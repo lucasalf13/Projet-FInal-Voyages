@@ -572,9 +572,8 @@ a.new:hover {
     grid-row: 1;
 }
 
-.voyage-card.itinerary {
-    grid-column: 2;
-    grid-row: 1;
+.voyage-card.itinerary.wide {
+    grid-column: span 2;
 }
 
 .voyage-card.ou-dormir,
@@ -603,17 +602,19 @@ a.new:hover {
 
 @media (max-width: 768px) {
     .voyage-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         grid-auto-rows: auto;
     }
 
     .voyage-card.que-faire,
     .voyage-card.itinerary,
+    .voyage-card.itinerary.wide,
     .voyage-card.ou-dormir,
     .voyage-card.ou-manger,
     .voyage-card.transports {
-        grid-column: auto;
-        grid-row: auto;
+       grid-column: 1 / -1 !important; /* s'étend sur toute la largeur */
+        grid-row: auto !important;
+        width: 100%; /* parfois utile */
     }
 }
 
@@ -1846,4 +1847,29 @@ strong[data-clickable]:hover {
     cursor: pointer;
     padding: 4px 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.itinerary-content h4 {
+    cursor: pointer;
+    color: #000000;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+}
+
+.itinerary-content h4:hover {
+    color: #005640;
+}
+
+.toggle-title {
+  cursor: pointer;
+  text-decoration: underline dotted;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.toggle-icon {
+  margin-left: 10px;
+  font-weight: bold;
 }
