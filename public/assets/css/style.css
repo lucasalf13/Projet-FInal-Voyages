@@ -612,9 +612,11 @@ a.new:hover {
     .voyage-card.ou-dormir,
     .voyage-card.ou-manger,
     .voyage-card.transports {
-       grid-column: 1 / -1 !important; /* s'étend sur toute la largeur */
+        grid-column: 1 / -1 !important;
+        /* s'étend sur toute la largeur */
         grid-row: auto !important;
-        width: 100%; /* parfois utile */
+        width: 100%;
+        /* parfois utile */
     }
 }
 
@@ -1785,7 +1787,7 @@ body.dark-mode .add-photo-btn:hover {
 
 strong[data-clickable] {
     cursor: pointer;
-    color: #000000;
+    color: var(--text-default, #000000);
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
     text-underline-offset: 3px;
@@ -1793,7 +1795,7 @@ strong[data-clickable] {
 }
 
 strong[data-clickable]:hover {
-    color: #005640;
+    color: var(--primary, #005640);
 }
 
 .page-detail .voyage-card.detail-card:hover {
@@ -1851,7 +1853,7 @@ strong[data-clickable]:hover {
 
 .itinerary-content h4 {
     cursor: pointer;
-    color: #000000;
+    color: var(--text-default, #000000);
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
     text-underline-offset: 3px;
@@ -1859,17 +1861,18 @@ strong[data-clickable]:hover {
 }
 
 .itinerary-content h4:hover {
-    color: #005640;
+   color: var(--primary, #005640);
 }
 
 .toggle-title {
-  cursor: pointer;
-  text-decoration: underline dotted;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    cursor: pointer;
+    text-decoration: underline dotted;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .toggle-icon {
-  margin-left: 10px;
-  font-weight: bold;
+    margin-left: 10px;
+    font-weight: bold;
 }
