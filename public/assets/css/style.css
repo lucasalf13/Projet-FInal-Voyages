@@ -532,7 +532,6 @@ a.new:hover {
 .voyage-detail-main {
     width: 100%;
     margin: 0 auto;
-    padding: 0 10px;
     background: #fff;
     border-radius: 14px;
     box-shadow: 0 4px 24px rgba(0, 123, 255, 0.12);
@@ -772,7 +771,7 @@ a.new:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.85);
     justify-content: center;
     align-items: center;
 }
@@ -782,14 +781,18 @@ a.new:hover {
 }
 
 #itineraire-zoom-img {
-    width: 60vw;
-    height: 90vh;
+   max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
     border-radius: 14px;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
-    background: #fff;
+    box-shadow: none;
+    background: none;
     object-fit: contain;
     display: block;
     margin: 0 auto;
+    border: none;
+    outline: none;
 }
 
 /* =========================
@@ -1631,8 +1634,6 @@ body.dark-mode .add-photo-btn:hover {
 .header-banner::after {
     content: "";
     position: absolute;
-    inset: 0;
-    z-index: 1;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.2));
 }
 
