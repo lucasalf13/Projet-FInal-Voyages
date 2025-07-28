@@ -1305,7 +1305,7 @@ a.new:hover {
 
 .glide__slide img {
     width: 100%;
-    height: 150px;
+    height: 170px;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.25s ease;
