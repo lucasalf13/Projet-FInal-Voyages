@@ -11,14 +11,6 @@
 {% endblock %}
 
 {% block main %}
-	<style>
-		.page-detail .voyage-card.detail-card:hover {
-			transform: none !important;
-			box-shadow: none !important;
-			cursor: default !important;
-		}
-	</style>
-
 	<main class="voyage-detail-main page-detail">
 		<h1 class="voyage-title">{{ voyage.name }}</h1>
 		<div class="voyage-photo-carousel glide">
@@ -42,6 +34,12 @@
 			<div class="voyage-card detail-card que-faire">
 				<h3>{{ t('que_faire') }}</h3>
 				<p>{{ voyage.queFaire|raw }}</p>
+			</div>
+			<div id="que-faire-lightbox" class="lightbox" onclick="hidePhoto()" style="display: none;">
+				<div class="lightbox-content" onclick="event.stopPropagation()">
+					<img id="que-faire-photo-img" src="" alt="Illustration lieu"/>
+					<button class="lightbox-close" onclick="hidePhoto()">✕</button>
+				</div>
 			</div>
 
 			<div class="voyage-card detail-card itinerary">
@@ -128,6 +126,33 @@ glide.mount();
 glideElement.classList.add('glide--loaded');
 }
 });
+
+function showPhoto(filename) {
+const lightbox = document.getElementById('que-faire-lightbox');
+const img = document.getElementById('que-faire-photo-img');
+
+if (! filename) {
+lightbox.style.display = 'none';
+img.src = '';
+img.style.display = 'none';
+} else {
+const path = '/assets/img/' + filename;
+console.log('Chemin image :', path);
+
+img.src = path;
+img.style.display = 'block';
+lightbox.style.display = 'flex';
+}
+}
+
+function hidePhoto() {
+const lightbox = document.getElementById('que-faire-lightbox');
+const img = document.getElementById('que-faire-photo-img');
+
+lightbox.style.display = 'none';
+img.src = '';
+}
+
 
 function showZoom(src) {
 const overlay = document.getElementById('itineraire-zoom-overlay');
