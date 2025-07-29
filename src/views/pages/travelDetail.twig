@@ -12,7 +12,15 @@
 
 {% block main %}
 	<main class="voyage-detail-main page-detail">
-		<h1 class="voyage-title">{{ voyage.name }}</h1>
+		<h1 class="voyage-title">{{ voyage.name }}
+			{% if user %}
+				{% if user %}
+					<button class="fav-btn{{ voyage.isFavori ? ' is-favori' : '' }}" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}">
+						{{ voyage.isFavori ? '❤️' : '🤍' }}
+					</button>
+				{% endif %}
+			{% endif %}
+		</h1>
 		<div class="voyage-photo-carousel glide">
 			<div class="glide__track" data-glide-el="track">
 				<ul class="glide__slides">
@@ -169,20 +177,52 @@ overlay.classList.remove('active');
 document.getElementById('itineraire-zoom-img').src = '';
 }
 function toggleSingleDetail(openId) {
-  const ids = ['itineraire-1', 'itineraire-3', 'itineraire-5'];
+const ids = ['itineraire-1', 'itineraire-3', 'itineraire-5'];
 
-  ids.forEach(id => {
-    const section = document.getElementById(id);
-    const icon = document.getElementById('icon-' + id);
+ids.forEach(id => {
+const section = document.getElementById(id);
+const icon = document.getElementById('icon-' + id);
 
-    if (id === openId) {
-      section.style.display = 'block';
-      if (icon) icon.textContent = '▲';
-    } else {
-      section.style.display = 'none';
-      if (icon) icon.textContent = '▼';
-    }
-  });
+if (id === openId) {
+section.style.display = 'block';
+if (icon) 
+icon.textContent = '▲';
+
+
+
+} else {
+section.style.display = 'none';
+if (icon) 
+icon.textContent = '▼';
+
+
+
 }
+});
+}
+
+document.querySelectorAll('.fav-btn').forEach(btn => {
+btn.addEventListener('click', function (e) {
+e.preventDefault();
+const voyageId = this.dataset.voyageId;
+fetch (`/favoris/${voyageId}`, {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify({})
+}).then(res => res.json()).then(data => {
+if (data.isFavori) {
+this.classList.add('is-favori');
+this.innerHTML = '❤️'; // cœur rouge plein
+} else {
+this.classList.remove('is-favori');
+this.innerHTML = '🤍'; // cœur vide gris clair
+}
+}).catch(err => {
+console.error('Erreur fetch favoris:', err);
+});
+});
+});
 	</script>
 {% endblock %}

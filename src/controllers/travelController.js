@@ -87,6 +87,20 @@ exports.getVoyageDetail = async (req, res) => {
         });
 
     }
+    const user = req.session.user;
+    let isFavori = false;
+
+    if (user) {
+        const userWithFavoris = await prisma.user.findUnique({
+            where: { id: user.id },
+            include: { favoris: { select: { id: true } } }
+        });
+
+        isFavori = userWithFavoris.favoris.some(fav => fav.id === id);
+    }
+
+    voyage.isFavori = isFavori;
+
     const photos = voyage.photos ? voyage.photos.split(';') : [];
     res.render('pages/travelDetail.twig', {
         voyage,

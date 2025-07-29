@@ -540,6 +540,30 @@ a.new:hover {
     grid-gap: 20px;
 }
 
+
+.voyage-detail-main .fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #e63946;             /* rouge sympa pour le cœur (quand actif) */
+  transition: transform 0.1s, color 0.3s;
+  padding: 0;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voyage-detail-main .fav-btn:active {
+  transform: scale(1.2);
+}
+
+/* Facultatif : quand ce n’est pas favori, cœur gris clair */
+.voyage-detail-main .fav-btn:not(.is-favori) {
+  color: #ccc;
+}
+
 .voyage-detail-card,
 .voyage-card.detail-card {
     background: var(--gray-light);
