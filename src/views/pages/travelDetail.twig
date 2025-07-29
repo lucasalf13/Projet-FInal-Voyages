@@ -214,10 +214,10 @@ body: JSON.stringify({})
 }).then(res => res.json()).then(data => {
 if (data.isFavori) {
 this.classList.add('is-favori');
-this.innerHTML = '❤️'; // cœur rouge plein
+this.innerHTML = '❤️';
 } else {
 this.classList.remove('is-favori');
-this.innerHTML = '🤍'; // cœur vide gris clair
+this.innerHTML = '🤍';
 }
 }).catch(err => {
 console.error('Erreur fetch favoris:', err);

@@ -25,19 +25,19 @@ i18next
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true })); // Middleware pour parser les données des formulaires
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("./public")); // Middleware pour servir les fichiers statiques
+app.use(express.static("./public"));
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'twig');
 app.engine('twig', twig.__express);
 
 
 app.use(middleware.handle(i18next));
-app.use(session({ // Middleware pour gérer les sessions
-  secret: 'vamosnadalos', // Clé secrète pour signer les sessions
-  resave: true, // Re-sauvegarder la session même si elle n'a pas été modifiée
-  saveUninitialized: true // Ne pas sauvegarder les sessions non initialisées
+app.use(session({
+  secret: 'vamosnadalos',
+  resave: true,
+  saveUninitialized: true
 }));
 
 app.use((req, res, next) => {

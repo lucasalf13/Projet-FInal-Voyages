@@ -29,7 +29,7 @@
 						<section class="region-section">
 							<h2>{{ t(destination) }}</h2>
 							<a href="/voyages/region/{{ destination }}">
-								<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png" alt="{{ t(destination) }}">
+								<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.webp" alt="{{ t(destination) }}">
 							</a>
 
 
@@ -68,7 +68,7 @@
 						<section class="region-section">
 							<h2>{{ t(destination) }}</h2>
 							<a href="/voyages/region/{{ destination }}">
-								<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.png" alt="{{ t(destination) }}">
+								<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.webp" alt="{{ t(destination) }}">
 							</a>
 
 							<div class="voyages-carousel" data-slide-index="0">
@@ -101,7 +101,6 @@
 	</main>
 
 	<script>
-		// Favoris
 document.querySelectorAll('.fav-btn').forEach(btn => {
 btn.addEventListener('click', function (e) {
 e.preventDefault();
@@ -118,7 +117,6 @@ this.innerHTML = data.isFavori ? '❤️' : '🤍';
 });
 });
 
-// Recherche filtres
 function normalize(str) {
 	return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
@@ -135,17 +133,14 @@ document.getElementById('searchBarDestination').addEventListener('input', functi
 			const name = normalize(card.dataset.name);
 
 			if (val === "" || name.startsWith(val)) {
-				// Affiche cette slide si elle correspond
 				slide.style.display = '';
 				if (!found) {
-					// Active seulement la première correspondance
 					slides.forEach(s => s.classList.remove('active'));
 					slide.classList.add('active');
 					carousel.dataset.slideIndex = index;
 					found = true;
 				}
 			} else {
-				// Cache les autres
 				slide.style.display = 'none';
 				slide.classList.remove('active');
 			}
@@ -172,7 +167,6 @@ rightBtn.addEventListener('click', () => {
 index = (index + 1) % slides.length;
 showSlide(index);
 });
-// Init
 showSlide(0);
 });
 	</script>

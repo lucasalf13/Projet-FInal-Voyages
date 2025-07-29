@@ -251,14 +251,12 @@ exports.getRegionPage = async (req, res) => {
   const userId = req.session.user?.id;
 
   try {
-    // 1. Récupérer tous les voyages de la destination
     const voyages = await prisma.travel.findMany({
       where: { destination }
     });
 
     let favorisIds = [];
     if (userId) {
-      // 2. Récupérer les favoris de l'utilisateur
       const user = await prisma.user.findUnique({
         where: { id: userId },
         select: { favoris: { select: { id: true } } }
@@ -266,7 +264,6 @@ exports.getRegionPage = async (req, res) => {
       favorisIds = user?.favoris.map(f => f.id) || [];
     }
 
-    // 3. Ajouter isFavori ET mainPhoto à chaque voyage
     const voyagesWithFavori = voyages.map(voyage => {
       const mainPhoto = (voyage.photos && voyage.photos.split(';')[0]) || 'default.jpg';
       return {
