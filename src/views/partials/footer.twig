@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				}).addTo(map);
 
 				villes.forEach(ville => {
-					fetch(`https://api.weatherapi.com/v1/forecast.json?key=082d90f662c44d6daf385842250107&q=${ville.lat},${ville.lon}&days=2&lang=fr`)
+fetch(`/api/meteo/${ville.lat}/${ville.lon}`)
 						.then(r => r.json())
 						.then(data => {
 							if (data.forecast && data.forecast.forecastday.length > 1) {

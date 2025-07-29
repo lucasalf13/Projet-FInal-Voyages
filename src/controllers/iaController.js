@@ -1,3 +1,5 @@
+require('dotenv').config();
+const HF_API_KEY = process.env.HF_API_KEY;
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 exports.proposeVoyage = async (req, res) => {
@@ -28,7 +30,7 @@ Présente la réponse de façon claire, concise et pratique, sans répéter la d
         const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer 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',
+                'Authorization': `Bearer ${HF_API_KEY}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ inputs: prompt })

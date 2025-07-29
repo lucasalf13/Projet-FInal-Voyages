@@ -35,7 +35,7 @@ app.engine('twig', twig.__express);
 
 app.use(middleware.handle(i18next));
 app.use(session({
-  secret: 'vamosnadalos',
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 }));

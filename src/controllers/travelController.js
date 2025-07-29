@@ -265,7 +265,7 @@ exports.getRegionPage = async (req, res) => {
     }
 
     const voyagesWithFavori = voyages.map(voyage => {
-      const mainPhoto = (voyage.photos && voyage.photos.split(';')[0]) || 'default.jpg';
+      const mainPhoto = (voyage.photos && voyage.photos.split(';')[0]) || 'default.webp';
       return {
         ...voyage,
         isFavori: favorisIds.includes(voyage.id),
