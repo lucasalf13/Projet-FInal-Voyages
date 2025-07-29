@@ -37,7 +37,7 @@
 	<div id="ia-voyage-resultat" style="margin-top:20px;"></div>
 </div>
 
-<div id="carte-meteo-france" style="display:none;width:100%;max-width:700px;height:500px;margin:80px auto;"></div>
+<div id="carte-meteo-france"></div>
 
 <footer class="{% if user %}footer-fixed{% endif %}">
 	<nav>
@@ -56,225 +56,99 @@
 	</nav>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-	<script>
-		// Météo
+<script>
 document.addEventListener('DOMContentLoaded', function () {
-const btn = document.getElementById('btn-footer-meteo');
-const carte = document.getElementById('carte-meteo-france');
-let mapLoaded = false;
-let map;
+	const btn = document.getElementById('btn-footer-meteo');
+	const carte = document.getElementById('carte-meteo-france');
+	let mapLoaded = false;
+	let map;
 
-const villes = [
-{
-nom: "Paris",
-lat: 48.8566,
-lon: 2.3522
-},
-{
-nom: "Marseille",
-lat: 43.2965,
-lon: 5.3698
-},
-{
-nom: "Lyon",
-lat: 45.7640,
-lon: 4.8357
-},
-{
-nom: "Toulouse",
-lat: 43.6047,
-lon: 1.4442
-}, {
-nom: "Nice",
-lat: 43.7102,
-lon: 7.2620
-}, {
-nom: "Nantes",
-lat: 47.2184,
-lon: -1.5536
-}, {
-nom: "Strasbourg",
-lat: 48.5734,
-lon: 7.7521
-}, {
-nom: "Montpellier",
-lat: 43.6119,
-lon: 3.8777
-}, {
-nom: "Bordeaux",
-lat: 44.8378,
-lon: -0.5792
-}, {
-nom: "Lille",
-lat: 50.6292,
-lon: 3.0573
-}, {
-nom: "Rennes",
-lat: 48.1173,
-lon: -1.6778
-}, {
-nom: "Reims",
-lat: 49.2583,
-lon: 4.0317
-}, {
-nom: "Le Havre",
-lat: 49.4944,
-lon: 0.1079
-}, {
-nom: "Saint-Étienne",
-lat: 45.4397,
-lon: 4.3872
-}, {
-nom: "Toulon",
-lat: 43.1242,
-lon: 5.9280
-}, {
-nom: "Grenoble",
-lat: 45.1885,
-lon: 5.7245
-}, {
-nom: "Dijon",
-lat: 47.3220,
-lon: 5.0415
-}, {
-nom: "Angers",
-lat: 47.4784,
-lon: -0.5632
-}, {
-nom: "Nîmes",
-lat: 43.8367,
-lon: 4.3601
-}, {
-nom: "Villeurbanne",
-lat: 45.7667,
-lon: 4.8803
-}, {
-nom: "Clermont-Ferrand",
-lat: 45.7772,
-lon: 3.0870
-}, {
-nom: "Le Mans",
-lat: 48.0061,
-lon: 0.1996
-}, {
-nom: "Aix-en-Provence",
-lat: 43.5297,
-lon: 5.4474
-}, {
-nom: "Brest",
-lat: 48.3904,
-lon: -4.4861
-}, {
-nom: "Limoges",
-lat: 45.8336,
-lon: 1.2611
-}, {
-nom: "Tours",
-lat: 47.3941,
-lon: 0.6848
-}, {
-nom: "Amiens",
-lat: 49.8950,
-lon: 2.3023
-}, {
-nom: "Perpignan",
-lat: 42.6887,
-lon: 2.8948
-}, {
-nom: "Metz",
-lat: 49.1193,
-lon: 6.1757
-}, {
-nom: "Besançon",
-lat: 47.2378,
-lon: 6.0241
-}, {
-nom: "Ajaccio",
-lat: 41.9192,
-lon: 8.7386
-}, {
-nom: "Biarritz",
-lat: 43.4832,
-lon: -1.5586
-}, {
-nom: "Pau",
-lat: 43.2951,
-lon: -0.3708
-}, {
-nom: "Caen",
-lat: 49.1829,
-lon: -0.3707
-}, {
-nom: "La Rochelle",
-lat: 46.1603,
-lon: -1.1511
-}
-];
+	const villes = [
+		{ nom: "Paris", lat: 48.8566, lon: 2.3522 },
+		{ nom: "Marseille", lat: 43.2965, lon: 5.3698 },
+		{ nom: "Lyon", lat: 45.7640, lon: 4.8357 },
+		{ nom: "Toulouse", lat: 43.6047, lon: 1.4442 },
+		{ nom: "Nice", lat: 43.7102, lon: 7.2620 },
+		{ nom: "Nantes", lat: 47.2184, lon: -1.5536 },
+		{ nom: "Strasbourg", lat: 48.5734, lon: 7.7521 },
+		{ nom: "Montpellier", lat: 43.6119, lon: 3.8777 },
+		{ nom: "Bordeaux", lat: 44.8378, lon: -0.5792 },
+		{ nom: "Lille", lat: 50.6292, lon: 3.0573 },
+		{ nom: "Rennes", lat: 48.1173, lon: -1.6778 },
+		{ nom: "Reims", lat: 49.2583, lon: 4.0317 },
+		{ nom: "Le Havre", lat: 49.4944, lon: 0.1079 },
+		{ nom: "Saint-Étienne", lat: 45.4397, lon: 4.3872 },
+		{ nom: "Grenoble", lat: 45.1885, lon: 5.7245 },
+		{ nom: "Dijon", lat: 47.3220, lon: 5.0415 },
+		{ nom: "Nîmes", lat: 43.8367, lon: 4.3601 },
+		{ nom: "Clermont-Ferrand", lat: 45.7772, lon: 3.0870 },
+		{ nom: "Brest", lat: 48.3904, lon: -4.4861 },
+		{ nom: "Limoges", lat: 45.8336, lon: 1.2611 },
+		{ nom: "Tours", lat: 47.3941, lon: 0.6848 },
+		{ nom: "Amiens", lat: 49.8950, lon: 2.3023 },
+		{ nom: "Perpignan", lat: 42.6887, lon: 2.8948 },
+		{ nom: "Metz", lat: 49.1193, lon: 6.1757 },
+		{ nom: "Ajaccio", lat: 41.9192, lon: 8.7386 },
+		{ nom: "Biarritz", lat: 43.4832, lon: -1.5586 },
+		{ nom: "Caen", lat: 49.1829, lon: -0.3707 },
+		{ nom: "La Rochelle", lat: 46.1603, lon: -1.1511 }
+	];
 
+	btn.addEventListener('click', function () {
+		if (carte.style.display === 'none' || carte.style.display === '') {
+			carte.style.display = 'block';
 
-btn.addEventListener('click', function (e) {
-if (carte.style.display === 'none' || carte.style.display === '') {
-carte.style.display = 'block';
-if (! mapLoaded) {
-map = L.map('carte-meteo-france').setView([
-46.603354, 1.888334
-], 6);
-const franceBounds = [
-[
-41.0, -5.5
-],
-[
-51.5, 9.5
-]
-];
-map.setMaxBounds(franceBounds);
-map.on('drag', function () {
-map.panInsideBounds(franceBounds, {animate: false});
-});
-map.setMinZoom(5.5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '© OpenStreetMap contributors'}).addTo(map);
+			if (!mapLoaded) {
+				map = L.map('carte-meteo-france').setView([46.603354, 1.888334], 6);
+				const franceBounds = [[41.0, -5.5], [51.5, 9.5]];
+				map.setMaxBounds(franceBounds);
+				map.on('drag', () => map.panInsideBounds(franceBounds, { animate: false }));
+				map.setMinZoom(5.5);
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: '© OpenStreetMap contributors'
+				}).addTo(map);
 
-villes.forEach(ville => {
-fetch(`https://api.weatherapi.com/v1/current.json?key=082d90f662c44d6daf385842250107&q=${
-ville.lat
-},${
-ville.lon
-}&lang=fr`).then(r => r.json()).then(data => {
-if (data.current) {
-const iconUrl = "https:" + data.current.condition.icon;
-const temp = data.current.temp_c;
-const desc = data.current.condition.text;
-const popup = `<b>${
-ville.nom
-}</b><br>
-                                    <img src="${iconUrl}" style="vertical-align:middle;"><br>
-                                    ${desc}, ${temp}°C`;
+				villes.forEach(ville => {
+					fetch(`https://api.weatherapi.com/v1/forecast.json?key=082d90f662c44d6daf385842250107&q=${ville.lat},${ville.lon}&days=2&lang=fr`)
+						.then(r => r.json())
+						.then(data => {
+							if (data.forecast && data.forecast.forecastday.length > 1) {
+								const today = data.forecast.forecastday[0];
+								const tomorrow = data.forecast.forecastday[1];
 
-const meteoIcon = L.icon({
-iconUrl: iconUrl,
-iconSize: [
-48, 48
-],
-iconAnchor: [
-24, 24
-],
-popupAnchor: [0, -24]
+								const iconUrl = "https:" + today.day.condition.icon;
+								const popup = `
+									<b>${ville.nom}</b><br>
+									<img src="${iconUrl}" style="vertical-align:middle;"><br>
+									<strong>Aujourd'hui :</strong> ${today.day.condition.text}, ${today.day.avgtemp_c}°C<br>
+									<strong>Demain :</strong> ${tomorrow.day.condition.text}, ${tomorrow.day.avgtemp_c}°C
+								`;
+
+								const meteoIcon = L.icon({
+									iconUrl: iconUrl,
+									iconSize: [48, 48],
+									iconAnchor: [24, 24],
+									popupAnchor: [0, -24]
+								});
+
+								L.marker([ville.lat, ville.lon], { icon: meteoIcon })
+									.addTo(map)
+									.bindPopup(popup);
+							}
+						});
+				});
+
+				mapLoaded = true;
+			}
+
+			carte.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		} else {
+			carte.style.display = 'none';
+		}
+	});
 });
-L.marker([
-ville.lat, ville.lon
-], {icon: meteoIcon}).addTo(map).bindPopup(popup);
-}
-});
-});
-mapLoaded = true;
-}
-carte.scrollIntoView({behavior: 'smooth', block: 'center'});
-} else {
-carte.style.display = 'none';
-}
-});
-});
-	</script>
+</script>
+
 
 	<script>
 		// IA Voyage

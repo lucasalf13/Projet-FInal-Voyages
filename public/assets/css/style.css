@@ -1876,3 +1876,11 @@ strong[data-clickable]:hover {
     margin-left: 10px;
     font-weight: bold;
 }
+
+#carte-meteo-france {
+    display: none;
+    width: 100%;
+    max-width: 700px;
+    height: 500px;
+    margin: 80px auto;
+}
