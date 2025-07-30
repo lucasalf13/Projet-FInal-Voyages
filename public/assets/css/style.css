@@ -14,6 +14,9 @@
     --shadow-strong: 0 12px 32px rgba(46, 125, 50, 0.16);
     --transition: 0.18s cubic-bezier(.4, 0, .2, 1);
 }
+.home-main {
+    margin: 5px;
+}
 body {
     font-family: 'Inter', Arial, sans-serif;
     margin: 0;
@@ -96,12 +99,12 @@ a {
     content: "";
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.2));
 }
 .bienvenue {
     text-align: center;
     color: #fff;
     font-weight: 600;
+    padding: 10px;
 }
 .nav-left,
 .nav-right {
@@ -149,23 +152,19 @@ a {
     padding: 8px 32px 8px 16px;
     border: 1.5px solid var(--primary);
     border-radius: 8px;
-    background: linear-gradient(90deg, var(--primary) 70%, var(--secondary) 100%);
+    background: var(--primary);
     color: #fff;
     font-weight: 600;
     font-size: 1rem;
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
     appearance: none;
     cursor: pointer;
-    transition: border var(--transition), box-shadow var(--transition), background var(--transition);
     outline: none;
     min-width: 110px;
     max-width: 140px;
 }
 #lang-switcher select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent);
-    background-color: #fff;
-    color: var(--gray-dark);
+        background: linear-gradient(90deg, #2E7D32 70%, #81C784 100%);
     outline: none;
     transition: box-shadow var(--transition), border-color var(--transition);
 }
@@ -665,9 +664,13 @@ a.new:hover {
 .voyage-title {
     font-size: 1.22rem;
     font-weight: 700;
-    color: var(--gray-dark);
+    color: var(--primary);
     margin: 18px 18px 6px 18px;
     text-align: center;
+}
+.voyage-detail-main h1.voyage-title {
+	font-size: 2rem;
+    color: var(--primary);
 }
 .fav-btn:focus {
     outline: none;
@@ -1006,13 +1009,13 @@ a.new:hover {
 }
 .carousel-arrow {
     flex-shrink: 0;
-    background: var(--gray-light);
+    background: var(--primary);
     border: 1.5px solid var(--primary);
     border-radius: 50%;
     width: 36px;
     height: 36px;
     font-size: 1.3rem;
-    color: var(--primary);
+    color: #fff;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1040,7 +1043,6 @@ a.new:hover {
 .glide {
     margin: 0 auto;
     padding: 20px;
-    max-width: 800px;
 }
 .glide__slide img {
     width: 100%;
@@ -1096,7 +1098,7 @@ a.new:hover {
     border: none;
     cursor: pointer;
     z-index: 1;
-    color: #333;
+    color: var(--primary);
 }
 .carousel-arrow.left {
     left: 0.5rem;
@@ -1292,13 +1294,6 @@ body.dark-mode .btn-edit:hover {
 body.dark-mode .btn-delete:hover {
     background: #b84c48;
 }
-body.dark-mode nav a,
-body.dark-mode .nav-mobile li a {
-    color: var(--primary);
-}
-body.dark-mode a:hover {
-    color: #f8f8f8;
-}
 body.dark-mode footer {
     color: #ccc;
     background: #15191c;
@@ -1397,7 +1392,7 @@ body.dark-mode .add-photo-btn:hover {
     background-color: #333;
 }
 #darkSwitch {
-    background: linear-gradient(90deg, var(--primary) 70%, var(--secondary) 100%);
+    background: var(--primary);
     color: #fff;
     border: none;
     outline: none;
@@ -1408,14 +1403,12 @@ body.dark-mode .add-photo-btn:hover {
     box-shadow: var(--shadow);
     letter-spacing: 0.4px;
     cursor: pointer;
-    transition: background var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
     margin-left: 18px;
     display: flex;
     align-items: center;
     gap: 7px;
 }
-#darkSwitch:hover,
-#darkSwitch:focus {
+#darkSwitch:hover {
     background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
     color: #fff;
     box-shadow: var(--shadow-strong);
@@ -1508,7 +1501,7 @@ body.dark-mode .add-photo-btn:hover {
     width: 220px;
     max-width: 90vw;
     background: #fff;
-    border-radius: 0 0 10px 10px;
+    border-radius: var(--radius);
     box-shadow: 0 4px 16px rgba(0, 123, 255, 0.10);
     max-height: 80vh;
     overflow-y: auto;

@@ -32,7 +32,6 @@
 								<img class="region-img" src="/assets/img/{{ destination|lower|replace({' ': '-', '_': '-'}) }}.webp" alt="{{ t(destination) }}">
 							</a>
 
-
 							<div class="voyages-carousel" data-slide-index="0">
 								<button class="carousel-arrow left" aria-label="précédent">&#10094;</button>
 								{% for voyage in voyages %}
@@ -124,29 +123,39 @@ function normalize(str) {
 document.getElementById('searchBarDestination').addEventListener('input', function () {
 	const val = normalize(this.value.trim());
 
-	document.querySelectorAll('.voyages-carousel').forEach(carousel => {
+	document.querySelectorAll('.region-section').forEach(section => {
+		const carousel = section.querySelector('.voyages-carousel');
 		const slides = carousel.querySelectorAll('.carousel-slide');
-		let found = false;
+		let visibleCount = 0;
 
 		slides.forEach((slide, index) => {
 			const card = slide.querySelector('.voyage-card');
 			const name = normalize(card.dataset.name);
 
+			// Teste si le nom commence par la saisie
 			if (val === "" || name.startsWith(val)) {
 				slide.style.display = '';
-				if (!found) {
-					slides.forEach(s => s.classList.remove('active'));
-					slide.classList.add('active');
-					carousel.dataset.slideIndex = index;
-					found = true;
-				}
+				visibleCount++;
 			} else {
 				slide.style.display = 'none';
-				slide.classList.remove('active');
 			}
+			slide.classList.remove('active');
 		});
+
+		// Si aucun voyage visible → cacher la section
+		if (visibleCount === 0) {
+			section.style.display = 'none';
+		} else {
+			section.style.display = '';
+			// Réactiver le premier voyage visible
+			const firstVisible = carousel.querySelector('.carousel-slide[style=""]');
+			if (firstVisible) {
+				firstVisible.classList.add('active');
+			}
+		}
 	});
 });
+
 
 document.querySelectorAll('.voyages-carousel').forEach(carousel => {
 const slides = carousel.querySelectorAll('.carousel-slide');

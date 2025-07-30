@@ -13,8 +13,7 @@
 
 {% block main %}
 	<main class="home-main">
-		<h2>{{ t('my_favorites') }}
-			❤️</h2>
+		<h2>{{ t('my_favorites') }}</h2>
 		{% if favoris and favoris|length > 0 %}
 			<div class="voyages-row" id="favoris-list">
 				{% for voyage in favoris %}

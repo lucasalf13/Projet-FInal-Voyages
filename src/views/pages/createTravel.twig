@@ -95,9 +95,9 @@ const label = document.querySelector('.custom-file-upload .custom-file-label');
 const input = document.querySelector('.custom-file-upload input[type="file"]');
 const fileNameDisplay = document.querySelector('.custom-file-upload .file-chosen, #file-chosen');
 if (label && input && fileNameDisplay) {
-label.addEventListener('click', function () {
-input.click();
-});
+// label.addEventListener('click', function () {
+// input.click();
+// });
 input.addEventListener('change', function () {
 fileNameDisplay.textContent = (input.files.length > 0) ? input.files[0].name : t_no_file_chosen;
 });
