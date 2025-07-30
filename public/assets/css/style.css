@@ -788,19 +788,6 @@ a.new:hover {
         width: 100%;
     }
 }
-.preserve-linebreaks {
-    white-space: pre-line;
-    height: auto;
-    min-height: 24px;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    padding: 8px 0;
-    overflow: visible;
-    line-height: 1.55;
-    font-size: 1.07em;
-}
 .voyage-detail-card h3,
 .voyage-card h3 {
     margin-top: 10px;
