@@ -1144,29 +1144,60 @@ strong[data-clickable]:hover {
     z-index: 999;
 }
 .lightbox-content {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
+    width: 90vw;
+    height: 60vh;
+    background: #000;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media (min-width: 1000px) {
+    .lightbox-content {
+        width: 800px;
+        height: 600px;
+    }
+}
+@media (max-width: 999px) and (min-width: 600px) {
+    .lightbox-content {
+        width: 90vw;
+        height: 60vh;
+    }
+}
+@media (max-width: 599px) {
+    .lightbox-content {
+        width: 90vw;
+        height: 50vh;
+    }
 }
 .lightbox-content img {
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 .lightbox-close {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
     background: #fff;
     border: none;
     font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
     border-radius: 50%;
     cursor: pointer;
-    padding: 4px 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.lightbox-close:hover {
+    background: #f2f2f2;
+    transform: scale(1.1);
 }
 .itinerary-content h4 {
     cursor: pointer;
