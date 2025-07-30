@@ -1146,7 +1146,7 @@ strong[data-clickable]:hover {
 .lightbox-content {
     width: 90vw;
     height: 60vh;
-    background: #000;
+    background: none;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -1166,8 +1166,8 @@ strong[data-clickable]:hover {
 }
 @media (max-width: 599px) {
     .lightbox-content {
-        width: 90vw;
-        height: 50vh;
+        width: 70vw;
+        height: 40vh;
     }
 }
 .lightbox-content img {
