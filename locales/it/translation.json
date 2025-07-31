@@ -86,11 +86,42 @@
   "create": "Crea",
   "choose_file": "Scegli file",
   "no_file_chosen": "Nessun file selezionato",
-  "about_title": "Informazioni",
-  "about_us": "Informazioni",
   "about": "Informazioni",
-  "about_description": "E se riscoprissimo la Francia… senza auto?\n🌿 FugaVerde ti invita a viaggiare diversamente: più local, più dolce e veramente ecosostenibile.\n🧭 L’app ti guida su itinerari 100% senza auto, alloggi e ristoranti responsabili, meteo in tempo reale e una chat IA per organizzare tutto facilmente.\n💬 Approfitta anche di un forum di aiuto fra viaggiatori e di un PDF offline per viaggiare in autonomia risparmiando energia.\n♻️ Anche l’applicazione è pensata per ridurre il suo impatto: eco-progettata, leggera e con hosting green.\n🌍 Meno emissioni, più emozioni: il piacere di un viaggio sostenibile.\n📱 L’app è gratuita, senza pubblicità, fatta con il cuore.\nBasta una semplice iscrizione per accedere a tutto.\n☕ Ti piace il progetto?\nSostienimi con una donazione (anche simbolica): ogni gesto conta.\n",
-  "about_donation_message": "Grazie 🙏 e buon viaggio!",
+  "about_title": "Informazioni",
+  "about_us": "Informazioni sull'app",
+  "about_cards": [
+    {
+      "emoji": "🌿",
+      "title": "Viaggio ecosostenibile",
+      "text": "FugaVerde ti invita a viaggiare in modo diverso: più locale, più lento e davvero sostenibile."
+    },
+    {
+      "emoji": "🧭",
+      "title": "100% senza auto",
+      "text": "L'app ti guida in itinerari senz'auto, alloggi e ristoranti responsabili, meteo in tempo reale e assistente IA."
+    },
+    {
+      "emoji": "💬",
+      "title": "Forum e PDF offline",
+      "text": "Partecipa a un forum di aiuto tra viaggiatori e scarica un PDF per organizzarti anche senza rete."
+    },
+    {
+      "emoji": "♻️",
+      "title": "App eco-progettata",
+      "text": "Leggera, veloce e ospitata su server green — progettata per ridurre il suo impatto ambientale."
+    },
+    {
+      "emoji": "🌍",
+      "title": "Meno emissioni, più emozioni",
+      "text": "Viaggia meglio, più lentamente, con semplicità — e in modo sostenibile."
+    },
+    {
+      "emoji": "📱",
+      "title": "100% gratuita",
+      "text": "L'app è gratuita, senza pubblicità, e fatta con amore. Basta registrarsi per accedere a tutto."
+    }
+  ],
+  "about_donation_message": "☕ Ti piace il progetto?\nSostienimi con una donazione — ogni gesto conta.\n\nGrazie 🙏 e buon viaggio!",
   "customize": "Personalizza il mio viaggio",
   "proposal_generation_error": "Errore nella generazione della proposta.",
   "no_proposal_generated": "Nessuna proposta generata.",

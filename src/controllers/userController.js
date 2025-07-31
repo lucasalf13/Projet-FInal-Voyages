@@ -5,9 +5,12 @@ const bcrypt = require('bcrypt');
 const prisma = new PrismaClient().$extends(hashedPasswordExtension);
 
 exports.getAbout = async (req, res) => {
+    const aboutCards = req.t('about_cards', { returnObjects: true });
+
     res.render('pages/about.twig', {
         t: req.t,
-        lng: req.language
+        lng: req.language,
+        about_cards: aboutCards
     });
 };
 

@@ -86,11 +86,42 @@
   "create": "Create",
   "choose_file": "Choose file",
   "no_file_chosen": "No file chosen",
-  "about_title": "About",
-  "about_us": "About",
   "about": "About",
-  "about_description": "What if we rediscovered France… without a car?\n🌿 GreenEscape invites you to travel differently: more local, gentler, and truly eco-friendly.\n🧭 The app guides you to 100% car-free itineraries, responsible places to stay and eat, live weather, and an AI chat to organize everything easily.\n💬 Enjoy a travelers' help forum and offline PDF to travel independently while saving energy.\n♻️ Even the app is made to limit its impact: eco-designed, lightweight, and green hosted.\n🌍 Fewer emissions, more emotions: the joy of sustainable travel.\n📱 The app is free, ad-free, and made with heart.\nA simple registration gives you access to everything.\n☕ Like the project?\nSupport me with a donation (even symbolic) — every act counts.\n",
-  "about_donation_message": "Thank you 🙏 and enjoy your trip!",
+  "about_title": "About",
+  "about_us": "About the app",
+  "about_cards": [
+    {
+      "emoji": "🌿",
+      "title": "Eco-friendly travel",
+      "text": "GreenEscape invites you to travel differently: more local, gentler, and truly sustainable."
+    },
+    {
+      "emoji": "🧭",
+      "title": "100% car-free",
+      "text": "The app guides you through car-free itineraries, eco-friendly stays and food spots, live weather, and an AI travel planner."
+    },
+    {
+      "emoji": "💬",
+      "title": "Forum & offline PDF",
+      "text": "Enjoy a supportive travel forum and downloadable PDF to plan your trip even without a network."
+    },
+    {
+      "emoji": "♻️",
+      "title": "Eco-designed app",
+      "text": "Lightweight, fast, and green-hosted — this app is built to reduce its environmental footprint."
+    },
+    {
+      "emoji": "🌍",
+      "title": "Less emissions, more emotions",
+      "text": "Travel better, slower, simpler — and above all, more sustainably."
+    },
+    {
+      "emoji": "📱",
+      "title": "100% free",
+      "text": "The app is free, ad-free, and made with love. One sign-up gives you full access."
+    }
+  ],
+  "about_donation_message": "☕ Like the project?\nSupport me with a donation — every bit helps.\n\nThank you 🙏 and happy travels!",
   "customize": "Customize my trip",
   "proposal_generation_error": "Error while generating the proposal.",
   "no_proposal_generated": "No proposal generated.",

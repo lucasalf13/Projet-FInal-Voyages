@@ -86,11 +86,42 @@
   "create": "Créer",
   "choose_file": "Choisir un fichier",
   "no_file_chosen": "Aucun fichier choisi",
-  "about_title": "À propos",
-  "about_us": "À propos",
   "about": "À propos",
-  "about_description": "Et si on redécouvrait la France… sans voiture ?\n🌿 ÉchappéeVerte vous invite à voyager autrement : plus local, plus doux, et résolument écoresponsable.\n🧭 L’app vous guide vers des itinéraires 100 % sans voiture, des hébergements et restaurants responsables, la météo en direct et un chat IA pour tout organiser facilement.\n💬 Profitez aussi d’un forum d’entraide entre voyageurs et d’un PDF hors-ligne pour voyager en toute autonomie, tout en économisant de l’énergie.\n♻️ Même l’application est pensée pour réduire son impact : éco-conçue, légère, et hébergée vert.\n🌍 Moins d’émissions, plus d’émotions : le plaisir d’un voyage durable.\n📱 L’application est gratuite, sans pub, et faite avec le cœur.\nUne simple inscription vous donne accès à tout.\n☕ Vous aimez le projet ?\nSoutenez-moi avec un don (même symbolique) — chaque geste compte.\n",
-  "about_donation_message": "Merci 🙏 et bon voyage !",
+  "about_title": "À propos",
+  "about_us": "À propos de l'application",
+  "about_cards": [
+    {
+      "emoji": "🌿",
+      "title": "Voyage écoresponsable",
+      "text": "ÉchappéeVerte vous invite à voyager autrement : plus local, plus doux, et résolument écoresponsable."
+    },
+    {
+      "emoji": "🧭",
+      "title": "100 % sans voiture",
+      "text": "L’app vous guide vers des itinéraires sans voiture, des hébergements et restaurants responsables, la météo en direct et un chat IA."
+    },
+    {
+      "emoji": "💬",
+      "title": "Forum & PDF hors-ligne",
+      "text": "Profitez d’un forum d’entraide et d’un PDF exportable pour organiser votre voyage même sans réseau."
+    },
+    {
+      "emoji": "♻️",
+      "title": "Appli éco-conçue",
+      "text": "L’application est légère, rapide et hébergée vert. Conçue pour limiter son impact écologique."
+    },
+    {
+      "emoji": "🌍",
+      "title": "Moins d’émissions, plus d’émotions",
+      "text": "Voyagez mieux, plus lentement, plus simplement. Et surtout, durablement."
+    },
+    {
+      "emoji": "📱",
+      "title": "100 % gratuite",
+      "text": "L’application est gratuite, sans pub, et faite avec le cœur. Une inscription suffit pour tout débloquer."
+    }
+  ],
+  "about_donation_message": "☕ Vous aimez le projet ?\nSoutenez-moi avec un don — chaque geste compte.\n\nMerci 🙏 et bon voyage !",
   "customize": "Personnaliser mon voyage",
   "proposal_generation_error": "Erreur lors de la génération de la proposition.",
   "no_proposal_generated": "Aucune proposition générée.",
