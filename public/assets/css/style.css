@@ -2,17 +2,24 @@
    VARIABLES, RESET & BASE
 ========================= */
 :root {
-    --primary: #2E7D32;
-    --secondary: #81D4FA;
-    --accent: #D99156;
-    --danger: #C62828;
-    --success: #4CAF50;
-    --gray-dark: #6E7E85;
-    --gray-light: #F5F1E3;
-    --radius: 12px;
-    --shadow: 0 4px 18px rgba(46, 125, 50, 0.10);
-    --shadow-strong: 0 12px 32px rgba(46, 125, 50, 0.16);
-    --transition: 0.18s cubic-bezier(.4, 0, .2, 1);
+    --color-primary: #4CAF50;
+  --color-primary-dark: #388E3C;
+  --color-primary-light: #81C784;
+  --color-secondary: #81D4FA;
+  --color-accent: #D4AF37;
+  --color-danger: #C62828;
+  --color-success: #4CAF50;
+  --color-gray-dark: #556068;
+  --color-gray: #6E7E85;
+  --color-gray-light: #F5F1E6;
+  --color-surface: #FAFAF0;
+  --color-background: #F5F1E6;
+  --color-text: #2E3A3A;
+  --white: #ffffff;
+  --radius: 12px;
+  --shadow: 0 4px 18px rgba(46, 125, 50, 0.10);
+  --shadow-strong: 0 12px 32px rgba(46, 125, 50, 0.16);
+  --transition: 0.18s cubic-bezier(.4, 0, .2, 1);
 }
 .home-main {
     margin: 5px;
@@ -22,8 +29,8 @@ body {
     margin: 0;
     padding: 0;
     padding-bottom: 10px;
-    background: var(--gray-light);
-    color: var(--gray-dark);
+ background: var(--color-background);
+  color: var(--color-text);
     min-height: 100vh;
     box-sizing: border-box;
 }
@@ -34,7 +41,7 @@ body {
 }
 button:focus,
 a:focus {
-    outline: 2px solid var(--primary);
+  outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 img,
@@ -61,7 +68,7 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
+  color: var(--white);
     font-size: 2.5rem;
     font-weight: 800;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
@@ -102,7 +109,7 @@ a {
 }
 .bienvenue {
     text-align: center;
-    color: #fff;
+  color: var(--white);
     font-weight: 600;
     padding: 10px;
 }
@@ -116,7 +123,7 @@ a {
     list-style: none;
 }
 .header-nav-flex li a {
-    color: #fff;
+  color: var(--white);
     font-weight: 600;
     font-size: 1rem;
     padding: 8px 18px;
@@ -128,8 +135,8 @@ a {
 }
 .header-nav-flex li a:hover,
 .header-nav-flex li a:focus {
-    background: #C8E6C9;
-    color: #2E7D32;
+ background: rgba(76, 175, 80, 0.15);
+  color: var(--color-primary);
 }
 .nav-mobile {
     display: none;
@@ -150,10 +157,10 @@ a {
 }
 #lang-switcher select {
     padding: 8px 32px 8px 16px;
-    border: 1.5px solid var(--primary);
+    border: 1.5px solid var(--color-primary);
     border-radius: 8px;
-    background: var(--primary);
-    color: #fff;
+  background: var(--color-primary);
+  color: var(--white);
     font-weight: 600;
     font-size: 1rem;
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
@@ -164,7 +171,8 @@ a {
     max-width: 140px;
 }
 #lang-switcher select:focus {
-        background: linear-gradient(90deg, #2E7D32 70%, #81C784 100%);
+        background: linear-gradient(90deg, var(--color-primary) 70%, var(--color-primary-light) 100%);
+
     outline: none;
     transition: box-shadow var(--transition), border-color var(--transition);
 }
@@ -174,7 +182,7 @@ a {
     right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #fff;
+  color: var(--white);
     pointer-events: none;
     font-size: 0.85em;
     opacity: 0.7;
@@ -182,20 +190,20 @@ a {
 .about-link {
     margin-left: 16px;
     font-weight: 600;
-    color: #fff;
+  color: var(--white);
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 8px;
-    background: linear-gradient(90deg, var(--primary) 70%, var(--secondary) 100%);
+  background: linear-gradient(90deg, var(--color-primary) 70%, var(--color-secondary) 100%);
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
-    transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+  transition: background var(--transition), color var(--transition), box-shadow var(--transition);
     display: inline-block;
     font-size: 1rem;
 }
 .about-link:hover,
 .about-link:focus {
-    background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
-    color: #fff;
+  background: linear-gradient(90deg, var(--color-primary-dark) 70%, var(--color-primary-light) 100%);
+  color: var(--white);
     box-shadow: 0 4px 12px rgba(33, 136, 56, 0.3);
     text-decoration: none;
     transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
@@ -203,17 +211,17 @@ a {
 .about-container {
     margin: 60px auto;
     padding: 36px 28px 60px 28px;
-    background: #fff;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+     background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
     font-size: 1.1rem;
     line-height: 1.8;
-    color: var(--gray-dark);
+  color: var(--color-gray-dark);
 }
 .about-container h2 {
     text-align: center;
     font-size: 2rem;
-    color: var(--primary);
+  color: var(--color-primary);
     margin-bottom: 24px;
     font-weight: 700;
 }
@@ -230,7 +238,7 @@ a {
 ========================= */
 footer {
     background: #f1f3f6;
-    color: var(--gray-dark);
+  color: var(--color-gray-dark);
     text-align: center;
     padding: 18px 0 12px 0;
     font-size: 15px;
@@ -266,7 +274,7 @@ footer {
 }
 footer nav ul li a,
 footer nav ul li button {
-    color: var(--gray-dark);
+  color: var(--color-gray-dark);
     background: transparent;
     font-weight: 600;
     font-size: 1rem;
@@ -280,29 +288,30 @@ footer nav ul li button {
 }
 .ia a,
 .ia button {
-    background-color: var(--primary);
-    color: #fff;
+   background-color: var(--color-primary);
+  color: var(--white);
 }
 .meteo a,
 .meteo button {
-    background-color: var(--primary);
-    color: #fff;
+    background-color: var(--color-primary);
+  color: var(--white);
 }
 footer nav ul li a:hover,
 footer nav ul li button:hover,
 footer nav ul li a:focus,
 footer nav ul li button:focus {
-    background: #C8E6C9;
-    color: #2E7D32;
+ background: rgba(76, 175, 80, 0.15);
+  color: var(--color-primary);
 }
 
 /* =========================
    MAIN CONTAINER
 ========================= */
 main {
-    padding: 32px 24px 60px 24px;
-    box-shadow: var(--shadow);
-    overflow-x: hidden;
+   padding: 32px 24px 60px 24px;
+  box-shadow: var(--shadow);
+  overflow-x: hidden;
+  background: var(--white);
 }
 
 /* =========================
@@ -314,8 +323,8 @@ main {
     max-width: 420px;
     margin: 40px auto;
     padding: 32px 24px 28px 24px;
-    background: #fff;
-    border-radius: var(--radius);
+      background: var(--white);
+  border-radius: var(--radius);
     box-shadow: 0 4px 24px rgba(0, 123, 255, 0.13);
     display: flex;
     flex-direction: column;
@@ -324,7 +333,7 @@ main {
 .auth-container h2,
 .create-travel-form h2 {
     margin-bottom: 22px;
-    color: var(--primary);
+  color: var(--color-primary);
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -340,7 +349,7 @@ main {
 .create-travel-form label {
     font-weight: 600;
     margin-bottom: 6px;
-    color: var(--gray-dark);
+  color: var(--color-gray-dark);
     letter-spacing: 0.2px;
 }
 .auth-form input[type="text"],
@@ -355,11 +364,11 @@ main {
 #form-ia-voyage select {
     width: 100%;
     padding: 11px 12px;
-    border: 1.2px solid #b6d4fe;
+    border: 1.2px solid rgba(129, 212, 250, 0.6);
     border-radius: 7px;
     background: #f5faff;
     font-size: 16px;
-    color: var(--gray-dark);
+  color: var(--color-text);
     margin-bottom: 12px;
     transition: border var(--transition), background var(--transition);
 }
@@ -369,7 +378,7 @@ main {
 .create-travel-form select:focus,
 #form-ia-voyage input:focus,
 #form-ia-voyage select:focus {
-    border-color: var(--primary);
+    border-color: var(--color-primary);
     outline: none;
     background: #e3f2fd;
 }
@@ -378,8 +387,8 @@ main {
 #form-ia-voyage button {
     width: 100%;
     padding: 12px 0;
-    background: linear-gradient(90deg, var(--primary) 70%, var(--secondary) 100%);
-    color: #fff;
+   background: linear-gradient(90deg, var(--color-primary) 70%, var(--color-secondary) 100%);
+  color: var(--white);
     font-weight: 700;
     font-size: 1.1rem;
     border: none;
@@ -393,7 +402,7 @@ main {
 .auth-form .btn-primary:hover,
 .create-travel-form button[type="submit"]:hover,
 #form-ia-voyage button:hover {
-    background: linear-gradient(90deg, #2E7D32 70%, #81C784 100%);
+  background: linear-gradient(90deg, var(--color-primary-dark) 70%, var(--color-primary-light) 100%);
     transition: background 0.3s ease;
 }
 .auth-links {
@@ -401,7 +410,7 @@ main {
     text-align: center;
 }
 .auth-links a {
-    color: var(--primary);
+  color: var(--color-primary);
     text-decoration: none;
     font-weight: 600;
     transition: color var(--transition);
@@ -425,13 +434,13 @@ main {
 }
 .success-message {
     background: #e7fbe9;
-    color: var(--success);
+  color: var(--color-success);
     border: 1px solid #b8eac7;
 }
 .error-message,
 .create-travel-form .error {
     background: #fbe9e7;
-    color: #c62828;
+  color: var(--color-danger);
     border: 1px solid #ef9a9a;
 }
 .custom-file-upload {
@@ -440,8 +449,8 @@ main {
     gap: 10px;
 }
 .custom-file-label {
-    background: #4caf50;
-    color: #fff;
+   background: var(--color-primary);
+  color: var(--white);
     padding: 7px 16px;
     border-radius: 4px;
     cursor: pointer;
@@ -450,7 +459,7 @@ main {
     user-select: none;
 }
 .custom-file-label:hover {
-    background: #388e3c;
+  background: var(--color-primary-dark);
 }
 #file-chosen {
     font-size: 0.98em;
@@ -460,16 +469,16 @@ main {
     max-width: 420px;
     margin: 40px auto;
     padding: 32px 24px 28px 24px;
-    background: #fff;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+   background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .reset-password-container h2 {
     margin-bottom: 22px;
-    color: var(--primary);
+  color: var(--color-primary);
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -483,22 +492,22 @@ main {
 .reset-password-form label {
     font-weight: 600;
     margin-bottom: 6px;
-    color: var(--gray-dark);
+  color: var(--color-gray-dark);
     letter-spacing: 0.2px;
 }
 .reset-password-form input[type="password"] {
     width: 100%;
     padding: 11px 12px;
-    border: 1.2px solid #b6d4fe;
+  border: 1.2px solid rgba(129, 212, 250, 0.6);
     border-radius: 7px;
     background: #f5faff;
     font-size: 16px;
-    color: var(--gray-dark);
+  color: var(--color-text);
     margin-bottom: 12px;
     transition: border var(--transition), background var(--transition);
 }
 .reset-password-form input[type="password"]:focus {
-    border-color: var(--primary);
+    border-color: var(--color-primary);
     outline: none;
     background: #e3f2fd;
 }
@@ -506,8 +515,8 @@ main {
 .reset-password-container .btn.btn-primary {
     width: 100%;
     padding: 12px 0;
-    background: linear-gradient(90deg, var(--primary) 70%, var(--secondary) 100%);
-    color: #fff;
+  background: linear-gradient(90deg, var(--color-primary) 70%, var(--color-secondary) 100%);
+    color: var(--white);
     font-weight: 700;
     font-size: 1.1rem;
     border: none;
@@ -520,7 +529,7 @@ main {
 }
 .reset-password-form button[type="submit"]:hover,
 .reset-password-container .btn.btn-primary:hover {
-    background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
+  background: linear-gradient(90deg, #218838 70%, #66bb6a 100%);
 }
 .success-message,
 .error-message {
@@ -562,18 +571,18 @@ main {
 .search-bars-row input[type="text"] {
     flex: 1 1 250px;
     max-width: 300px;
-    border: 1.2px solid #66bb6a;
+  border: 1.2px solid var(--color-primary-light);
     background: #f5faff;
 }
 .search-bars-row input[type="text"]:focus {
-    border-color: #4caf50;
+  border-color: var(--color-primary);
     outline: none;
-    box-shadow: 0 0 6px #4caf50aa;
+  box-shadow: 0 0 6px rgba(76, 175, 80, .67);
     background: #f5faff;
 }
 .search-bars-row a.new {
-    background-color: #4caf50;
-    color: #fff;
+    background-color: var(--color-primary);
+  color: var(--white);
     text-decoration: none;
     border: none;
     display: flex;
@@ -584,7 +593,7 @@ main {
 }
 .search-bars-row a.new:hover,
 .search-bars-row a.new:focus {
-    background-color: #388e3c;
+  background-color: var(--color-primary-dark);
 }
 h1,
 h2 {
@@ -593,12 +602,12 @@ h2 {
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    color: var(--primary);
+  color: var(--color-primary);
     text-decoration: none;
 }
 a.new {
-    background: #5cb85c;
-    color: #fff;
+   background: var(--color-primary);
+  color: var(--white);
     padding: 9px 18px;
     border-radius: 8px;
     font-weight: 400;
@@ -613,7 +622,7 @@ a.new {
     line-height: 1;
 }
 a.new:hover {
-    background: #449d44;
+  background: var(--color-primary-dark);
 }
 
 /* =========================
@@ -664,13 +673,13 @@ a.new:hover {
 .voyage-title {
     font-size: 1.22rem;
     font-weight: 700;
-    color: var(--primary);
+  color: var(--color-primary);
     margin: 18px 18px 6px 18px;
     text-align: center;
 }
 .voyage-detail-main h1.voyage-title {
 	font-size: 2rem;
-    color: var(--primary);
+  color: var(--color-primary);
 }
 .fav-btn:focus {
     outline: none;
@@ -728,10 +737,10 @@ a.new:hover {
 }
 .voyage-detail-card,
 .voyage-card.detail-card {
-    background: var(--gray-light);
-    border-radius: var(--radius);
-    border: 1.5px solid #b6d4fe;
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.06);
+   background: var(--color-gray-light);
+  border-radius: var(--radius);
+  border: 1.5px solid rgba(129, 212, 250, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.06);
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -796,13 +805,13 @@ a.new:hover {
     margin-top: 10px;
     margin-bottom: 12px;
     font-size: 1.08em;
-    color: var(--primary);
+  color: var(--color-primary);
     font-weight: 700;
 }
 .voyage-detail-card ul {
     margin: 0;
     padding-left: 18px;
-    color: var(--gray-dark);
+  color: var(--color-gray-dark);
     font-size: 1em;
 }
 
@@ -814,8 +823,8 @@ a.new:hover {
     margin: 40px 0 0 0;
 }
 .btn-download {
-    background: #5cb85c;
-    color: #fff;
+      background: var(--color-primary);
+  color: var(--white);
     padding: 14px 38px;
     border-radius: 8px;
     font-weight: 700;
@@ -828,11 +837,11 @@ a.new:hover {
     cursor: pointer;
 }
 .btn-download:hover {
-    background: #449d44;
+  background: var(--color-primary-dark);
 }
 .btn-delete {
-    background: var(--danger);
-    color: #fff;
+   background: var(--color-danger);
+  color: var(--white);
     padding: 11px 26px;
     border-radius: 7px;
     font-weight: 600;
@@ -846,8 +855,8 @@ a.new:hover {
     background: #b71c1c;
 }
 .btn-edit {
-    background: var(--accent);
-    color: #fff;
+     background: var(--color-accent);
+  color: var(--white);
     padding: 11px 26px;
     border-radius: 7px;
     font-weight: 600;
@@ -857,7 +866,7 @@ a.new:hover {
 }
 .btn-edit:hover {
     background: #ff8f00;
-    color: #fff;
+  color: var(--white);
 }
 .voyage-photo-banner {
     display: flex;
@@ -928,12 +937,12 @@ a.new:hover {
     margin-top: 18px;
     margin-bottom: 6px;
     font-weight: 600;
-    color: #2e7d32;
+  color: var(--color-primary);
 }
 #ia-voyage-resultat {
     margin-top: 28px;
     background: #e8f5e9;
-    border-left: 4px solid #4caf50;
+  border-left: 4px solid var(--color-success);
     border-radius: 8px;
     padding: 18px 16px;
     color: #1b5e20;
@@ -943,7 +952,7 @@ a.new:hover {
     white-space: pre-line;
 }
 .ia-loading {
-    color: #4caf50;
+  color: var(--color-primary);
     font-style: italic;
     animation: blink 1.2s linear infinite;
 }
@@ -1009,13 +1018,13 @@ a.new:hover {
 }
 .carousel-arrow {
     flex-shrink: 0;
-    background: var(--primary);
-    border: 1.5px solid var(--primary);
+     background: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
     border-radius: 50%;
     width: 36px;
     height: 36px;
     font-size: 1.3rem;
-    color: #fff;
+  color: var(--white);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1023,8 +1032,8 @@ a.new:hover {
     transition: background var(--transition), transform var(--transition);
 }
 .carousel-arrow:hover {
-    background: var(--primary);
-    color: #fff;
+    background: var(--color-primary);
+  color: var(--white);
 }
 .carousel-slide {
     display: none;
@@ -1074,7 +1083,7 @@ a.new:hover {
 .voyage-card {
     flex: 0 0 calc(25% - 1rem);
     box-sizing: border-box;
-    background-color: white;
+  background-color: var(--white);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -1098,7 +1107,7 @@ a.new:hover {
     border: none;
     cursor: pointer;
     z-index: 1;
-    color: var(--primary);
+  color: var(--color-primary);
 }
 .carousel-arrow.left {
     left: 0.5rem;
@@ -1119,7 +1128,7 @@ strong[data-clickable] {
     transition: color 0.2s ease;
 }
 strong[data-clickable]:hover {
-    color: var(--primary, #005640);
+  color: var(--color-primary);
 }
 .page-detail .voyage-card.detail-card:hover {
     transform: none !important;
@@ -1184,7 +1193,7 @@ strong[data-clickable]:hover {
     right: 10px;
     width: 32px;
     height: 32px;
-    background: #fff;
+  background: var(--white);
     border: none;
     font-size: 1.2rem;
     font-weight: bold;
@@ -1210,7 +1219,7 @@ strong[data-clickable]:hover {
     transition: color 0.2s ease;
 }
 .itinerary-content h4:hover {
-   color: var(--primary, #005640);
+  color: var(--color-primary);
 }
 .toggle-title {
     cursor: pointer;
@@ -1235,26 +1244,30 @@ strong[data-clickable]:hover {
    DARK MODE
 ========================= */
 body.dark-mode {
-    --primary: #4aa96c;
-    --secondary: #88c999;
-    --accent: #f2b134;
-    --danger: #d9534f;
-    --success: #81c784;
-    --gray-dark: #e0e0e0;
-    --gray-light: #2e2e2e;
-    --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);
-    --shadow-strong: 0 12px 32px rgba(74, 169, 108, 0.25);
-    --background-body: #444444;
-    --background-card: #23272b;
-    --background-input: #264126;
-    --text-default: #dbe7d8;
+--color-primary: #66BB6A;
+    --color-primary-light: #A5D6A7;
+  --color-primary-light: #88C999;
+  --color-secondary: #6FC3A3;
+  --color-accent: #f2b134;
+  --color-danger: #d9534f;
+  --color-success: #81c784;
+  --color-gray-dark: #e0e0e0;
+  --color-gray-light: #2e2e2e;
+      --color-background: #121212;
+    --color-surface: #1E1E1E;
+  --color-input-bg: #272c30;
+  --text-default: #dbe7d8;
+   --color-white: #2A2A2A;
+   --color-text: #F5F5F5;
+  --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);
+  --shadow-strong: 0 12px 32px rgba(74, 169, 108, 0.25);
 }
 body.dark-mode {
-    background: var(--background-body);
-    color: var(--gray-dark);
+   background: var(--color-background);
+  color: var(--color-gray-dark);
 }
 body.dark-mode p {
-    color: var(--text-default);
+  color: var(--text-default);
 }
 body.dark-mode .nav-mobile {
     background: #1e2226;
@@ -1266,16 +1279,16 @@ body.dark-mode .voyage-card,
 body.dark-mode .about-container,
 body.dark-mode .reset-password-container,
 body.dark-mode .create-travel-form {
-    background: var(--background-card);
-    color: var(--gray-dark);
-    box-shadow: var(--shadow);
+     background: var(--color-surface);
+  color: var(--color-gray-dark);
+  box-shadow: var(--shadow);
 }
-body.dark-mode input,
+body.dark-mode input:not(.lang-switch),
 body.dark-mode textarea,
-body.dark-mode select {
-    background: var(--background-input);
-    color: var(--gray-dark);
-    border-color: #555;
+body.dark-mode select:not(.lang-switch) {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #555;
 }
 body.dark-mode ::placeholder {
     color: #ccc;
@@ -1299,19 +1312,13 @@ body.dark-mode footer {
     background: #15191c;
     border-top-color: #444;
 }
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode select {
-    background: #272c30;
-    color: #f1f1f1;
-    border: 1.2px solid #555;
-}
-body.dark-mode input:focus,
+body.dark-mode input:not(.lang-switch):focus,
 body.dark-mode textarea:focus,
-body.dark-mode select:focus {
-    border-color: var(--primary);
-    background: #2f343a;
-    outline: none;
+body.dark-mode select:not(.lang-switch):focus {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: var(--color-primary);
+  outline: none;
 }
 body.dark-mode #ia-voyage-container,
 body.dark-mode .ia-form-container {
@@ -1353,7 +1360,7 @@ body.dark-mode .create-travel-form .error {
 }
 #ia-voyage-container button[type="submit"] {
     margin-top: 18px;
-    background: linear-gradient(90deg, var(--primary) 70%, var(--secondary) 100%);
+  background: linear-gradient(90deg, var(--color-primary) 70%, var(--color-primary-light) 100%);
     color: #fff;
     font-weight: 700;
     border: none;
@@ -1369,7 +1376,7 @@ body.dark-mode #ia-voyage-container button[type="submit"] {
 #ia-voyage-resultat {
     margin-top: 28px;
     background: #e6f2e6;
-    border-left: 4px solid #4caf50;
+  border-left: 4px solid var(--color-success);
     border-radius: 8px;
     padding: 18px 16px;
     color: #2e7d32;
@@ -1392,7 +1399,7 @@ body.dark-mode .add-photo-btn:hover {
     background-color: #333;
 }
 #darkSwitch {
-    background: var(--primary);
+  background: var(--color-primary);
     color: #fff;
     border: none;
     outline: none;
@@ -1477,14 +1484,14 @@ body.dark-mode .add-photo-btn:hover {
     border-radius: var(--radius);
     padding: 7px 16px;
     font-size: 2.3rem;
-    color: #fff;
+    color: var(--white);
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.13);
     cursor: pointer;
     transition: background var(--transition), box-shadow var(--transition), color var(--transition), transform var(--transition);
   }
   .burger:hover {
-    background: var(--primary);
-    color: #fff;
+      background: var(--color-primary);
+    color: var(--white);
     box-shadow: 0 4px 18px rgba(0, 123, 255, 0.18);
     transform: translateY(2px) scale(1.08);
   }
@@ -1500,7 +1507,7 @@ body.dark-mode .add-photo-btn:hover {
     right: auto;
     width: 220px;
     max-width: 90vw;
-    background: #fff;
+    background: var(--white);
     border-radius: var(--radius);
     box-shadow: 0 4px 16px rgba(0, 123, 255, 0.10);
     max-height: 80vh;
@@ -1514,7 +1521,7 @@ body.dark-mode .add-photo-btn:hover {
     display: flex;
   }
   .nav-mobile li a {
-    color: var(--primary);
+    color: var(--color-primary);
     padding: 12px 18px;
     font-size: 1.1em;
     border-radius: 6px;
@@ -1582,7 +1589,7 @@ body.dark-mode .add-photo-btn:hover {
   .lightbox-content img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* ou 'cover' selon le rendu souhaité */
+    object-fit: contain;
   }
 
   /* -- FOOTER -- */
@@ -1596,7 +1603,7 @@ body.dark-mode .add-photo-btn:hover {
     color: #000;
   }
   body.dark-mode .bienvenue {
-    color: #fff;
+    color: var(--white);
   }
 }
 

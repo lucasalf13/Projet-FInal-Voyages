@@ -91,7 +91,7 @@
 		{% endif %}
 		<button id="darkSwitch">🌙</button>
 		<form method="get" action="/lang/" id="lang-switcher">
-			<select name="lng" onchange="location.href='/lang/' + this.value;">
+			<select name="lng" class="lang-switch" onchange="location.href='/lang/' + this.value;">
 				<option value="fr" {% if lng == 'fr' %} selected {% endif %}>Français 🇫🇷</option>
 				<option value="en" {% if lng == 'en' %} selected {% endif %}>English 🇬🇧</option>
 				<option value="es" {% if lng == 'es' %} selected {% endif %}>Español 🇪🇸</option>
