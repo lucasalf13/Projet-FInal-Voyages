@@ -65,7 +65,7 @@ a {
 }
 .hero-slogan {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
   color: var(--white);
@@ -79,7 +79,7 @@ a {
     pointer-events: none;
 }
 .header-banner-large {
-    height: 770px;
+    height: 650px;
 }
 .header-illustration {
     position: absolute;
@@ -1425,15 +1425,6 @@ body.dark-mode .add-photo-btn:hover {
 /* =========================
    RESPONSIVE CSS MEDIA QUERIES
 ========================= */
-/* -------- max-width: 1100px -------- */
-@media (max-width: 1100px) {
-  .header-banner {
-    height: 180px;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-}
-
 /* -------- max-width: 1000px -------- */
 @media (max-width: 1000px) {
 
@@ -1534,7 +1525,7 @@ body.dark-mode .add-photo-btn:hover {
   /* -- HERO -- */
   .hero-slogan {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 1.2rem;

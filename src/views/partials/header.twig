@@ -5,7 +5,7 @@
 <header class="header-banner {{ headerClass }}">
 	<img src="/assets/img/head.webp" alt="{{ t('banner_alt') }}" class="header-illustration">
 	{% if slogan %}
-		<h1 class="hero-slogan">{{ slogan }}</h1>
+		<h1 class="hero-slogan">{{ slogan|raw }}</h1>
 	{% endif %}
 	<nav class="header-nav-flex">
 		<button class="burger" aria-label="{{ t('menu') }}">&#9776;</button>
