@@ -151,5 +151,8 @@
   "que_faire": "Things to do",
   "ou_dormir": "Where to sleep",
   "ou_manger": "Where to eat",
-  "transports": "Transportation"
+  "transports": "Transportation",
+    "weather_recommendation_title": "Today's recommendation based on the weather",
+  "weather_forecast_text": "%s, max %d°C today",
+  "weather_icon_alt": "Weather icon %s"
 }

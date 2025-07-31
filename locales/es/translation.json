@@ -151,5 +151,8 @@
   "que_faire": "Qué hacer",
   "ou_dormir": "Dónde dormir",
   "ou_manger": "Dónde comer",
-  "transports": "Transportes"
+  "transports": "Transportes",
+   "weather_recommendation_title": "Recomendación del día según el clima",
+  "weather_forecast_text": "%s, máxima de %d°C hoy",
+  "weather_icon_alt": "Ícono del clima %s"
 }

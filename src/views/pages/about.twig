@@ -37,38 +37,47 @@
 	</div>
 
 	<div id="best-weather-card" class="weather-card" style="display:none;">
-  <h3 class="weather-title">Recommandation du jour selon météo</h3>
+<h3 class="weather-title">{{ t('weather_recommendation_title') }}</h3>
   <h4 id="best-weather-city" class="weather-city"></h4>
   <p id="best-weather-desc" class="weather-desc"></p>
-  <img id="best-weather-icon" alt="Météo icône" class="weather-icon">
+  <img id="best-weather-icon" alt="" class="weather-icon">
 </div>
 
 {% endblock %}
-
 {% block script %}
 <script>
+const translations = {
+  weather_forecast_text: "{{ t('weather_forecast_text') }}",
+  weather_icon_alt: "{{ t('weather_icon_alt') }}"
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    // 1. Récupérer la ville recommandée (avec lat/lon)
     const resTopVille = await fetch('/api/meteo/top-ville');
     const topVille = await resTopVille.json();
 
     if (topVille && topVille.lat && topVille.lon && topVille.city) {
-      // 2. Récupérer la météo complète (prévisions + actuel) pour cette ville
       const resMeteo = await fetch(`/api/meteo/${topVille.lat}/${topVille.lon}`);
       const meteoData = await resMeteo.json();
-
-      // 3. Extraire la météo du jour (forecast)
       const todayForecast = meteoData.forecast.forecastday[0].day;
 
-      // 4. Mettre à jour l'affichage avec la température max du jour + condition du jour
       const card = document.getElementById('best-weather-card');
       document.getElementById('best-weather-city').textContent = topVille.city;
-      document.getElementById('best-weather-desc').textContent =
-        `${todayForecast.condition.text}, max ${todayForecast.maxtemp_c}°C aujourd’hui`;
+
+      // Texte météo brut (sans traduction condition)
+      const condition = todayForecast.condition.text;
+      const tempMax = todayForecast.maxtemp_c;
+
+      const translatedSentence = translations.weather_forecast_text
+        .replace('%s', condition)
+        .replace('%d', tempMax);
+
+      document.getElementById('best-weather-desc').textContent = translatedSentence;
+
       const icon = document.getElementById('best-weather-icon');
       icon.src = "https:" + todayForecast.condition.icon;
-      icon.alt = `Icône météo ${todayForecast.condition.text}`;
+      icon.alt = translations.weather_icon_alt.replace('%s', condition);
+
       card.style.display = 'block';
     }
   } catch (err) {
@@ -77,4 +86,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 </script>
 {% endblock %}
+
+
 
