@@ -71,7 +71,7 @@ a {
 
 .hero-slogan {
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: var(--white);
@@ -1831,7 +1831,7 @@ body.dark-mode .add-photo-btn:hover {
     /* -- HERO -- */
     .hero-slogan {
         position: absolute;
-        top: 20%;
+        top: 15%;
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 1.2rem;

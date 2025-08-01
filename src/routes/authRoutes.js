@@ -35,7 +35,7 @@ router.post('/forgotpassword', async (req, res) => {
             },
         });
 
-        const resetLink = `http://localhost:3000/api/auth/reset-password?token=${resetToken}`;
+        const resetLink = `http://141.95.174.197:3000//api/auth/reset-password?token=${resetToken}`;
 
         const nodemailer = require('nodemailer');
 
