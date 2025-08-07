@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-exports.uploadPhotos = upload.array('photos', 10);
+exports.uploadPhotos = upload.array('photos[]', 10);
 
 exports.getCreateForm = (req, res) => {
     if (!req.session.user || req.session.user.role !== 'admin') {
@@ -36,27 +36,72 @@ exports.createTravel = async (req, res) => {
         const {
             name,
             destination,
-            queFaire,
-            itinerary,
-            ouDormir,
-            ouManger,
-            transports
         } = req.body;
 
+        const itineraries = req.body.itineraries || [];
+        const accommodations = JSON.parse(req.body.accommodations || '[]');
+        const restaurants = JSON.parse(req.body.restaurants || '[]');
+        let transports = req.body.transports || [];
+        if (!Array.isArray(transports)) {
+            transports = Object.values(transports);
+        }
+        const captions = req.body.captions || [];
         const photos = req.files ? req.files.map(file => file.filename) : [];
-
-        await prisma.travel.create({
+        const captionsCorrected = photos.map((_, i) => captions[i] || '');
+        const photosString = photos.join(';');
+        const captionsString = captionsCorrected.join(';');
+        const travel = await prisma.travel.create({
             data: {
                 name,
                 destination,
-                photos: photos.join(';'),
-                queFaire,
-                itinerary,
-                ouDormir,
-                ouManger,
-                transports
+                photos: photosString,
+                photoCaptions: captionsString
             }
         });
+        for (const t of transports) {
+            if (t.type && t.detail) {
+                await prisma.transport.create({
+                    data: {
+                        type: t.type,
+                        detail: t.detail,
+                        travelId: travel.id
+                    }
+                });
+            }
+        }
+        for (const itin of itineraries) {
+            if (itin.title && itin.detail) {
+                await prisma.itinerary.create({
+                    data: {
+                        title: itin.title,
+                        detail: itin.detail,
+                        travelId: travel.id
+                    }
+                });
+            }
+        }
+
+        for (const acc of accommodations) {
+            await prisma.accommodation.create({
+                data: {
+                    title: acc.title,
+                    photo: acc.photo,
+                    priceCategory: acc.priceCategory,
+                    travelId: travel.id
+                }
+            });
+        }
+
+        for (const resto of restaurants) {
+            await prisma.restaurant.create({
+                data: {
+                    title: resto.title,
+                    photo: resto.photo,
+                    priceCategory: resto.priceCategory,
+                    travelId: travel.id
+                }
+            });
+        }
 
         res.redirect('/home');
 
@@ -77,7 +122,13 @@ exports.getVoyageDetail = async (req, res) => {
         return res.status(400).send("ID de voyage manquant ou invalide.");
     }
     const voyage = await prisma.travel.findUnique({
-        where: { id }
+        where: { id },
+        include: {
+            accommodations: true,
+            restaurants: true,
+            itineraries: true,
+            transports: true
+        }
     });
     if (!voyage) {
         return res.status(404).render('pages/404.twig', {
@@ -102,6 +153,7 @@ exports.getVoyageDetail = async (req, res) => {
     voyage.isFavori = isFavori;
 
     const photos = voyage.photos ? voyage.photos.split(';') : [];
+
     res.render('pages/travelDetail.twig', {
         voyage,
         photos,
@@ -135,11 +187,18 @@ exports.getEditForm = async (req, res) => {
         return res.status(404).send("Voyage non trouvé");
     }
     const photosArray = voyage.photos ? voyage.photos.split(';') : [];
+    const photoCaptions = voyage.photoCaptions ? voyage.photoCaptions.split(';') : [];
+
     res.render('pages/createTravel.twig', {
         voyage,
         photosArray,
+        photoCaptions,
+        transports: await prisma.transport.findMany({ where: { travelId: id } }),
         user: req.session.user,
         edit: true,
+        accommodations: await prisma.accommodation.findMany({ where: { travelId: id } }),
+        restaurants: await prisma.restaurant.findMany({ where: { travelId: id } }),
+        itineraries: await prisma.itinerary.findMany({ where: { travelId: id } }),
         t: req.t,
         lng: req.language
     });
@@ -159,33 +218,56 @@ exports.updateTravel = async (req, res) => {
     try {
         const {
             name,
-            destination,
-            queFaire,
-            itinerary,
-            ouDormir,
-            ouManger,
-            transports
+            destination
         } = req.body;
 
+        let transports = req.body.transports || [];
+        if (!Array.isArray(transports)) {
+            transports = Object.values(transports);
+        }
+        let accommodations = req.body.accommodations || [];
+        if (typeof accommodations === 'string') {
+            try { accommodations = JSON.parse(accommodations); } catch { }
+        }
+        let restaurants = req.body.restaurants || [];
+        if (typeof restaurants === 'string') {
+            try { restaurants = JSON.parse(restaurants); } catch { }
+        }
+        let itineraries = req.body.itineraries || [];
+        if (!Array.isArray(itineraries)) {
+            itineraries = Object.values(itineraries);
+        }
         const oldVoyage = await prisma.travel.findUnique({ where: { id } });
         if (!oldVoyage) {
             return res.status(404).send("Voyage introuvable");
         }
+        let captionsExisting = req.body.captions_existing || [];
+        if (!Array.isArray(captionsExisting)) captionsExisting = [captionsExisting];
 
+        let captionsNew = req.body.captions || [];
+        if (!Array.isArray(captionsNew)) captionsNew = [captionsNew];
         let photosArray = oldVoyage.photos ? oldVoyage.photos.split(';') : [];
 
-        let toDelete = req.body.delete_photos;
-        if (toDelete) {
-            if (!Array.isArray(toDelete)) toDelete = [toDelete];
-            photosArray = photosArray.filter(photo => !toDelete.includes(photo));
-        }
+        let toDelete = req.body.delete_photos || [];
+        if (!Array.isArray(toDelete)) toDelete = [toDelete];
 
+        const filteredPhotos = [];
+        const filteredCaptions = [];
+        for (let i = 0; i < photosArray.length; i++) {
+            if (!toDelete.includes(photosArray[i])) {
+                filteredPhotos.push(photosArray[i]);
+                filteredCaptions.push(captionsExisting[i] || '');
+            }
+        }
         if (req.files && req.files.length > 0) {
-            const uploaded = req.files.map(file => file.filename);
-            photosArray = photosArray.concat(uploaded);
+            for (let i = 0; i < req.files.length; i++) {
+                filteredPhotos.push(req.files[i].filename);
+                filteredCaptions.push(captionsNew[i] || '');
+            }
         }
+        const photos = filteredPhotos.join(';');
+        const photoCaptions = filteredCaptions.join(';');
 
-        const photos = photosArray.join(';');
 
         await prisma.travel.update({
             where: { id },
@@ -193,13 +275,61 @@ exports.updateTravel = async (req, res) => {
                 name,
                 destination,
                 photos,
-                queFaire,
-                itinerary,
-                ouDormir,
-                ouManger,
-                transports
+                photoCaptions
             }
         });
+
+        // Supprimer anciens hébergements et restos liés à ce voyage
+        await prisma.accommodation.deleteMany({ where: { travelId: id } });
+        await prisma.restaurant.deleteMany({ where: { travelId: id } });
+        await prisma.itinerary.deleteMany({ where: { travelId: id } });
+        await prisma.transport.deleteMany({ where: { travelId: id } });
+
+        for (const t of transports) {
+            if (t.type && t.detail) {
+                await prisma.transport.create({
+                    data: {
+                        type: t.type,
+                        detail: t.detail,
+                        travelId: id
+                    }
+                });
+            }
+        }
+
+        for (const itin of itineraries) {
+            if (itin.title && itin.detail) {
+                await prisma.itinerary.create({
+                    data: {
+                        title: itin.title,
+                        detail: itin.detail,
+                        travelId: id
+                    }
+                });
+            }
+        }
+        // Recréer les nouveaux hébergements
+        for (const acc of accommodations) {
+            await prisma.accommodation.create({
+                data: {
+                    title: acc.title,
+                    photo: acc.photo,
+                    priceCategory: acc.priceCategory,
+                    travelId: id
+                }
+            });
+        }
+
+        for (const resto of restaurants) {
+            await prisma.restaurant.create({
+                data: {
+                    title: resto.title,
+                    photo: resto.photo,
+                    priceCategory: resto.priceCategory,
+                    travelId: id
+                }
+            });
+        }
 
         res.redirect('/voyages/' + id);
 
@@ -214,7 +344,15 @@ exports.downloadPDF = async (req, res) => {
     if (!Number.isInteger(id) || id <= 0) {
         return res.status(400).send("ID de voyage manquant ou invalide.");
     }
-    const voyage = await prisma.travel.findUnique({ where: { id } });
+    const voyage = await prisma.travel.findUnique({
+        where: { id },
+        include: {
+            itineraries: true,
+            transports: true,
+            accommodations: true,
+            restaurants: true
+        }
+    });
     if (!voyage) {
         return res.status(404).send("Voyage non trouvé");
     }
@@ -225,13 +363,23 @@ exports.downloadPDF = async (req, res) => {
             return res.status(500).send("Erreur lors du rendu PDF");
         }
         try {
-const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-});
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
+            });
             const page = await browser.newPage();
             await page.setContent(html, { waitUntil: 'networkidle0' });
-            const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
+            const pdfBuffer = await page.pdf({
+                format: 'A4',
+                printBackground: true,
+                margin: {
+                    top: '5mm',
+                    right: '5mm',
+                    bottom: '5mm',
+                    left: '5mm'
+                },
+                preferCSSPageSize: true
+            });
             await browser.close();
 
             res.set({
@@ -247,43 +395,43 @@ const browser = await puppeteer.launch({
 };
 
 exports.getRegionPage = async (req, res) => {
-  const destination = req.params.destination;
-  const userId = req.session.user?.id;
+    const destination = req.params.destination;
+    const userId = req.session.user?.id;
 
-  try {
-    const voyages = await prisma.travel.findMany({
-      where: { destination }
-    });
+    try {
+        const voyages = await prisma.travel.findMany({
+            where: { destination }
+        });
 
-    let favorisIds = [];
-    if (userId) {
-      const user = await prisma.user.findUnique({
-        where: { id: userId },
-        select: { favoris: { select: { id: true } } }
-      });
-      favorisIds = user?.favoris.map(f => f.id) || [];
+        let favorisIds = [];
+        if (userId) {
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+                select: { favoris: { select: { id: true } } }
+            });
+            favorisIds = user?.favoris.map(f => f.id) || [];
+        }
+
+        const voyagesWithFavori = voyages.map(voyage => {
+            const mainPhoto = (voyage.photos && voyage.photos.split(';')[0]) || 'default.webp';
+            return {
+                ...voyage,
+                isFavori: favorisIds.includes(voyage.id),
+                mainPhoto
+            };
+        });
+
+        res.render('pages/region.twig', {
+            voyages: voyagesWithFavori,
+            destination,
+            user: req.session.user,
+            t: req.t,
+            lng: req.language
+        });
+
+    } catch (error) {
+        console.error('Erreur chargement région:', error);
+        res.status(500).send("Erreur lors du chargement de la région");
     }
-
-    const voyagesWithFavori = voyages.map(voyage => {
-      const mainPhoto = (voyage.photos && voyage.photos.split(';')[0]) || 'default.webp';
-      return {
-        ...voyage,
-        isFavori: favorisIds.includes(voyage.id),
-        mainPhoto
-      };
-    });
-
-    res.render('pages/region.twig', {
-      voyages: voyagesWithFavori,
-      destination,
-      user: req.session.user,
-      t: req.t,
-      lng: req.language
-    });
-
-  } catch (error) {
-    console.error('Erreur chargement région:', error);
-    res.status(500).send("Erreur lors du chargement de la région");
-  }
 };
 

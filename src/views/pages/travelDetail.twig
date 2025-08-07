@@ -12,66 +12,102 @@
 
 {% block main %}
 	<main class="voyage-detail-main page-detail">
-		<h1 class="voyage-title">{{ voyage.name }}
+		<h1 class="voyage-title-flex">
+		    <span class="left-spacer"></span
+    <span class="title-text">{{ voyage.name }}</span>
 			{% if user %}
-				{% if user %}
-					<button class="fav-btn{{ voyage.isFavori ? ' is-favori' : '' }}" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}">
-						{{ voyage.isFavori ? '❤️' : '🤍' }}
-					</button>
-				{% endif %}
+				<button class="fav-btn{{ voyage.isFavori ? ' is-favori' : '' }}" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}" data-add-label="{{ t('add_favorite') }}" data-remove-label="{{ t('remove_favorite') }}">
+					<span aria-hidden="true">{{ voyage.isFavori ? '❤️&nbsp;' : '🤍&nbsp;' }}</span>
+					<span class="fav-label">{{ voyage.isFavori ? t('remove_favorite') : t('add_favorite') }}</span>
+				</button>
 			{% endif %}
 		</h1>
-		<div class="voyage-photo-carousel glide">
-			<div class="glide__track" data-glide-el="track">
-				<ul class="glide__slides">
-					{% for photo in photos %}
-						<li class="glide__slide">
-							<img src="/assets/img/{{ photo }}" alt="{{ t('photo_of') }} {{ voyage.name }} {{ loop.index }}" loading="lazy" class="carousel-img-zoom" style="cursor:pointer;" onclick="showZoom(this.src)"/>
-						</li>
-					{% endfor %}
-				</ul>
-			</div>
-			<div id="itineraire-zoom-overlay" onclick="hideOverlay()">
-				<img id="itineraire-zoom-img" src="" alt="Zoom image"/>
-			</div>
 
+		{% if photos %}
+			{% set photoCaptions = voyage.photoCaptions ? voyage.photoCaptions|split(';') : [] %}
+			<div class="voyage-photo-carousel glide">
+				<div class="glide__track" data-glide-el="track">
+					<ul class="glide__slides">
+						{% for photo in photos %}
+							<li class="glide__slide">
+								<img src="/assets/img/{{ photo }}" alt="{{ photoCaptions[loop.index0]|default('') }}" class="carousel-img-zoom" style="cursor:pointer;" onclick="showZoom(this.src, '{{ photoCaptions[loop.index0]|default('')|e('js') }}')"/>
+								<div class="carousel-caption">
+									{{ photoCaptions[loop.index0]|default('Photo du voyage') }}
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		{% endif %}
+
+
+		<div id="itineraire-zoom-overlay" onclick="hideOverlay()">
+			<img id="itineraire-zoom-img" src="" alt="Zoom image"/>
+			<div id="itineraire-zoom-caption" class="zoom-caption"></div>
 		</div>
 
 		<div class="voyage-grid">
 
-			<div class="voyage-card detail-card que-faire">
-				<h3>{{ t('que_faire') }}</h3>
-				<p>{{ voyage.queFaire|raw }}</p>
+			<h3 class="section-titre">{{ t('itinerary') }}</h3>
+			<div class="cards-row">
+				{% for itin in voyage.itineraries|slice(0,3) %}
+					<div class="card-detail card-itinerary">
+						<button class="btn-itin-toggle" type="button" onclick="toggleDetails('itin-detail-{{ itin.id }}')">
+							{{ itin.title }}
+						</button>
+						<div class="itin-detail" id="itin-detail-{{ itin.id }}" style="display:none;">
+							<div class="itin-detail-content">{{ itin.detail|raw }}</div>
+						</div>
+					</div>
+				{% endfor %}
 			</div>
-			<div id="que-faire-lightbox" class="lightbox" onclick="hidePhoto()" style="display: none;">
-				<div class="lightbox-content" onclick="event.stopPropagation()">
-					<img id="que-faire-photo-img" src="" alt="Illustration lieu"/>
-					<button class="lightbox-close" onclick="hidePhoto()">✕</button>
+
+			<div class="sections-flex">
+				<div class="section-col">
+					<h3 class="section-titre">{{ t('ou_manger') }}</h3>
+					<div class="cards-row">
+						{% if voyage.restaurants %}
+							{% for resto in voyage.restaurants|slice(0,3) %}
+								<div class="card-detail">
+									<img src="/assets/img/{{ resto.photo }}" alt="{{ resto.title }}">
+									<div class="card-nom">{{ resto.title }}</div>
+									<div class="card-euro">
+										{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+									</div>
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="section-col">
+					<h3 class="section-titre">{{ t('ou_dormir') }}</h3>
+					<div class="cards-row">
+						{% if voyage.accommodations %}
+							{% for acc in voyage.accommodations|slice(0,3) %}
+								<div class="card-detail">
+									<img src="/assets/img/{{ acc.photo }}" alt="{{ acc.title }}">
+									<div class="card-nom">{{ acc.title }}</div>
+									<div class="card-euro">
+										{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+									</div>
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
 				</div>
 			</div>
 
-			<div class="voyage-card detail-card itinerary wide">
-				<h3>{{ t('itinerary') }}</h3>
-				<div class="itinerary-content">
-					{{ voyage.itinerary|raw }}
-				</div>
+			<h3 class="section-titre">{{ t('transports') }}</h3>
+			<div class="cards-row">
+				{% for transport in voyage.transports %}
+					<div class="card-detail card-transport">
+						<div class="card-nom">{{ transport.type|capitalize }}</div>
+						<div class="card-detail-content">{{ transport.detail }}</div>
+					</div>
+				{% endfor %}
 			</div>
-
-			<div class="voyage-card detail-card ou-dormir">
-				<h3>{{ t('ou_dormir') }}</h3>
-				<p>{{ voyage.ouDormir|raw }}</p>
-			</div>
-
-			<div class="voyage-card detail-card ou-manger">
-				<h3>{{ t('ou_manger') }}</h3>
-				<p>{{ voyage.ouManger|raw }}</p>
-			</div>
-
-			<div class="voyage-card detail-card transports">
-				<h3>{{ t('transports') }}</h3>
-				<p>{{ voyage.transports|raw }}</p>
-			</div>
-
 		</div>
 
 		<div class="download-pdf">
@@ -88,47 +124,51 @@
 		{% endif %}
 	</main>
 
+	<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
 	<script>
-		function showPhoto(src) {
-const img = document.getElementById('que-faire-photo-img');
-if (! src) {
-img.style.display = 'none';
-img.src = '';
-} else {
-img.src = src;
-img.style.display = 'block';
-}
-}
-
+		// Toggle d'affichage de l'itinéraire
 function toggleDetails(id) {
 const el = document.getElementById(id);
 if (! el) 
 return;
 
-
-
-el.style.display = el.style.display === 'none' ? 'block' : 'none';
+el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
 }
-	</script>
 
-	<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
+// Zoom photo
+function showZoom(src, caption) {
+const overlay = document.getElementById('itineraire-zoom-overlay');
+const imgZoom = document.getElementById('itineraire-zoom-img');
+const captionDiv = document.getElementById('itineraire-zoom-caption');
+imgZoom.src = src;
+captionDiv.textContent = caption || '';
+overlay.classList.add('active');
+}
+
+function hideOverlay() {
+const overlay = document.getElementById('itineraire-zoom-overlay');
+overlay.classList.remove('active');
+document.getElementById('itineraire-zoom-img').src = '';
+document.getElementById('itineraire-zoom-caption').textContent = '';
+}
+
+// GlideJS carousel
+document.addEventListener('DOMContentLoaded', function () {
 const glideElement = document.querySelector('.glide');
 if (glideElement) {
 const glide = new Glide(glideElement, {
 type: 'carousel',
-perView: 3,
+perView: 5,
 autoplay: 2000,
-gap: 25,
+gap: 18,
 hoverpause: true,
 animationDuration: 800,
 breakpoints: {
 900: {
-perView: 2
+perView: 4
 },
 600: {
-perView: 1
+perView: 2
 }
 }
 });
@@ -137,90 +177,49 @@ glideElement.classList.add('glide--loaded');
 }
 });
 
-function showPhoto(filename) {
-const lightbox = document.getElementById('que-faire-lightbox');
-const img = document.getElementById('que-faire-photo-img');
-
-if (! filename) {
-lightbox.style.display = 'none';
-img.src = '';
-img.style.display = 'none';
-} else {
-const path = '/assets/img/' + filename;
-console.log('Chemin image :', path);
-
-img.src = path;
-img.style.display = 'block';
-lightbox.style.display = 'flex';
-}
-}
-
-function hidePhoto() {
-const lightbox = document.getElementById('que-faire-lightbox');
-const img = document.getElementById('que-faire-photo-img');
-
-lightbox.style.display = 'none';
-img.src = '';
-}
-
-
-function showZoom(src) {
-const overlay = document.getElementById('itineraire-zoom-overlay');
-const imgZoom = document.getElementById('itineraire-zoom-img');
-imgZoom.src = src;
-overlay.classList.add('active');
-}
-
-function hideOverlay() {
-const overlay = document.getElementById('itineraire-zoom-overlay');
-overlay.classList.remove('active');
-document.getElementById('itineraire-zoom-img').src = '';
-}
-function toggleSingleDetail(openId) {
-const ids = ['itineraire-1', 'itineraire-3', 'itineraire-5'];
-
-ids.forEach(id => {
-const section = document.getElementById(id);
-const icon = document.getElementById('icon-' + id);
-
-if (id === openId) {
-section.style.display = 'block';
-if (icon) 
-icon.textContent = '▲';
-
-
-
-} else {
-section.style.display = 'none';
-if (icon) 
-icon.textContent = '▼';
-
-
-
-}
-});
-}
-
+document.addEventListener('DOMContentLoaded', () => {
 document.querySelectorAll('.fav-btn').forEach(btn => {
-btn.addEventListener('click', function (e) {
+btn.addEventListener('click', async (e) => {
 e.preventDefault();
-const voyageId = this.dataset.voyageId;
-fetch (`/favoris/${voyageId}`, {
+
+const voyageId = btn.dataset.voyageId;
+if (! voyageId) 
+return;
+
+
+try {
+const response = await fetch (`/favoris/${voyageId}`, {
 method: 'POST',
 headers: {
 'Content-Type': 'application/json'
-},
-body: JSON.stringify({})
-}).then(res => res.json()).then(data => {
-if (data.isFavori) {
-this.classList.add('is-favori');
-this.innerHTML = '❤️';
-} else {
-this.classList.remove('is-favori');
-this.innerHTML = '🤍';
 }
-}).catch(err => {
-console.error('Erreur fetch favoris:', err);
+});
+
+if (! response.ok) 
+throw new Error (`HTTP error! status: ${
+response.status
+}`);
+
+
+const data = await response.json();
+
+if (data.isFavori) {
+btn.classList.add('is-favori');
+btn.setAttribute('aria-label', btn.dataset.removeLabel);
+btn.innerHTML = `<span aria-hidden="true">❤️&nbsp;</span><span class="fav-label">${
+btn.dataset.removeLabel
+}</span>`;
+} else {
+btn.classList.remove('is-favori');
+btn.setAttribute('aria-label', btn.dataset.addLabel);
+btn.innerHTML = `<span aria-hidden="true">🤍&nbsp;</span><span class="fav-label">${
+btn.dataset.addLabel
+}</span>`;
+}
+} catch (error) {
+console.error('Erreur lors de la mise à jour des favoris:', error);
+alert('Une erreur est survenue. Merci de réessayer.');
+}
 });
 });
 });

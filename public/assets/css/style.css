@@ -295,68 +295,68 @@ a {
 }
 
 #best-weather-card {
-  display: none;
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 20px 25px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #6CC1FF 0%, #3A8DFF 100%);
-  color: white;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
+    display: none;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px 25px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6CC1FF 0%, #3A8DFF 100%);
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
 }
 
 #best-weather-card .weather-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
 }
 
 #best-weather-card .weather-city {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 8px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
 #best-weather-card .weather-desc {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-  font-style: italic;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-style: italic;
 }
 
 #best-weather-card .weather-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto;
-  display: block;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
 }
 
 @media (max-width: 480px) {
-  #best-weather-card {
-    max-width: 90%;
-    padding: 15px 20px;
-  }
-  
-  #best-weather-card .weather-title {
-    font-size: 1.1rem;
-  }
-  
-  #best-weather-card .weather-city {
-    font-size: 1.4rem;
-  }
-  
-  #best-weather-card .weather-desc {
-    font-size: 1rem;
-  }
-  
-  #best-weather-card .weather-icon {
-    width: 60px;
-    height: 60px;
-  }
+    #best-weather-card {
+        max-width: 90%;
+        padding: 15px 20px;
+    }
+
+    #best-weather-card .weather-title {
+        font-size: 1.1rem;
+    }
+
+    #best-weather-card .weather-city {
+        font-size: 1.4rem;
+    }
+
+    #best-weather-card .weather-desc {
+        font-size: 1rem;
+    }
+
+    #best-weather-card .weather-icon {
+        width: 60px;
+        height: 60px;
+    }
 }
 
 /* =========================
@@ -710,6 +710,53 @@ main {
     text-align: center;
 }
 
+#create-travel-form button[type="button"],
+.create-travel-form button[type="button"],
+#add-acc-btn,
+#add-resto-btn {
+    display: inline-block;
+    margin: 8px 0 18px 0;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: background 0.2s, color 0.2s;
+}
+
+#create-travel-form button[type="button"]:hover,
+.create-travel-form button[type="button"]:hover,
+#add-acc-btn:hover,
+#add-resto-btn:hover {
+    background: linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+    color: var(--color-surface);
+}
+
+.accommodation-block button,
+.restaurant-block button {
+    background: var(--color-danger);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 16px;
+    font-size: 0.98em;
+    cursor: pointer;
+    margin-left: 8px;
+    margin-top: 4px;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(217, 83, 79, 0.08);
+}
+
+.accommodation-block button:hover,
+.restaurant-block button:hover {
+    background: var(--color-accent);
+    color: var(--color-surface);
+}
+
 /* =========================
    SEARCH BAR & TITRES
 ========================= */
@@ -894,31 +941,67 @@ a.new:hover {
 .voyage-detail-grid,
 .voyage-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto;
     grid-gap: 20px;
 }
 
 .voyage-detail-main .fav-btn {
-    background: none;
     border: none;
+    background: transparent;
+    font-size: 1.75rem;
     cursor: pointer;
-    font-size: 1.5em;
-    color: #e63946;
-    transition: transform 0.1s, color 0.3s;
-    padding: 0;
-    line-height: 1;
+    padding: 0.25rem;
+    transition: transform 0.2s ease, color 0.2s ease;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    line-height: 1;
 }
 
-.voyage-detail-main .fav-btn:active {
-    transform: scale(1.2);
+.fav-label {
+    color: var(--color-text);
+    font-size: small;
 }
 
-.voyage-detail-main .fav-btn:not(.is-favori) {
-    color: #ccc;
+body.dark-mode .fav-label {
+    color: #cccccc;
+}
+
+.fav-btn .fav-label:hover {
+    text-decoration: underline;
+}
+
+.fav-btn.is-favori {
+    color: #e53935;
+}
+
+.voyage-title-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Équilibrer la largeur de la zone gauche pour centrer visuellement le titre */
+.left-spacer {
+    width: 100px;
+    /* Ajustez cette largeur en fonction de la taille du bouton */
+}
+
+/* Assurer que le titre est centré */
+.title-text {
+    flex-grow: 1;
+    text-align: center;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .fav-btn {
+        color: #cccccc;
+    }
+
+    .fav-btn.is-favori {
+        color: #e53935;
+    }
 }
 
 .voyage-detail-card,
@@ -947,31 +1030,15 @@ a.new:hover {
     word-break: break-word;
 }
 
-.voyage-card.que-faire {
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.voyage-card.itinerary.wide {
-    grid-column: span 2;
-}
-
 .voyage-card.ou-dormir,
 .voyage-card.ou-manger,
 .voyage-card.transports {
-    grid-row: 2;
-}
-
-.voyage-card.ou-dormir {
-    grid-column: 1;
-}
-
-.voyage-card.ou-manger {
-    grid-column: 2;
+    grid-column: 1 / -1 !important;
+    width: 100%;
 }
 
 .voyage-card.transports {
-    grid-column: 3;
+    width: 70%;
 }
 
 .voyage-grid {
@@ -985,7 +1052,6 @@ a.new:hover {
         grid-auto-rows: auto;
     }
 
-    .voyage-card.que-faire,
     .voyage-card.itinerary,
     .voyage-card.itinerary.wide,
     .voyage-card.ou-dormir,
@@ -995,6 +1061,11 @@ a.new:hover {
         grid-row: auto !important;
         width: 100%;
     }
+}
+
+.voyage-card.voyage-card.transports h3,
+.voyage-card.voyage-card.itinerary h3 {
+    text-align: center;
 }
 
 .voyage-detail-card h3,
@@ -1099,14 +1170,15 @@ a.new:hover {
 #itineraire-zoom-overlay {
     display: none;
     position: fixed;
-    z-index: 9999;
-    top: 0;
+    z-index: 1000;
     left: 0;
+    top: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 #itineraire-zoom-overlay.active {
@@ -1115,17 +1187,17 @@ a.new:hover {
 
 #itineraire-zoom-img {
     max-width: 90vw;
-    max-height: 90vh;
-    width: auto;
-    height: auto;
-    border-radius: 14px;
-    box-shadow: none;
-    background: none;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-    border: none;
-    outline: none;
+    max-height: 70vh;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+.zoom-caption {
+    color: #fff;
+    margin-top: 18px;
+    font-size: 1.1em;
+    text-align: center;
+    max-width: 80vw;
 }
 
 /* =========================
@@ -1284,11 +1356,28 @@ a.new:hover {
 }
 
 .glide__slide img {
-    width: 100%;
-    height: 170px;
+    width: 260px;
+    height: 180px;
     object-fit: cover;
     border-radius: 8px;
-    transition: transform 0.25s ease;
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+}
+
+@media (max-width: 1100px) {
+    .glide__slide img {
+        width: 180px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .glide__slide img {
+        width: 100%;
+        max-width: 320px;
+        height: 140px;
+    }
 }
 
 @media (max-width: 900px) {
@@ -1307,6 +1396,18 @@ a.new:hover {
     overflow: hidden;
     width: 100%;
     margin-top: 1rem;
+}
+
+.carousel-caption {
+    margin-top: 6px;
+    font-size: 0.97em;
+    color: #666;
+    text-align: center;
+    min-height: 1.5em;
+}
+
+body.dark-mode .carousel-caption {
+    color: #fff;
 }
 
 .carousel-track {
@@ -1380,123 +1481,33 @@ strong[data-clickable]:hover {
     cursor: default !important;
 }
 
-#que-faire-photo-img {
-    max-width: 100%;
-    margin-top: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    display: none;
-}
-
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-}
-
-.lightbox-content {
-    width: 90vw;
-    height: 60vh;
-    background: none;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@media (min-width: 1000px) {
-    .lightbox-content {
-        width: 800px;
-        height: 600px;
-    }
-}
-
-@media (max-width: 999px) and (min-width: 600px) {
-    .lightbox-content {
-        width: 90vw;
-        height: 60vh;
-    }
-}
-
-@media (max-width: 599px) {
-    .lightbox-content {
-        width: 70vw;
-        height: 40vh;
-    }
-}
-
-.lightbox-content img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    background: var(--white);
+.btn-itin-toggle {
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: #fff;
     border: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    border-radius: 50%;
+    border-radius: 6px;
+    padding: 8px 22px;
+    font-size: 1em;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s ease, transform 0.2s ease;
+    margin: 10px 0 0 0;
+    box-shadow: 0 2px 8px rgba(74, 169, 108, 0.10);
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+    letter-spacing: 0.5px;
 }
 
-.lightbox-close:hover {
-    background: #f2f2f2;
-    transform: scale(1.1);
+.btn-itin-toggle:hover,
+.btn-itin-toggle:focus {
+    background: linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+    color: var(--color-surface);
+    transform: translateY(-2px) scale(1.03);
+    outline: none;
 }
 
-.itinerary-content h4 {
-    cursor: pointer;
-    color: var(--text-default, #000000);
-    text-decoration: underline;
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: 3px;
-    transition: color 0.2s ease;
+.btn-itin-toggle:active {
+    transform: scale(0.98);
 }
 
-.itinerary-content h4:hover {
-    color: var(--color-primary);
-}
-
-.toggle-title {
-    cursor: pointer;
-    text-decoration: underline dotted;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.toggle-icon {
-    margin-left: 10px;
-    font-weight: bold;
-}
-
-#carte-meteo-france {
-    display: none;
-    width: 100%;
-    max-width: 700px;
-    height: 500px;
-    margin: 80px auto;
-}
 
 /* =========================
    DARK MODE
@@ -1692,6 +1703,34 @@ body.dark-mode .add-photo-btn {
 
 body.dark-mode .add-photo-btn:hover {
     background-color: #333;
+}
+
+body.dark-mode .section-titre {
+    color: var(--color-primary);
+}
+
+body.dark-mode .card-detail {
+    background: var(--color-surface);
+    border: 1px solid var(--color-primary-light);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+body.dark-mode .card-detail:hover {
+    box-shadow: var(--shadow-strong);
+    border-color: var(--color-primary);
+}
+
+body.dark-mode .card-detail img {
+    background: var(--color-input-bg);
+}
+
+body.dark-mode .card-nom {
+    color: var(--color-text);
+}
+
+body.dark-mode .card-euro {
+    color: var(--color-primary);
 }
 
 #darkSwitch {
@@ -2006,4 +2045,175 @@ body.dark-mode .add-photo-btn:hover {
         transition: none !important;
         animation: none !important;
     }
+}
+
+.sections-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    margin: 40px 0 24px 0;
+}
+
+.section-col {
+    flex: 1 1 0;
+    width: 100%;
+}
+
+.section-titre {
+    margin-bottom: 14px;
+    font-size: 1.30em;
+    color: var(--color-primary);
+    text-align: left;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding-left: 6px;
+}
+
+.cards-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 10px;
+}
+
+.card-detail {
+    background: var(--color-surface);
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.09);
+    padding: 20px 14px 16px 14px;
+    width: 230px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1.5px solid var(--color-primary-light);
+    transition: box-shadow 0.2s;
+}
+
+.card-detail:hover {
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+    border-color: var(--color-primary);
+}
+
+.card-detail img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #e3eafc;
+}
+
+.card-nom {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-top: 2px;
+    color: var(--color-text);
+}
+
+.card-euro {
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 1.13em;
+    margin-top: 20px;
+}
+
+@media (min-width: 770px) {
+    .card-transport {
+        width: 320px;
+        min-width: 260px;
+        max-width: 100%;
+        margin: 0 12px;
+    }
+
+    .cards-row {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1180px) {
+    .sections-flex {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .section-col {
+        width: 100%;
+    }
+}
+
+@media (max-width: 770px) {
+    .cards-row {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .card-detail {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .card-detail img {
+        height: 120px;
+    }
+}
+
+.card-itinerary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+.card-itinerary .btn-itin-toggle {
+    align-self: center;
+    margin: 0 auto;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* assombri le fond */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 10;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--color-primary-light);
 }

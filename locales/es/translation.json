@@ -11,6 +11,8 @@
   "photo_of": "Foto de",
   "add_remove_favorite": "Añadir/quitar de favoritos",
   "no_favorites": "No se encontraron favoritos",
+  "add_favorite": "Añadir a favoritos",
+  "remove_favorite": "Quitar de favoritos",
   "forgot_password_title": "¿Olvidaste tu contraseña?",
   "forgot_password_question": "¿Olvidaste tu contraseña?",
   "forgot_password_instruction": "Introduce tu correo electrónico para recibir un enlace de restablecimiento.",
@@ -148,11 +150,10 @@
   "reset_email_subject": "Solicitud de restablecimiento de contraseña",
   "reset_email_body": "Haz clic aquí para restablecer tu contraseña:",
   "slogan": "EscapadaVerde<br><br>Francia, al ritmo de la naturaleza",
-  "que_faire": "Qué hacer",
   "ou_dormir": "Dónde dormir",
   "ou_manger": "Dónde comer",
   "transports": "Transportes",
-   "weather_recommendation_title": "Recomendación del día según el clima",
+  "weather_recommendation_title": "Recomendación del día según el clima",
   "weather_forecast_text": "%s, máxima de %d°C hoy",
   "weather_icon_alt": "Ícono del clima %s"
 }

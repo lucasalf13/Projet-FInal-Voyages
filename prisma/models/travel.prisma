@@ -1,12 +1,18 @@
 model Travel {
-    id          Int    @id @default(autoincrement())
-    name        String @unique
-    photos      String @db.Text
-    destination String
-    queFaire    String @db.Text
-    itinerary   String @db.Text
-    ouDormir    String @db.Text
-    ouManger    String @db.Text
-    transports  String @db.Text
-    favorisDe   User[] @relation("Favoris")
+    id             Int             @id @default(autoincrement())
+    name           String          @unique
+    photos         String          @db.Text
+    photoCaptions  Json?
+    destination    String
+    favorisDe      User[]          @relation("Favoris")
+    accommodations Accommodation[]
+    restaurants    Restaurant[]
+    itineraries    Itinerary[]
+    transports     Transport[]
+}
+
+enum PriceCategory {
+  EURO        // €
+  TWO_EURO    // €€
+  THREE_EURO  // €€€
 }

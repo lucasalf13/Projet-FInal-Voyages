@@ -10,6 +10,8 @@
   "create_trip": "Crea viaggio",
   "photo_of": "Foto di",
   "add_remove_favorite": "Aggiungi/rimuovi dai preferiti",
+  "add_favorite": "Aggiungere ai preferiti",
+  "remove_favorite": "Rimuovere dai preferiti",
   "no_favorites": "Nessun preferito trovato",
   "forgot_password_title": "Password dimenticata",
   "forgot_password_question": "Hai dimenticato la password?",
@@ -148,11 +150,10 @@
   "reset_email_subject": "Richiesta di reimpostazione password",
   "reset_email_body": "Clicca qui per reimpostare la tua password:",
   "slogan": "FugaVerde<br><br>La Francia, al ritmo della natura",
-  "que_faire": "Cosa fare",
   "ou_dormir": "Dove dormire",
   "ou_manger": "Dove mangiare",
   "transports": "Trasporti",
-   "weather_recommendation_title": "Raccomandazione del giorno secondo il meteo",
+  "weather_recommendation_title": "Raccomandazione del giorno secondo il meteo",
   "weather_forecast_text": "%s, massima di %d°C oggi",
   "weather_icon_alt": "Icona meteo %s"
 }

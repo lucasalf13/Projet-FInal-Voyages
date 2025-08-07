@@ -11,6 +11,8 @@
   "photo_of": "Photo of",
   "add_remove_favorite": "Add/remove from favorites",
   "no_favorites": "No favorites found",
+  "add_favorite": "Add to favorites",
+  "remove_favorite": "Remove from favorites",
   "forgot_password_title": "Forgot Password",
   "forgot_password_question": "Forgot your password?",
   "forgot_password_instruction": "Enter your email address to receive a reset link.",
@@ -148,11 +150,10 @@
   "reset_email_subject": "Réinitialisation de votre mot de passe",
   "reset_email_body": "Cliquez ici pour réinitialiser votre mot de passe :",
   "slogan": "GreenEscape<br><br>France, in harmony with nature",
-  "que_faire": "Things to do",
   "ou_dormir": "Where to sleep",
   "ou_manger": "Where to eat",
   "transports": "Transportation",
-    "weather_recommendation_title": "Today's recommendation based on the weather",
+  "weather_recommendation_title": "Today's recommendation based on the weather",
   "weather_forecast_text": "%s, max %d°C today",
   "weather_icon_alt": "Weather icon %s"
 }

@@ -120,12 +120,13 @@ nav.classList.remove('open');
 }
 });
 
-		document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
 const darkSwitch = document.getElementById('darkSwitch');
 
 function updateIcon() {
 if (! darkSwitch) 
 return;
+
 
 
 darkSwitch.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';

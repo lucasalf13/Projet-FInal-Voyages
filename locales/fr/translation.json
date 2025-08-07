@@ -10,6 +10,8 @@
   "create_trip": "Créer un voyage",
   "photo_of": "Photo de",
   "add_remove_favorite": "Ajouter/retirer des favoris",
+  "add_favorite": "Ajouter en favoris",
+  "remove_favorite": "Retirer des favoris",
   "no_favorites": "Aucun favori trouvé",
   "forgot_password_title": "Mot de passe oublié",
   "forgot_password_question": "Mot de passe oublié ?",
@@ -148,11 +150,10 @@
   "reset_email_subject": "Réinitialisation de votre mot de passe",
   "reset_email_body": "Cliquez ici pour réinitialiser votre mot de passe :",
   "slogan": "ÉchappéeVerte<br><br>La France, au rythme de la nature",
-  "que_faire": "Que faire",
   "ou_dormir": "Où dormir",
   "ou_manger": "Où manger",
   "transports": "Transports",
-    "weather_recommendation_title": "Recommandation du jour selon météo",
+  "weather_recommendation_title": "Recommandation du jour selon météo",
   "weather_forecast_text": "%s, max %d°C aujourd’hui",
   "weather_icon_alt": "Icône météo %s"
 }
