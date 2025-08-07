@@ -981,13 +981,10 @@ body.dark-mode .fav-label {
     justify-content: space-between;
 }
 
-/* Équilibrer la largeur de la zone gauche pour centrer visuellement le titre */
 .left-spacer {
     width: 100px;
-    /* Ajustez cette largeur en fonction de la taille du bouton */
 }
 
-/* Assurer que le titre est centré */
 .title-text {
     flex-grow: 1;
     text-align: center;

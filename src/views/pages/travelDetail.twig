@@ -17,8 +17,8 @@
     <span class="title-text">{{ voyage.name }}</span>
 			{% if user %}
 				<button class="fav-btn{{ voyage.isFavori ? ' is-favori' : '' }}" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}" data-add-label="{{ t('add_favorite') }}" data-remove-label="{{ t('remove_favorite') }}">
-					<span aria-hidden="true">{{ voyage.isFavori ? '❤️&nbsp;' : '🤍&nbsp;' }}</span>
 					<span class="fav-label">{{ voyage.isFavori ? t('remove_favorite') : t('add_favorite') }}</span>
+					<span aria-hidden="true">{{ voyage.isFavori ? '❤️&nbsp;' : '🤍&nbsp;' }}</span>
 				</button>
 			{% endif %}
 		</h1>
@@ -206,15 +206,13 @@ const data = await response.json();
 if (data.isFavori) {
 btn.classList.add('is-favori');
 btn.setAttribute('aria-label', btn.dataset.removeLabel);
-btn.innerHTML = `<span aria-hidden="true">❤️&nbsp;</span><span class="fav-label">${
-btn.dataset.removeLabel
-}</span>`;
+btn.innerHTML = `<span class="fav-label">${btn.dataset.removeLabel}</span><span class="fav-icon" aria-hidden="true">&nbsp;❤️</span>`;
+
 } else {
 btn.classList.remove('is-favori');
 btn.setAttribute('aria-label', btn.dataset.addLabel);
-btn.innerHTML = `<span aria-hidden="true">🤍&nbsp;</span><span class="fav-label">${
-btn.dataset.addLabel
-}</span>`;
+btn.innerHTML = `<span class="fav-label">${btn.dataset.addLabel}</span><span class="fav-icon" aria-hidden="true">&nbsp;🤍</span>`;
+
 }
 } catch (error) {
 console.error('Erreur lors de la mise à jour des favoris:', error);
