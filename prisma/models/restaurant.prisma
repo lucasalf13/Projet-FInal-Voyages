@@ -3,6 +3,7 @@ model Restaurant {
   title         String
   photo         String
   priceCategory PriceCategory
+  url           String?
   travel        Travel        @relation(fields: [travelId], references: [id])
   travelId      Int
 }

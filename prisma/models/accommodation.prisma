@@ -3,6 +3,7 @@ model Accommodation {
   title         String
   photo         String        // URL ou chemin vers une image
   priceCategory PriceCategory
+  url           String?
   travel        Travel        @relation(fields: [travelId], references: [id])
   travelId      Int
 }

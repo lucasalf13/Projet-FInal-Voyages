@@ -144,7 +144,8 @@
         const accs = Array.from(blocks).map(block => ({
             title: block.querySelector('[data-acc="title"]').value,
             photo: block.querySelector('[data-acc="photo"]').value,
-            priceCategory: block.querySelector('[data-acc="priceCategory"]').value
+            priceCategory: block.querySelector('[data-acc="priceCategory"]').value,
+             url: block.querySelector('[data-acc="url"]').value
         }));
         document.getElementById('accommodations-json').value = JSON.stringify(accs);
     }
@@ -156,6 +157,8 @@
             <div class="accommodation-block" style="margin-bottom:10px;">
                 <input type="text" placeholder="Nom hébergement" data-acc="title" value="${data.title || ''}" required>
                 <input type="text" placeholder="Photo" data-acc="photo" value="${data.photo || ''}">
+                            <input type="url" placeholder="Lien vers hébergement (URL)" data-acc="url" value="${data.url || ''}">
+
                 <select data-acc="priceCategory">
                     <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
                     <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>
@@ -172,7 +175,8 @@
         const restos = Array.from(blocks).map(block => ({
             title: block.querySelector('[data-resto="title"]').value,
             photo: block.querySelector('[data-resto="photo"]').value,
-            priceCategory: block.querySelector('[data-resto="priceCategory"]').value
+            priceCategory: block.querySelector('[data-resto="priceCategory"]').value,
+            url: block.querySelector('[data-resto="url"]').value
         }));
         document.getElementById('restaurants-json').value = JSON.stringify(restos);
     }
@@ -184,6 +188,8 @@
             <div class="restaurant-block" style="margin-bottom:10px;">
                 <input type="text" placeholder="Nom restaurant" data-resto="title" value="${data.title || ''}" required>
                 <input type="text" placeholder="Photo" data-resto="photo" value="${data.photo || ''}">
+                            <input type="url" placeholder="Lien vers restaurant (URL)" data-resto="url" value="${data.url || ''}"> <!-- ✅ ajout -->
+
                 <select data-resto="priceCategory">
                     <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
                     <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>

@@ -70,11 +70,17 @@
 						{% if voyage.restaurants %}
 							{% for resto in voyage.restaurants|slice(0,3) %}
 								<div class="card-detail">
+								{% if resto.url %}
+                <a href="{{ resto.url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+            {% endif %}
 									<img src="/assets/img/{{ resto.photo }}" alt="{{ resto.title }}">
 									<div class="card-nom">{{ resto.title }}</div>
 									<div class="card-euro">
 										{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
 									</div>
+									 {% if resto.url %}
+                </a>
+            {% endif %}
 								</div>
 							{% endfor %}
 						{% endif %}
@@ -87,11 +93,17 @@
 						{% if voyage.accommodations %}
 							{% for acc in voyage.accommodations|slice(0,3) %}
 								<div class="card-detail">
+								{% if acc.url %}
+						<a href="{{ acc.url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+					{% endif %}
 									<img src="/assets/img/{{ acc.photo }}" alt="{{ acc.title }}">
 									<div class="card-nom">{{ acc.title }}</div>
 									<div class="card-euro">
 										{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
 									</div>
+									{% if acc.url %}
+						</a>
+					{% endif %}
 								</div>
 							{% endfor %}
 						{% endif %}

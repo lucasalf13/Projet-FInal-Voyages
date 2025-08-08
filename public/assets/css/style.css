@@ -496,6 +496,7 @@ main {
 .auth-form input[type="password"],
 .create-travel-form input[type="text"],
 .create-travel-form input[type="number"],
+.create-travel-form input[type="url"],
 .create-travel-form textarea,
 .create-travel-form select,
 .add-photo-btn,

@@ -1,148 +1,187 @@
 <!DOCTYPE html>
 <html lang="{{ app.language|default('fr') }}">
-<head>
-<meta charset="UTF-8" />
-<title>{{ t('trip') }} : {{ voyage.name }}</title>
-<style>
-  @page {
-    size: A4;
-    margin: 10mm;
-  }
+	<head>
+		<meta charset="UTF-8"/>
+		<title>{{ t('trip') }}
+			:
+			{{ voyage.name }}</title>
+		<style>
+			@page {
+				size: A4;
+				margin: 10mm;
+			}
 
-  br {
-    display: none;
-  }
+			br {
+				display: none;
+			}
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Lora', serif;
-    background: #fff;
-    color: #2f4f2f;
-    font-size: 10.5pt;
-    line-height: 1.2;
-    -webkit-print-color-adjust: exact;
-  }
+			a {
+				color: #1a0dab;
+				text-decoration: underline;
+				word-break: break-all;
+			}
 
-  body {
-    display: flex;
-    justify-content: center;
-  }
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: 'Lora', serif;
+				background: #fff;
+				color: #2f4f2f;
+				font-size: 10.5pt;
+				line-height: 1.2;
+				-webkit-print-color-adjust: exact;
+			}
 
-  .pdf-container {
-    max-width: 190mm;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6mm;
-  }
+			body {
+				display: flex;
+				justify-content: center;
+			}
 
-  h1 {
-    width: 100%;
-    font-weight: 700;
-    font-size: 16pt;
-    text-align: center;
-    margin-bottom: 8pt;
-    color: #3a6b35;
-  }
+			.pdf-container {
+				max-width: 190mm;
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6mm;
+			}
 
-  .pdf-column {
-    flex: 1 1 48%;
-    display: flex;
-    flex-direction: column;
-    gap: 6pt;
-  }
+			h1 {
+				width: 100%;
+				font-weight: 700;
+				font-size: 16pt;
+				text-align: center;
+				margin-bottom: 8pt;
+				color: #3a6b35;
+			}
 
-  .pdf-section {
-    background: #ecf6ec;
-    border-left: 4px solid #4caf50;
-    padding: 6pt 10pt;
-    border-radius: 4pt;
-    page-break-inside: avoid;
-  }
+			.pdf-column {
+				flex: 1 1 48%;
+				display: flex;
+				flex-direction: column;
+				gap: 6pt;
+			}
 
-  .pdf-label {
-    font-weight: 700;
-    font-size: 10.5pt;
-    margin-bottom: 3pt;
-    color: #3a6b35;
-  }
+			.pdf-section {
+				background: #ecf6ec;
+				border-left: 4px solid #4caf50;
+				padding: 6pt 10pt;
+				border-radius: 4pt;
+				page-break-inside: avoid;
+			}
 
-  .pdf-content {
-    white-space: pre-wrap;
-    font-weight: 400;
-    font-size: 10pt;
-    color: #1f331f;
-  }
+			.pdf-label {
+				font-weight: 700;
+				font-size: 10.5pt;
+				margin-bottom: 3pt;
+				color: #3a6b35;
+			}
 
-  strong {
-    font-weight: 600;
-  }
+			.pdf-content {
+				white-space: pre-wrap;
+				font-weight: 400;
+				font-size: 10pt;
+				color: #1f331f;
+			}
 
-  em {
-    color: #556b55;
-    font-style: italic;
-  }
+			strong {
+				font-weight: 600;
+			}
 
-  .pdf-content > strong {
-    display: inline;
-  }
-</style>
+			em {
+				color: #556b55;
+				font-style: italic;
+			}
 
-<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
-</head>
+			.pdf-content > strong {
+				display: inline;
+			}
+		</style>
 
-<body>
-  <div class="pdf-container">
-    <h1>{{ voyage.name }}</h1>
+		<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet"/>
+	</head>
 
-    <div class="pdf-column">
-      <div class="pdf-section">
-        <span class="pdf-label">{{ t('itinerary') }} :</span>
-        <div class="pdf-content">
-          {% for itin in voyage.itineraries %}
-            <strong>{{ itin.title }}:</strong> {{ itin.detail|striptags }}{% if not loop.last %} · {% endif %}
-          {% else %}
-            <em>{{ t('no_itinerary') }}</em>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+	<body>
+		<div class="pdf-container">
+			<h1>{{ voyage.name }}</h1>
 
-    <div class="pdf-column">
-      <div class="pdf-section">
-        <span class="pdf-label">{{ t('ou_dormir') }} :</span>
-        <div class="pdf-content">
-          {% for acc in voyage.accommodations %}
-            <strong>{{ acc.title }}</strong> - {{ acc.priceCategory }}{% if not loop.last %} · {% endif %}
-          {% else %}
-            <em>{{ t('no_accommodation') }}</em>
-          {% endfor %}
-        </div>
-      </div>
+			<div class="pdf-column">
+				<div class="pdf-section">
+					<span class="pdf-label">{{ t('itinerary') }}
+						:</span>
+					<div class="pdf-content">
+						{% for itin in voyage.itineraries %}
+							<strong>{{ itin.title }}:</strong>
+							{{ itin.detail|striptags }}
+							{% if not loop.last %}
+								·
+							{% endif %}
+						{% else %}
+							<em>{{ t('no_itinerary') }}</em>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
 
-      <div class="pdf-section">
-        <span class="pdf-label">{{ t('ou_manger') }} :</span>
-        <div class="pdf-content">
-          {% for resto in voyage.restaurants %}
-            <strong>{{ resto.title }}</strong> - {{ resto.priceCategory }}{% if not loop.last %} · {% endif %}
-          {% else %}
-            <em>{{ t('no_restaurant') }}</em>
-          {% endfor %}
-        </div>
-      </div>
+			<div class="pdf-column">
+				<div class="pdf-section">
+					<span class="pdf-label">{{ t('ou_dormir') }}
+						:</span>
+					<div class="pdf-content">
+						{% for acc in voyage.accommodations %}
+							<strong>{{ acc.title }}</strong>
+							-
+							{{ acc.priceCategory }}
+							{% if acc.url %}
+								–
+								<a href="{{ acc.url }}" target="_blank">{{ acc.url }}</a>
+							{% endif %}
+							{% if not loop.last %}
+								·
+							{% endif %}
+						{% else %}
+							<em>{{ t('no_accommodation') }}</em>
+						{% endfor %}
+					</div>
+				</div>
 
-      <div class="pdf-section">
-        <span class="pdf-label">{{ t('transports') }} :</span>
-        <div class="pdf-content">
-          {% for transport in voyage.transports %}
-            <strong>{{ transport.type|capitalize }}</strong>: {{ transport.detail }}{% if not loop.last %} · {% endif %}
-          {% else %}
-            <em>{{ t('no_transport') }}</em>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
+				<div class="pdf-section">
+					<span class="pdf-label">{{ t('ou_manger') }}
+						:</span>
+					<div class="pdf-content">
+						{% for resto in voyage.restaurants %}
+							<strong>{{ resto.title }}</strong>
+							-
+							{{ resto.priceCategory }}
+							{% if resto.url %}
+								–
+								<a href="{{ resto.url }}" target="_blank">{{ resto.url }}</a>
+							{% endif %}
+							{% if not loop.last %}
+								·
+							{% endif %}
+						{% else %}
+							<em>{{ t('no_restaurant') }}</em>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="pdf-section">
+					<span class="pdf-label">{{ t('transports') }}
+						:</span>
+					<div class="pdf-content">
+						{% for transport in voyage.transports %}
+							<strong>{{ transport.type|capitalize }}</strong>:
+							{{ transport.detail }}
+							{% if not loop.last %}
+								·
+							{% endif %}
+						{% else %}
+							<em>{{ t('no_transport') }}</em>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

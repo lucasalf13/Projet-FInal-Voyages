@@ -87,6 +87,7 @@ exports.createTravel = async (req, res) => {
                     title: acc.title,
                     photo: acc.photo,
                     priceCategory: acc.priceCategory,
+                    url: acc.url,
                     travelId: travel.id
                 }
             });
@@ -98,6 +99,7 @@ exports.createTravel = async (req, res) => {
                     title: resto.title,
                     photo: resto.photo,
                     priceCategory: resto.priceCategory,
+                    url: resto.url,
                     travelId: travel.id
                 }
             });
@@ -315,6 +317,7 @@ exports.updateTravel = async (req, res) => {
                     title: acc.title,
                     photo: acc.photo,
                     priceCategory: acc.priceCategory,
+                    url: acc.url,
                     travelId: id
                 }
             });
@@ -326,6 +329,7 @@ exports.updateTravel = async (req, res) => {
                     title: resto.title,
                     photo: resto.photo,
                     priceCategory: resto.priceCategory,
+                    url: resto.url,
                     travelId: id
                 }
             });
