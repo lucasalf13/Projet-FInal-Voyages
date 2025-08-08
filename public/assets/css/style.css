@@ -2093,6 +2093,7 @@ body.dark-mode .card-euro {
 
 .card-detail:hover {
     box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+    transform: translateY(-1px) scale(1.01);
     border-color: var(--color-primary);
 }
 
