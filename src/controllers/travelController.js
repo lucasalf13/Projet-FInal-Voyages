@@ -281,7 +281,6 @@ exports.updateTravel = async (req, res) => {
             }
         });
 
-        // Supprimer anciens hébergements et restos liés à ce voyage
         await prisma.accommodation.deleteMany({ where: { travelId: id } });
         await prisma.restaurant.deleteMany({ where: { travelId: id } });
         await prisma.itinerary.deleteMany({ where: { travelId: id } });
@@ -310,7 +309,6 @@ exports.updateTravel = async (req, res) => {
                 });
             }
         }
-        // Recréer les nouveaux hébergements
         for (const acc of accommodations) {
             await prisma.accommodation.create({
                 data: {

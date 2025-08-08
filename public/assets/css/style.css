@@ -2184,7 +2184,6 @@ body.dark-mode .card-euro {
     height: 100vh;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-    /* assombri le fond */
     align-items: center;
     justify-content: center;
 }
