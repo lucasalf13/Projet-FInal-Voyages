@@ -88,7 +88,7 @@
         <label>Type :</label>
         <select name="transports[{{ i }}][type]" required>
             <option value="commun" {{ transports[i].type == 'commun' ? 'selected' : '' }}>Transports en commun</option>
-            <option value="vélo" {{ transports[i].type == 'vélo' ? 'selected' : '' }}>Vélo</option>
+            <option value="velo" {{ transports[i].type == 'velo' ? 'selected' : '' }}>Vélo</option>
         </select>
         <label>Détail :</label>
         <textarea name="transports[{{ i }}][detail]" required>{{ transports[i].detail|default('') }}</textarea>
