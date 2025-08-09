@@ -155,5 +155,7 @@
   "transports": "Transportes",
   "weather_recommendation_title": "Recomendación del día según el clima",
   "weather_forecast_text": "%s, máxima de %d°C hoy",
-  "weather_icon_alt": "Ícono del clima %s"
+  "weather_icon_alt": "Ícono del clima %s",
+   "transports_en_commun": "🚌 Transporte público",
+    "velo": "🚴‍♀️ Bicicleta"
 }

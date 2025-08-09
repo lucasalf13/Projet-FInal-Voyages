@@ -115,10 +115,20 @@
 			<div class="cards-row">
 				{% for transport in voyage.transports %}
 					<div class="card-detail card-transport">
-						<div class="card-nom">{{ transport.type|capitalize }}</div>
-						<div class="card-detail-content">{{ transport.detail }}</div>
-					</div>
-				{% endfor %}
+			{% set type = transport.type|lower %}
+<div class="card-nom">
+  {% if type == 'commun' %}
+    {{ t('transports_en_commun') }}
+  {% elseif type == 'velo' %}
+    {{ t('velo') }}
+  {% else %}
+    {{ transport.type|capitalize }}
+  {% endif %}
+</div>
+
+      <div class="card-detail-content">{{ transport.detail }}</div>
+    </div>
+  {% endfor %}
 			</div>
 		</div>
 
