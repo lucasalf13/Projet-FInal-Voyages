@@ -51,13 +51,18 @@
 
 			<h3 class="section-titre">{{ t('itinerary') }}</h3>
 			<div class="cards-row">
+			{% set keys = ['itinerary.title1', 'itinerary.title2', 'itinerary.title3'] %}
+
 				{% for itin in voyage.itineraries|slice(0,3) %}
-					<div class="card-detail card-itinerary">
-						<button class="btn-itin-toggle" type="button" onclick="toggleDetails('itin-detail-{{ itin.id }}')">
-							{{ itin.title }}
-						</button>
-						<div class="itin-detail" id="itin-detail-{{ itin.id }}" style="display:none;">
+					<div class="card-detail card-itinerary" id="itin-card-{{ itin.id }}">
+		<button class="btn-itin-toggle" type="button" onclick="toggleItinerary({{ itin.id }})">
+   {{ t(keys[loop.index0]) }}
+</button>
+
+
+						<div class="itin-detail" id="itin-detail-{{ itin.id }}">
 							<div class="itin-detail-content">{{ itin.detail|raw }}</div>
+
 						</div>
 					</div>
 				{% endfor %}
@@ -148,14 +153,28 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
 	<script>
-		// Toggle d'affichage de l'itinéraire
-function toggleDetails(id) {
-const el = document.getElementById(id);
-if (! el) 
-return;
+function toggleItinerary(id) {
+    const cardsRow = document.querySelector('.cards-row');
+    const card = document.getElementById('itin-card-' + id);
 
-el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    if (!card) return;
+
+    const isAlreadyOpen = card.classList.contains('open');
+
+    if (isAlreadyOpen) {
+        card.classList.remove('open');
+        if (cardsRow) cardsRow.classList.remove('opened');
+        return;
+    }
+
+    document.querySelectorAll('.card-itinerary').forEach(c => {
+        c.classList.remove('open');
+    });
+    card.classList.add('open');
+    if (cardsRow) cardsRow.classList.add('opened');
 }
+
+
 
 // Zoom photo
 function showZoom(src, caption) {
