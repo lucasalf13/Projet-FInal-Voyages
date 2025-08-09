@@ -118,9 +118,9 @@
 			{% set type = transport.type|lower %}
 <div class="card-nom">
   {% if type == 'commun' %}
-    {{ t('transports_en_commun') }}
+   🚌 {{ t('transports_en_commun') }}
   {% elseif type == 'velo' %}
-    {{ t('velo') }}
+   🚲 {{ t('velo') }}
   {% else %}
     {{ transport.type|capitalize }}
   {% endif %}
