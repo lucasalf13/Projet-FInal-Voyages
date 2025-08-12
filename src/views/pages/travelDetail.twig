@@ -13,7 +13,7 @@
 {% block main %}
 	<main class="voyage-detail-main page-detail">
 		<h1 class="voyage-title-flex">
-		    <span class="left-spacer"></span
+		    <span class="left-spacer"></span>
     <span class="title-text">{{ voyage.name }}</span>
 			{% if user %}
 				<button class="fav-btn{{ voyage.isFavori ? ' is-favori' : '' }}" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}" data-add-label="{{ t('add_favorite') }}" data-remove-label="{{ t('remove_favorite') }}">
@@ -61,7 +61,7 @@
 
 
 						<div class="itin-detail" id="itin-detail-{{ itin.id }}">
-							<div class="itin-detail-content">{{ itin.detail|raw }}</div>
+							<div class="itin-detail-content">{{ t(itin.detail)|raw }}</div>
 
 						</div>
 					</div>
@@ -131,7 +131,7 @@
   {% endif %}
 </div>
 
-      <div class="card-detail-content">{{ transport.detail }}</div>
+      <div class="card-detail-content">{{ t(transport.detail)|raw }}</div>
     </div>
   {% endfor %}
 			</div>
@@ -154,27 +154,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
 	<script>
 function toggleItinerary(id) {
-    const cardsRow = document.querySelector('.cards-row');
     const card = document.getElementById('itin-card-' + id);
-
     if (!card) return;
 
-    const isAlreadyOpen = card.classList.contains('open');
-
-    if (isAlreadyOpen) {
-        card.classList.remove('open');
-        if (cardsRow) cardsRow.classList.remove('opened');
-        return;
-    }
-
-    document.querySelectorAll('.card-itinerary').forEach(c => {
-        c.classList.remove('open');
-    });
-    card.classList.add('open');
-    if (cardsRow) cardsRow.classList.add('opened');
+    card.classList.toggle('open');
 }
-
-
 
 // Zoom photo
 function showZoom(src, caption) {

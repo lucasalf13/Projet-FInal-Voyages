@@ -2227,7 +2227,9 @@ body.dark-mode .card-euro {
 }
 
 .card-itinerary .itin-detail {
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
 }
 
 .card-itinerary.open {
@@ -2241,9 +2243,27 @@ body.dark-mode .card-euro {
 }
 
 .card-itinerary.open .itin-detail {
-    display: block;
+    max-height: 1000px;
 }
+@media (max-width: 768px) {
+  .cards-row {
+    flex-direction: column;
+    gap: 16px;
+  }
 
-.cards-row.opened .card-itinerary:not(.open) {
-    display: none;
+  .card-itinerary {
+    max-width: 50%;
+    flex: 1 1 100%;
+    height: auto;
+  }
+    .card-itinerary:not(.open) {
+    height: 40px;
+    padding: 8px 10px;
+  }
+
+  .card-itinerary:not(.open) .btn-itin-toggle {
+    height: 30px;
+    font-size: 0.9em;
+    padding: 4px 6px;
+  }
 }
