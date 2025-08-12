@@ -50,33 +50,24 @@ const translations = {
   weather_forecast_text: "{{ t('weather_forecast_text') }}",
   weather_icon_alt: "{{ t('weather_icon_alt') }}"
 };
-
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const resTopVille = await fetch('/api/meteo/top-ville');
     const topVille = await resTopVille.json();
 
-    if (topVille && topVille.lat && topVille.lon && topVille.city) {
-      const resMeteo = await fetch(`/api/meteo/${topVille.lat}/${topVille.lon}`);
-      const meteoData = await resMeteo.json();
-      const todayForecast = meteoData.forecast.forecastday[0].day;
-
+    if (topVille && topVille.city) {
       const card = document.getElementById('best-weather-card');
       document.getElementById('best-weather-city').textContent = topVille.city;
 
-      // Texte météo brut (sans traduction condition)
-      const condition = todayForecast.condition.text;
-      const tempMax = todayForecast.maxtemp_c;
-
       const translatedSentence = translations.weather_forecast_text
-        .replace('%s', condition)
-        .replace('%d', tempMax);
+        .replace('%s', topVille.condition)
+        .replace('%d', topVille.temp_c);
 
       document.getElementById('best-weather-desc').textContent = translatedSentence;
 
       const icon = document.getElementById('best-weather-icon');
-      icon.src = "https:" + todayForecast.condition.icon;
-      icon.alt = translations.weather_icon_alt.replace('%s', condition);
+      icon.src = topVille.icon;
+      icon.alt = translations.weather_icon_alt.replace('%s', topVille.condition);
 
       card.style.display = 'block';
     }
