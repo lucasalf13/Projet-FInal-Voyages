@@ -1,223 +1,253 @@
 {% extends "../layouts/base.twig" %}
 
 {% block style %}
-    <link rel="stylesheet" href="/assets/css/style.css"/>
+	<link rel="stylesheet" href="/assets/css/style.css"/>
 {% endblock %}
 
 {% block main %}
-<main>
-    <h2>
-        {% if edit %}
-            {{ t('edit_trip') }}
-        {% else %}
-            {{ t('create_new_trip') }}
-        {% endif %}
-    </h2>
+	<main>
+		<h2>
+			{% if edit %}
+				{{ t('edit_trip') }}
+			{% else %}
+				{{ t('create_new_trip') }}
+			{% endif %}
+		</h2>
 
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% endif %}
+		{% if error %}
+			<p class="error">{{ error }}</p>
+		{% endif %}
 
-    <form method="post" enctype="multipart/form-data" class="create-travel-form"
-          action="{% if edit %}/voyages/{{ voyage.id }}/edit{% else %}/voyages/new{% endif %}">
+		<form method="post" enctype="multipart/form-data" class="create-travel-form" action="{% if edit %}/voyages/{{ voyage.id }}/edit{% else %}/voyages/new{% endif %}">
 
-        <label for="name">{{ t('trip_name') }} :</label>
-        <input type="text" id="name" name="name" required value="{{ voyage.name|default('') }}">
+			<label for="name">{{ t('trip_name') }}
+				:</label>
+			<input type="text" id="name" name="name" required value="{{ voyage.name|default('') }}">
 
-        <label for="destination">{{ t('destination') }} :</label>
-        <select id="destination" name="destination" required>
-            <option value="Sud-Est" {{ voyage.destination == 'Sud-Est' ? 'selected' : '' }}>{{ t('Sud-Est') }}</option>
-            <option value="Sud-Ouest" {{ voyage.destination == 'Sud-Ouest' ? 'selected' : '' }}>{{ t('Sud-Ouest') }}</option>
-            <option value="Nord-Est" {{ voyage.destination == 'Nord-Est' ? 'selected' : '' }}>{{ t('Nord-Est') }}</option>
-            <option value="Nord-Ouest" {{ voyage.destination == 'Nord-Ouest' ? 'selected' : '' }}>{{ t('Nord-Ouest') }}</option>
-        </select>
+			<label for="destination">{{ t('destination') }}
+				:</label>
+			<select id="destination" name="destination" required>
+				<option value="Sud-Est" {{ voyage.destination == 'Sud-Est' ? 'selected' : '' }}>{{ t('Sud-Est') }}</option>
+				<option value="Sud-Ouest" {{ voyage.destination == 'Sud-Ouest' ? 'selected' : '' }}>{{ t('Sud-Ouest') }}</option>
+				<option value="Nord-Est" {{ voyage.destination == 'Nord-Est' ? 'selected' : '' }}>{{ t('Nord-Est') }}</option>
+				<option value="Nord-Ouest" {{ voyage.destination == 'Nord-Ouest' ? 'selected' : '' }}>{{ t('Nord-Ouest') }}</option>
+			</select>
 
-        <h3>{{ t('photos') }}</h3>
-        <div id="photos-list">
-            {% if edit and photosArray|length > 0 %}
-                {% for i, photo in photosArray %}
-                    <div class="photo-block" style="margin-bottom:14px;">
-                        <img src="/assets/img/{{ photo }}" alt="{{ t('existing_photo') }}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;vertical-align:middle;">
-                        <input type="hidden" name="existing_photos[]" value="{{ photo }}">
+			<h3>{{ t('photos') }}</h3>
+			<div id="photos-list">
+				{% if edit and photosArray|length > 0 %}
+					{% for i, photo in photosArray %}
+						<div class="photo-block" style="margin-bottom:14px;">
+							<img src="/assets/img/{{ photo }}" alt="{{ t('existing_photo') }}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;vertical-align:middle;">
+							<input type="hidden" name="existing_photos[]" value="{{ photo }}">
 
-                        <label style="margin-left:12px;">
-                            Légende :
-                            <input type="text" name="captions_existing[]" value="{{ photoCaptions[i]|default('') }}" placeholder="Légende..." required>
-                        </label>
+							<label style="margin-left:12px;">
+								Légende :
+								<input type="text" name="captions_existing[]" value="{{ photoCaptions[i]|default('') }}" placeholder="Légende..." required>
+							</label>
 
-                        <label style="margin-left:12px; font-size:0.95em;">
-                            <input type="checkbox" name="delete_photos[]" value="{{ photo }}">
-                            {{ t('delete') }}
-                        </label>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <button type="button" id="add-photo-btn" style="margin-bottom:15px;">Ajouter une nouvelle photo</button>
+							<label style="margin-left:12px; font-size:0.95em;">
+								<input type="checkbox" name="delete_photos[]" value="{{ photo }}">
+								{{ t('delete') }}
+							</label>
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<button type="button" id="add-photo-btn" style="margin-bottom:15px;">Ajouter une nouvelle photo</button>
 
-        <h3>Itinéraires</h3>
-        <div class="itineraries-list">
-            {% set itin_titles = ['1 jour', '3 jours', '5 jours'] %}
-            {% for i in 0..2 %}
-                <div class="itinerary-block">
-                    <label>Titre :</label>
-                    <input type="text" name="itineraries[{{ i }}][title]" required
-                        value="{{ itineraries[i].title|default(itin_titles[i]) }}">
-                    <label>Détail :</label>
-                    <textarea name="itineraries[{{ i }}][detail]" required>{{ itineraries[i].detail|default('') }}</textarea>
-                </div>
-            {% endfor %}
-        </div>
+			<h3>Itinéraires</h3>
+			<div class="itineraries-list">
+				{% set itin_titles = ['1 jour', '3 jours', '5 jours'] %}
+				{% set locales = ['fr', 'en', 'es', 'it'] %}
+				{% for i in 0..2 %}
+					<div class="itinerary-block">
+						<label>Titre :</label>
+						<input type="text" name="itineraries[{{ i }}][title]" required value="{{ itineraries[i].title|default(itin_titles[i]) }}">
+						{% for locale in locales %}
+							<label>Détail ({{ locale|upper }}):</label>
+							<textarea name="itineraries[{{ i }}][detail_{{ locale }}]" required>{{ itineraries[i]['detail_' ~ locale]|default('') }}</textarea>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
 
-        <h3>Hébergements</h3>
-        <div id="accommodations-list"></div>
-        <button type="button" id="add-acc-btn">Ajouter un hébergement</button>
+			<h3>Hébergements</h3>
+			<div id="accommodations-list"></div>
+			<button type="button" id="add-acc-btn">Ajouter un hébergement</button>
 
-        <h3>Restaurants</h3>
-        <div id="restaurants-list"></div>
-        <button type="button" id="add-resto-btn">Ajouter un restaurant</button>
+			<h3>Restaurants</h3>
+			<div id="restaurants-list"></div>
+			<button type="button" id="add-resto-btn">Ajouter un restaurant</button>
 
-        <input type="hidden" name="accommodations" id="accommodations-json">
-        <input type="hidden" name="restaurants" id="restaurants-json">
+			<input type="hidden" name="accommodations" id="accommodations-json">
+			<input type="hidden" name="restaurants" id="restaurants-json">
 
-        <h3 class="section-titre">Transports</h3>
-        <div id="transports-list">
-    {% set transportsSize = transports is defined and transports|length > 0 ? transports|length : 2 %}
-{% for i in 0..(transportsSize - 1) %}
-    <div class="transport-block">
-        <label>Type :</label>
-        <select name="transports[{{ i }}][type]" required>
-            <option value="commun" {{ transports[i].type == 'commun' ? 'selected' : '' }}>Transports en commun</option>
-            <option value="velo" {{ transports[i].type == 'velo' ? 'selected' : '' }}>Vélo</option>
-        </select>
-        <label>Détail :</label>
-        <textarea name="transports[{{ i }}][detail]" required>{{ transports[i].detail|default('') }}</textarea>
-    </div>
-{% endfor %}
+			<h3 class="section-titre">Transports</h3>
+			<div id="transports-list">
+				{% set transportsSize = transports is defined and transports|length > 0 ? transports|length : 2 %}
+				{% set locales = ['fr', 'en', 'es', 'it'] %}
+				{% for i in 0..(transportsSize - 1) %}
+					<div class="transport-block">
+						<label>Type :</label>
+						<select name="transports[{{ i }}][type]" required>
+							<option value="commun" {{ transports[i].type == 'commun' ? 'selected' : '' }}>Transports en commun</option>
+							<option value="velo" {{ transports[i].type == 'velo' ? 'selected' : '' }}>Vélo</option>
+						</select>
+						{% for locale in locales %}
+							<label>Détail ({{ locale|upper }}):</label>
+							<textarea name="transports[{{ i }}][detail_{{ locale }}]" required>{{ transports[i]['detail_' ~ locale]|default('') }}</textarea>
+						{% endfor %}
+					</div>
+				{% endfor %}
 
-        </div>
+			</div>
 
-        <button type="submit" style="margin-top:25px;">
-            {% if edit %}
-                {{ t('edit') }}
-            {% else %}
-                {{ t('create') }}
-            {% endif %}
-        </button>
-    </form>
+			<button type="submit" style="margin-top:25px;">
+				{% if edit %}
+					{{ t('edit') }}
+				{% else %}
+					{{ t('create') }}
+				{% endif %}
+			</button>
+		</form>
 
-    <script>
-    function addPhotoBlock(defaultCaption = '') {
-        const container = document.getElementById('photos-list');
-        const div = document.createElement('div');
-        div.className = 'photo-block';
-        div.style.marginBottom = '12px';
-        div.innerHTML = `
+		<script>
+			function addPhotoBlock(defaultCaption = '') {
+const container = document.getElementById('photos-list');
+const div = document.createElement('div');
+div.className = 'photo-block';
+div.style.marginBottom = '12px';
+div.innerHTML = `
             <label>
                 Photo :
                 <input type="file" name="photos[]" accept="image/*" required>
             </label>
             <label style="margin-left:10px;">
                 Légende :
-                <input type="text" name="captions[]" placeholder="Légende..." value="${defaultCaption ? defaultCaption.replace(/"/g, '&quot;') : ''}" required>
+                <input type="text" name="captions[]" placeholder="Légende..." value="${
+defaultCaption ? defaultCaption.replace(/"/g, '&quot;') : ''
+}" required>
             </label>
             <button type="button" class="remove-photo-btn" style="margin-left:10px;">Supprimer</button>
         `;
-        div.querySelector('.remove-photo-btn').onclick = function () { div.remove(); };
-        container.appendChild(div);
-    }
+div.querySelector('.remove-photo-btn').onclick = function () {
+div.remove();
+};
+container.appendChild(div);
+}
 
-    document.getElementById('add-photo-btn').onclick = function () {
-        addPhotoBlock();
-    };
+document.getElementById('add-photo-btn').onclick = function () {
+addPhotoBlock();
+};
 
-    document.addEventListener('DOMContentLoaded', function() {
-        {% if not (edit and photosArray|length > 0) %}
-            if (!document.getElementById('photos-list').children.length) {
-                addPhotoBlock();
-            }
-        {% endif %}
-    });
+document.addEventListener('DOMContentLoaded', function (){
+{% if not (edit and photosArray|length > 0) %}
+if (!document.getElementById('photos-list').children.length) {
+addPhotoBlock();
+}
+{% endif %}
+});
 
-    function updateAccommodationsJSON() {
-        const blocks = document.querySelectorAll('.accommodation-block');
-        const accs = Array.from(blocks).map(block => ({
-            title: block.querySelector('[data-acc="title"]').value,
-            photo: block.querySelector('[data-acc="photo"]').value,
-            priceCategory: block.querySelector('[data-acc="priceCategory"]').value,
-             url: block.querySelector('[data-acc="url"]').value
-        }));
-        document.getElementById('accommodations-json').value = JSON.stringify(accs);
-    }
+function updateAccommodationsJSON() {
+const blocks = document.querySelectorAll('.accommodation-block');
+const accs = Array.from(blocks).map(block => ({title: block.querySelector('[data-acc="title"]').value, photo: block.querySelector('[data-acc="photo"]').value, priceCategory: block.querySelector('[data-acc="priceCategory"]').value, url: block.querySelector('[data-acc="url"]').value}));
+document.getElementById('accommodations-json').value = JSON.stringify(accs);
+}
 
-    function addAccommodation(data = {}) {
-        const container = document.getElementById('accommodations-list');
-        if (container.children.length >= 3) return;
-        container.insertAdjacentHTML('beforeend', `
+function addAccommodation(data = {}) {
+const container = document.getElementById('accommodations-list');
+if (container.children.length >= 3) 
+return;
+
+container.insertAdjacentHTML(
+'beforeend',
+`
             <div class="accommodation-block" style="margin-bottom:10px;">
-                <input type="text" placeholder="Nom hébergement" data-acc="title" value="${data.title || ''}" required>
-                <input type="text" placeholder="Photo" data-acc="photo" value="${data.photo || ''}">
-                            <input type="url" placeholder="Lien vers hébergement (URL)" data-acc="url" value="${data.url || ''}">
+                <input type="text" placeholder="Nom hébergement" data-acc="title" value="${
+data.title || ''
+}" required>
+                <input type="text" placeholder="Photo" data-acc="photo" value="${
+data.photo || ''
+}">
+                            <input type="url" placeholder="Lien vers hébergement (URL)" data-acc="url" value="${
+data.url || ''
+}">
 
                 <select data-acc="priceCategory">
-                    <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
-                    <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>
-                    <option value="THREE_EURO" ${data.priceCategory === 'THREE_EURO' ? 'selected' : ''}>€€€</option>
+                    <option value="EURO" ${
+data.priceCategory === 'EURO' ? 'selected' : ''
+}>€</option>
+                    <option value="TWO_EURO" ${
+data.priceCategory === 'TWO_EURO' ? 'selected' : ''
+}>€€</option>
+                    <option value="THREE_EURO" ${
+data.priceCategory === 'THREE_EURO' ? 'selected' : ''
+}>€€€</option>
                 </select>
                 <button type="button" onclick="this.parentNode.remove();updateAccommodationsJSON();">Supprimer</button>
             </div>
-        `);
-        updateAccommodationsJSON();
-    }
+        `
+);
+updateAccommodationsJSON();
+}
 
-    function updateRestaurantsJSON() {
-        const blocks = document.querySelectorAll('.restaurant-block');
-        const restos = Array.from(blocks).map(block => ({
-            title: block.querySelector('[data-resto="title"]').value,
-            photo: block.querySelector('[data-resto="photo"]').value,
-            priceCategory: block.querySelector('[data-resto="priceCategory"]').value,
-            url: block.querySelector('[data-resto="url"]').value
-        }));
-        document.getElementById('restaurants-json').value = JSON.stringify(restos);
-    }
+function updateRestaurantsJSON() {
+const blocks = document.querySelectorAll('.restaurant-block');
+const restos = Array.from(blocks).map(block => ({title: block.querySelector('[data-resto="title"]').value, photo: block.querySelector('[data-resto="photo"]').value, priceCategory: block.querySelector('[data-resto="priceCategory"]').value, url: block.querySelector('[data-resto="url"]').value}));
+document.getElementById('restaurants-json').value = JSON.stringify(restos);
+}
 
-    function addRestaurant(data = {}) {
-        const container = document.getElementById('restaurants-list');
-        if (container.children.length >= 3) return;
-        container.insertAdjacentHTML('beforeend', `
+function addRestaurant(data = {}) {
+const container = document.getElementById('restaurants-list');
+if (container.children.length >= 3) 
+return;
+
+container.insertAdjacentHTML(
+'beforeend',
+`
             <div class="restaurant-block" style="margin-bottom:10px;">
-                <input type="text" placeholder="Nom restaurant" data-resto="title" value="${data.title || ''}" required>
-                <input type="text" placeholder="Photo" data-resto="photo" value="${data.photo || ''}">
-                            <input type="url" placeholder="Lien vers restaurant (URL)" data-resto="url" value="${data.url || ''}"> <!-- ✅ ajout -->
+                <input type="text" placeholder="Nom restaurant" data-resto="title" value="${
+data.title || ''
+}" required>
+                <input type="text" placeholder="Photo" data-resto="photo" value="${
+data.photo || ''
+}">
+                            <input type="url" placeholder="Lien vers restaurant (URL)" data-resto="url" value="${
+data.url || ''
+}"> <!-- ✅ ajout -->
 
                 <select data-resto="priceCategory">
-                    <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
-                    <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>
-                    <option value="THREE_EURO" ${data.priceCategory === 'THREE_EURO' ? 'selected' : ''}>€€€</option>
+                    <option value="EURO" ${
+data.priceCategory === 'EURO' ? 'selected' : ''
+}>€</option>
+                    <option value="TWO_EURO" ${
+data.priceCategory === 'TWO_EURO' ? 'selected' : ''
+}>€€</option>
+                    <option value="THREE_EURO" ${
+data.priceCategory === 'THREE_EURO' ? 'selected' : ''
+}>€€€</option>
                 </select>
                 <button type="button" onclick="this.parentNode.remove();updateRestaurantsJSON();">Supprimer</button>
             </div>
-        `);
-        updateRestaurantsJSON();
-    }
+        `
+);
+updateRestaurantsJSON();
+}
 
-    document.getElementById('add-acc-btn').onclick = addAccommodation;
-    document.getElementById('add-resto-btn').onclick = addRestaurant;
-    document.getElementById('accommodations-list').addEventListener('input', updateAccommodationsJSON);
-    document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
+document.getElementById('add-acc-btn').onclick = addAccommodation;
+document.getElementById('add-resto-btn').onclick = addRestaurant;
+document.getElementById('accommodations-list').addEventListener('input', updateAccommodationsJSON);
+document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
 
-    window.addEventListener('DOMContentLoaded', function () {
-        {% if accommodations %}
-            {% for acc in accommodations %}
-                addAccommodation({{ acc|json_encode|raw }});
-            {% endfor %}
-        {% endif %}
-        {% if restaurants %}
-            {% for resto in restaurants %}
-                addRestaurant({{ resto|json_encode|raw }});
-            {% endfor %}
-        {% endif %}
-    });
-    </script>
-</main>
+window.addEventListener('DOMContentLoaded', function (){
+{% if accommodations %}
+{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}
+{% endif %}
+{% if restaurants %}
+{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}
+{% endif %}
+});
+		</script>
+	</main>
 {% endblock %}

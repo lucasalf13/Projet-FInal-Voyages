@@ -1,7 +1,10 @@
 model Transport {
-  id        Int    @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   type      String
-  detail    String @db.Text
-  travel    Travel @relation(fields: [travelId], references: [id])
+  detail_fr String? @db.Text
+  detail_en String? @db.Text
+  detail_es String? @db.Text
+  detail_it String? @db.Text
+  travel    Travel  @relation(fields: [travelId], references: [id])
   travelId  Int
 }

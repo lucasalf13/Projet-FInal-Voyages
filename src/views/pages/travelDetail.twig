@@ -13,8 +13,8 @@
 {% block main %}
 	<main class="voyage-detail-main page-detail">
 		<h1 class="voyage-title-flex">
-		    <span class="left-spacer"></span>
-    <span class="title-text">{{ voyage.name }}</span>
+			<span class="left-spacer"></span>
+			<span class="title-text">{{ voyage.name }}</span>
 			{% if user %}
 				<button class="fav-btn{{ voyage.isFavori ? ' is-favori' : '' }}" data-voyage-id="{{ voyage.id }}" aria-label="{{ t('add_remove_favorite') }}" data-add-label="{{ t('add_favorite') }}" data-remove-label="{{ t('remove_favorite') }}">
 					<span class="fav-label">{{ voyage.isFavori ? t('remove_favorite') : t('add_favorite') }}</span>
@@ -51,17 +51,17 @@
 
 			<h3 class="section-titre">{{ t('itinerary') }}</h3>
 			<div class="cards-row">
-			{% set keys = ['itinerary.title1', 'itinerary.title2', 'itinerary.title3'] %}
-
+				{% set keys = ['itinerary.title1', 'itinerary.title2', 'itinerary.title3'] %}
+				{% set locale = lng %}
 				{% for itin in voyage.itineraries|slice(0,3) %}
 					<div class="card-detail card-itinerary" id="itin-card-{{ itin.id }}">
-		<button class="btn-itin-toggle" type="button" onclick="toggleItinerary({{ itin.id }})">
-   {{ t(keys[loop.index0]) }}
-</button>
+						<button class="btn-itin-toggle" type="button" onclick="toggleItinerary({{ itin.id }})">
+							{{ t(keys[loop.index0]) }}
+						</button>
 
 
 						<div class="itin-detail" id="itin-detail-{{ itin.id }}">
-							<div class="itin-detail-content">{{ t(itin.detail)|raw }}</div>
+							<div class="itin-detail-content">{{ itin['detail_' ~ locale]|default(itin.detail_fr)|raw }}</div>
 
 						</div>
 					</div>
@@ -75,17 +75,17 @@
 						{% if voyage.restaurants %}
 							{% for resto in voyage.restaurants|slice(0,3) %}
 								<div class="card-detail">
-								{% if resto.url %}
-                <a href="{{ resto.url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-            {% endif %}
-									<img src="/assets/img/{{ resto.photo }}" alt="{{ resto.title }}">
-									<div class="card-nom">{{ resto.title }}</div>
-									<div class="card-euro">
-										{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
-									</div>
-									 {% if resto.url %}
-                </a>
-            {% endif %}
+									{% if resto.url %}
+										<a href="{{ resto.url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+										{% endif %}
+										<img src="/assets/img/{{ resto.photo }}" alt="{{ resto.title }}">
+										<div class="card-nom">{{ resto.title }}</div>
+										<div class="card-euro">
+											{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+										</div>
+										{% if resto.url %}
+										</a>
+									{% endif %}
 								</div>
 							{% endfor %}
 						{% endif %}
@@ -98,17 +98,17 @@
 						{% if voyage.accommodations %}
 							{% for acc in voyage.accommodations|slice(0,3) %}
 								<div class="card-detail">
-								{% if acc.url %}
-						<a href="{{ acc.url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-					{% endif %}
-									<img src="/assets/img/{{ acc.photo }}" alt="{{ acc.title }}">
-									<div class="card-nom">{{ acc.title }}</div>
-									<div class="card-euro">
-										{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
-									</div>
 									{% if acc.url %}
-						</a>
-					{% endif %}
+										<a href="{{ acc.url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+										{% endif %}
+										<img src="/assets/img/{{ acc.photo }}" alt="{{ acc.title }}">
+										<div class="card-nom">{{ acc.title }}</div>
+										<div class="card-euro">
+											{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+										</div>
+										{% if acc.url %}
+										</a>
+									{% endif %}
 								</div>
 							{% endfor %}
 						{% endif %}
@@ -118,22 +118,26 @@
 
 			<h3 class="section-titre">{{ t('transports') }}</h3>
 			<div class="cards-row">
+				{% set locale = lng %}
 				{% for transport in voyage.transports %}
 					<div class="card-detail card-transport">
-			{% set type = transport.type|lower %}
-<div class="card-nom">
-  {% if type == 'commun' %}
-   🚌 {{ t('transports_en_commun') }}
-  {% elseif type == 'velo' %}
-   🚲 {{ t('velo') }}
-  {% else %}
-    {{ transport.type|capitalize }}
-  {% endif %}
-</div>
+						{% set type = transport.type|lower %}
+						<div class="card-nom">
+							{% if type == 'commun' %}
+								🚌
+								{{ t('transports_en_commun') }}
+							{% elseif type == 'velo' %}
+								🚲
+								{{ t('velo') }}
+							{% else %}
+								{{ transport.type|capitalize }}
+							{% endif %}
+						</div>
 
-      <div class="card-detail-content">{{ t(transport.detail)|raw }}</div>
-    </div>
-  {% endfor %}
+						<div class="card-detail-content">
+							{{ attribute(transport, 'detail_' ~ locale)|default(transport.detail_fr)|raw }}</div>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 
@@ -153,18 +157,20 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
 	<script>
-function toggleItinerary(id) {
-    const card = document.getElementById('itin-card-' + id);
-    if (!card) return;
+		function toggleItinerary(id) {
+const card = document.getElementById('itin-card-' + id);
+if (! card) 
+return;
 
-    const detail = document.getElementById('itin-detail-' + id);
-    const isOpen = card.classList.toggle('open');
 
-    if (isOpen) {
-        detail.style.maxHeight = detail.scrollHeight + 'px';
-    } else {
-        detail.style.maxHeight = '0';
-    }
+const detail = document.getElementById('itin-detail-' + id);
+const isOpen = card.classList.toggle('open');
+
+if (isOpen) {
+detail.style.maxHeight = detail.scrollHeight + 'px';
+} else {
+detail.style.maxHeight = '0';
+}
 }
 
 
@@ -220,6 +226,7 @@ if (! voyageId)
 return;
 
 
+
 try {
 const response = await fetch (`/favoris/${voyageId}`, {
 method: 'POST',
@@ -234,17 +241,22 @@ response.status
 }`);
 
 
+
 const data = await response.json();
 
 if (data.isFavori) {
 btn.classList.add('is-favori');
 btn.setAttribute('aria-label', btn.dataset.removeLabel);
-btn.innerHTML = `<span class="fav-label">${btn.dataset.removeLabel}</span><span class="fav-icon" aria-hidden="true">&nbsp;❤️</span>`;
+btn.innerHTML = `<span class="fav-label">${
+btn.dataset.removeLabel
+}</span><span class="fav-icon" aria-hidden="true">&nbsp;❤️</span>`;
 
 } else {
 btn.classList.remove('is-favori');
 btn.setAttribute('aria-label', btn.dataset.addLabel);
-btn.innerHTML = `<span class="fav-label">${btn.dataset.addLabel}</span><span class="fav-icon" aria-hidden="true">&nbsp;🤍</span>`;
+btn.innerHTML = `<span class="fav-label">${
+btn.dataset.addLabel
+}</span><span class="fav-icon" aria-hidden="true">&nbsp;🤍</span>`;
 
 }
 } catch (error) {

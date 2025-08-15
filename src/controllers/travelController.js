@@ -58,28 +58,36 @@ exports.createTravel = async (req, res) => {
                 photoCaptions: captionsString
             }
         });
-        for (const t of transports) {
-            if (t.type && t.detail) {
-                await prisma.transport.create({
-                    data: {
-                        type: t.type,
-                        detail: t.detail,
-                        travelId: travel.id
-                    }
-                });
-            }
-        }
-        for (const itin of itineraries) {
-            if (itin.title && itin.detail) {
-                await prisma.itinerary.create({
-                    data: {
-                        title: itin.title,
-                        detail: itin.detail,
-                        travelId: travel.id
-                    }
-                });
-            }
-        }
+  for (const t of transports) {
+  if (t.type) {
+    await prisma.transport.create({
+      data: {
+        type: t.type,
+        detail_fr: t.detail_fr || '',
+        detail_en: t.detail_en || '',
+        detail_es: t.detail_es || '',
+        detail_it: t.detail_it || '',
+        travelId: travel.id
+      }
+    });
+  }
+}
+
+       for (const itin of itineraries) {
+  if (itin.title) {
+    await prisma.itinerary.create({
+      data: {
+        title: itin.title,
+        detail_fr: itin.detail_fr || '',
+        detail_en: itin.detail_en || '',
+        detail_es: itin.detail_es || '',
+        detail_it: itin.detail_it || '',
+        travelId: travel.id
+      }
+    });
+  }
+}
+
 
         for (const acc of accommodations) {
             await prisma.accommodation.create({
@@ -286,29 +294,36 @@ exports.updateTravel = async (req, res) => {
         await prisma.itinerary.deleteMany({ where: { travelId: id } });
         await prisma.transport.deleteMany({ where: { travelId: id } });
 
-        for (const t of transports) {
-            if (t.type && t.detail) {
-                await prisma.transport.create({
-                    data: {
-                        type: t.type,
-                        detail: t.detail,
-                        travelId: id
-                    }
-                });
-            }
-        }
+   for (const t of transports) {
+  if (t.type) {
+    await prisma.transport.create({
+      data: {
+        type: t.type,
+        detail_fr: t.detail_fr || '',
+        detail_en: t.detail_en || '',
+        detail_es: t.detail_es || '',
+        detail_it: t.detail_it || '',
+        travelId: id
+      }
+    });
+  }
+}
 
-        for (const itin of itineraries) {
-            if (itin.title && itin.detail) {
-                await prisma.itinerary.create({
-                    data: {
-                        title: itin.title,
-                        detail: itin.detail,
-                        travelId: id
-                    }
-                });
-            }
-        }
+
+for (const itin of itineraries) {
+  if (itin.title) {
+    await prisma.itinerary.create({
+      data: {
+        title: itin.title,
+        detail_fr: itin.detail_fr || '',
+        detail_en: itin.detail_en || '',
+        detail_es: itin.detail_es || '',
+        detail_it: itin.detail_it || '',
+        travelId: id
+      }
+    });
+  }
+}
         for (const acc of accommodations) {
             await prisma.accommodation.create({
                 data: {
