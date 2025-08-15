@@ -53,6 +53,7 @@ img,
 a {
     -webkit-user-drag: none;
 }
+
 a:focus,
 a:active {
     outline: none;
@@ -2209,7 +2210,7 @@ body.dark-mode .card-euro {
     font-size: 0.92em;
     border-radius: 10px;
     transition: all 0.3s;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     height: 30px;
     display: flex;
     align-items: center;
@@ -2229,50 +2230,145 @@ body.dark-mode .card-euro {
 .card-itinerary .itin-detail {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.35s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .card-itinerary.open {
     flex: 1 1 100%;
     width: 100%;
     max-width: 100%;
-    padding: 18px 14px;
-    height: auto;            
+    padding: 18px 14px 30px 14px;
+    height: auto !important;
     align-items: center;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
 }
 
-       .itin-detail-content {
-            text-align: left;
-            margin-top: 12px;
-            margin-bottom: 10px;
-            font-size: 1.06em;
-            color: #34495e;
-            line-height: 1.7;
-            word-break: break-word;
-        }
-.card-itinerary.open .itin-detail {
-    max-height: 1000px;
+.itin-detail-content {
+    text-align: left;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    font-size: 1.03em;
+    color: #34495e;
+    line-height: 1.7;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    white-space: normal;
 }
+
+
 @media (max-width: 768px) {
-  .cards-row {
-    flex-direction: column;
-    gap: 16px;
-  }
+    .cards-row {
+        flex-direction: column;
+        gap: 16px;
+    }
 
-  .card-itinerary {
-    max-width: 50%;
-    flex: 1 1 100%;
-    height: auto;
-  }
+    .card-itinerary {
+        max-width: 100%;
+        width: 100%;
+        min-width: 0;
+        padding: 12px 8px;
+        flex: 1 1 100%;
+        height: auto;
+    }
+
     .card-itinerary:not(.open) {
-    height: 40px;
-    padding: 8px 10px;
-  }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+    }
 
-  .card-itinerary:not(.open) .btn-itin-toggle {
-    height: 30px;
-    font-size: 0.9em;
-    padding: 4px 6px;
-  }
+    .card-itinerary:not(.open) .btn-itin-toggle {
+        height: 30px;
+        font-size: 0.9em;
+        padding: 4px 6px;
+    }
+
+    .card-itinerary.open {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        height: auto !important;
+        padding: 18px 10px 30px 10px;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .card-itinerary.open .itin-detail {
+        max-height: none !important;
+        overflow: visible !important;
+        transition: none !important;
+    }
+
+}
+
+@media (max-width: 577px) {
+
+    .card-itinerary,
+    .card-itinerary.open {
+        flex-basis: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        padding-left: 4px;
+        padding-right: 4px;
+        box-sizing: border-box;
+    }
+
+    .cards-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .itin-detail,
+    .itin-detail-content {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0;
+        padding: 0;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        white-space: normal;
+    }
+
+    .itin-detail-content {
+        font-size: 0.97em;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 431px) {
+
+    .card-itinerary,
+    .card-itinerary.open {
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        flex-basis: 100% !important;
+    }
+
+    .itin-detail,
+    .itin-detail-content {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+        font-size: 0.9em !important;
+        line-height: 1.4 !important;
+        word-break: break-word;
+        white-space: normal;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .card-itinerary:not(.open) .btn-itin-toggle {
+        font-size: 0.85em !important;
+        height: 28px !important;
+        padding: 3px 5px !important;
+    }
 }

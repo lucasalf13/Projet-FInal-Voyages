@@ -157,8 +157,16 @@ function toggleItinerary(id) {
     const card = document.getElementById('itin-card-' + id);
     if (!card) return;
 
-    card.classList.toggle('open');
+    const detail = document.getElementById('itin-detail-' + id);
+    const isOpen = card.classList.toggle('open');
+
+    if (isOpen) {
+        detail.style.maxHeight = detail.scrollHeight + 'px';
+    } else {
+        detail.style.maxHeight = '0';
+    }
 }
+
 
 // Zoom photo
 function showZoom(src, caption) {
