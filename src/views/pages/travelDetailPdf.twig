@@ -111,10 +111,11 @@
 						:</span>
 					<div class="pdf-content">
 					  {% if voyage.itineraries|length > 0 %}
-                    {% for itin in voyage.itineraries %}
-                        <strong>{{ itin.title }}:</strong><br>
-                        {{ itin.detail|striptags }}<br><br>
-                    {% endfor %}
+                   {% for itin in voyage.itineraries %}
+    <strong>{{ itin.title }}:</strong><br>
+    {{ itin.detail|default('Détail non disponible')|replace({'<br>':'\n', '<br/>':'\n'})|striptags }}<br><br>
+{% endfor %}
+
                 {% else %}
                     <em>{{ t('no_itinerary') }}</em>
                 {% endif %}
@@ -164,9 +165,11 @@
 						:</span>
 					<div class="pdf-content">
 					       {% if voyage.transports|length > 0 %}
-                    {% for transport in voyage.transports %}
-                        <strong>{{ transport.type|capitalize }}:</strong> {{ transport.detail }}<br>
-                    {% endfor %}
+                   {% for transport in voyage.transports %}
+    <strong>{{ transport.type|capitalize }}:</strong>
+    {{ transport.detail|default('Détail non disponible')|replace({'<br>':'\n', '<br/>':'\n'})|striptags }}<br>
+{% endfor %}
+
                 {% else %}
                     <em>{{ t('no_transport') }}</em>
                 {% endif %}
