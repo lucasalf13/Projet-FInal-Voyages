@@ -132,7 +132,6 @@ document.getElementById('searchBarDestination').addEventListener('input', functi
 			const card = slide.querySelector('.voyage-card');
 			const name = normalize(card.dataset.name);
 
-			// Teste si le nom commence par la saisie
 			if (val === "" || name.startsWith(val)) {
 				slide.style.display = '';
 				visibleCount++;
@@ -142,12 +141,10 @@ document.getElementById('searchBarDestination').addEventListener('input', functi
 			slide.classList.remove('active');
 		});
 
-		// Si aucun voyage visible → cacher la section
 		if (visibleCount === 0) {
 			section.style.display = 'none';
 		} else {
 			section.style.display = '';
-			// Réactiver le premier voyage visible
 const firstVisible = Array.from(slides).find(slide => slide.style.display !== 'none');
 			if (firstVisible) {
 				firstVisible.classList.add('active');
