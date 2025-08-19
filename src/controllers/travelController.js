@@ -373,6 +373,8 @@ exports.downloadPDF = async (req, res) => {
     if (!voyage) {
         return res.status(404).send("Voyage non trouvé");
     }
+     console.log("Voyage Itineraries:", voyage.itineraries);
+  console.log("Voyage Transports:", voyage.transports);
     const absoluteUrl = `${req.protocol}://${req.get('host')}`;
     res.app.render('pages/travelDetailPdf.twig', { voyage, absoluteUrl, t: req.t, lng: req.language }, async (err, html) => {
         if (err) {
