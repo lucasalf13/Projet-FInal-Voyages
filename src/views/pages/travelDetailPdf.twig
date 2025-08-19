@@ -110,15 +110,14 @@
 					<span class="pdf-label">{{ t('itinerary') }}
 						:</span>
 					<div class="pdf-content">
-						{% for itin in voyage.itineraries %}
-							<strong>{{ itin.title }}:</strong>
-							{{ itin.detail|striptags }}
-							{% if not loop.last %}
-								·
-							{% endif %}
-						{% else %}
-							<em>{{ t('no_itinerary') }}</em>
-						{% endfor %}
+					  {% if voyage.itineraries|length > 0 %}
+                    {% for itin in voyage.itineraries %}
+                        <strong>{{ itin.title }}:</strong><br>
+                        {{ itin.detail|striptags }}<br><br>
+                    {% endfor %}
+                {% else %}
+                    <em>{{ t('no_itinerary') }}</em>
+                {% endif %}
 					</div>
 				</div>
 			</div>
@@ -128,20 +127,17 @@
 					<span class="pdf-label">{{ t('ou_dormir') }}
 						:</span>
 					<div class="pdf-content">
-						{% for acc in voyage.accommodations %}
-							<strong>{{ acc.title }}</strong>
-							-
-							{{ acc.priceCategory }}
-							{% if acc.url %}
-								–
-								<a href="{{ acc.url }}" target="_blank">{{ acc.url }}</a>
-							{% endif %}
-							{% if not loop.last %}
-								·
-							{% endif %}
-						{% else %}
-							<em>{{ t('no_accommodation') }}</em>
-						{% endfor %}
+			                {% if voyage.accommodations|length > 0 %}
+                    {% for acc in voyage.accommodations %}
+                        <strong>{{ acc.title }}</strong> - {{ acc.priceCategory }}
+                        {% if acc.url %}
+                            – <a href="{{ acc.url }}" target="_blank">{{ acc.url }}</a>
+                        {% endif %}
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    <em>{{ t('no_accommodation') }}</em>
+                {% endif %}
 					</div>
 				</div>
 
@@ -149,20 +145,17 @@
 					<span class="pdf-label">{{ t('ou_manger') }}
 						:</span>
 					<div class="pdf-content">
-						{% for resto in voyage.restaurants %}
-							<strong>{{ resto.title }}</strong>
-							-
-							{{ resto.priceCategory }}
-							{% if resto.url %}
-								–
-								<a href="{{ resto.url }}" target="_blank">{{ resto.url }}</a>
-							{% endif %}
-							{% if not loop.last %}
-								·
-							{% endif %}
-						{% else %}
-							<em>{{ t('no_restaurant') }}</em>
-						{% endfor %}
+					                {% if voyage.restaurants|length > 0 %}
+                    {% for resto in voyage.restaurants %}
+                        <strong>{{ resto.title }}</strong> - {{ resto.priceCategory }}
+                        {% if resto.url %}
+                            – <a href="{{ resto.url }}" target="_blank">{{ resto.url }}</a>
+                        {% endif %}
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    <em>{{ t('no_restaurant') }}</em>
+                {% endif %}
 					</div>
 				</div>
 
@@ -170,15 +163,13 @@
 					<span class="pdf-label">{{ t('transports') }}
 						:</span>
 					<div class="pdf-content">
-						{% for transport in voyage.transports %}
-							<strong>{{ transport.type|capitalize }}</strong>:
-							{{ transport.detail }}
-							{% if not loop.last %}
-								·
-							{% endif %}
-						{% else %}
-							<em>{{ t('no_transport') }}</em>
-						{% endfor %}
+					       {% if voyage.transports|length > 0 %}
+                    {% for transport in voyage.transports %}
+                        <strong>{{ transport.type|capitalize }}:</strong> {{ transport.detail }}<br>
+                    {% endfor %}
+                {% else %}
+                    <em>{{ t('no_transport') }}</em>
+                {% endif %}
 					</div>
 				</div>
 			</div>
