@@ -148,7 +148,7 @@ document.getElementById('searchBarDestination').addEventListener('input', functi
 		} else {
 			section.style.display = '';
 			// Réactiver le premier voyage visible
-			const firstVisible = carousel.querySelector('.carousel-slide[style=""]');
+const firstVisible = Array.from(slides).find(slide => slide.style.display !== 'none');
 			if (firstVisible) {
 				firstVisible.classList.add('active');
 			}
