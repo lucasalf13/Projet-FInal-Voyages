@@ -137,7 +137,7 @@
   "lastname_invalid": "El apellido no es válido",
   "country_invalid": "El país no es válido",
   "email_invalid": "El correo electrónico no es válido",
-  "password_invalid": "La contraseña debe tener al menos 3 caracteres",
+  "password_invalid": "La contraseña debe tener al menos 7 caracteres",
   "passwords_no_match": "Las contraseñas no coinciden",
   "email_already_used": "Este correo electrónico ya está en uso",
   "account_created_success": "Cuenta creada correctamente, por favor inicie sesión",

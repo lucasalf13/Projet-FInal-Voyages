@@ -28,7 +28,7 @@ exports.postRegister = async (req, res) => {
         const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}$/; // Lettres, accents, tirets, apostrophes, 2 à 30 caractères
         const regexCountry = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,30}$/;
         const regexEmail = /^[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-        const regexPassword = /^.{3,}$/; // Minimum 3 caractères
+        const regexPassword = /^.{7,}$/; // Minimum 7 caractères
 
         if (!firstName || !lastName || !mail || !country || !password || !confirmPassword) {
             throw { message: req.t('all_fields_required') };
@@ -102,7 +102,7 @@ exports.postLogin = async (req, res) => {
         const { mail, password } = req.body;
 
         const regexEmail = /^[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-        const regexPassword = /^.{3,}$/; // Minimum 3 caractères
+        const regexPassword = /^.{7,}$/; // Minimum 7 caractères
 
         if (!mail || !password) {
             throw { message: req.t('all_fields_required') };
