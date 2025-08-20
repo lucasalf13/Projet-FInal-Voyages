@@ -2274,17 +2274,8 @@ body.dark-mode .card-euro {
         height: auto;
     }
 
-    .card-itinerary:not(.open) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 40px;
-    }
-
-    .card-itinerary:not(.open) .btn-itin-toggle {
-        height: 30px;
-        font-size: 0.9em;
-        padding: 4px 6px;
+    .btn-itin-toggle {
+        display: none;
     }
 
     .card-itinerary.open {
