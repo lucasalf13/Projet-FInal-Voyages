@@ -241,23 +241,13 @@ document.getElementById('accommodations-list').addEventListener('input', updateA
 document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
 
 window.addEventListener('DOMContentLoaded', function (){
-  {% if accommodations and accommodations|length > 0 %}
-    {% for acc in accommodations %}
-      addAccommodation({{ acc|json_encode|raw }});
-    {% endfor %}
-  {% else %}
-    addAccommodation(); // Ajoute un bloc vide s'il n'y a pas d'hébergements
-  {% endif %}
-
-  {% if restaurants and restaurants|length > 0 %}
-    {% for resto in restaurants %}
-      addRestaurant({{ resto|json_encode|raw }});
-    {% endfor %}
-  {% else %}
-    addRestaurant(); // Ajoute un bloc vide s'il n'y a pas de restaurants
-  {% endif %}
+{% if accommodations %}
+{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}
+{% endif %}
+{% if restaurants %}
+{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}
+{% endif %}
 });
-
 		</script>
 	</main>
 {% endblock %}

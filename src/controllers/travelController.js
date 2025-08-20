@@ -122,11 +122,6 @@ exports.createTravel = async (req, res) => {
             user: req.session.user,
             t: req.t,
             lng: req.language,
-            voyage: { name: req.body.name, destination: req.body.destination },
-        accommodations: JSON.parse(req.body.accommodations || '[]'),
-        restaurants: JSON.parse(req.body.restaurants || '[]'),
-        itineraries: req.body.itineraries || [],
-        transports: Array.isArray(req.body.transports) ? req.body.transports : Object.values(req.body.transports || {}),
         });
     }
 };
@@ -356,22 +351,9 @@ for (const itin of itineraries) {
         res.redirect('/voyages/' + id);
 
     } catch (error) {
-    console.error(error);
-    res.render('pages/createTravel.twig', {
-        error: req.t('edit_error'),
-        user: req.session.user,
-        t: req.t,
-        lng: req.language,
-        photosArray: req.files ? req.files.map(file => file.filename) : [],
-        photoCaptions: req.body.captions || [],
-        voyage: { id, name: req.body.name, destination: req.body.destination },
-        accommodations: typeof req.body.accommodations === 'string' ? JSON.parse(req.body.accommodations) : req.body.accommodations,
-        restaurants: typeof req.body.restaurants === 'string' ? JSON.parse(req.body.restaurants) : req.body.restaurants,
-        itineraries: req.body.itineraries || [],
-        transports: Array.isArray(req.body.transports) ? req.body.transports : Object.values(req.body.transports || {}),
-        edit: true,
-    });
-}
+        console.error(error);
+        res.status(500).send("Erreur lors de la modification");
+    }
 };
 
 exports.downloadPDF = async (req, res) => {
