@@ -2258,12 +2258,9 @@ body.dark-mode .card-euro {
     white-space: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-    .itin-detail {
-        color: #ededed;
-    }
+body.dark-mode .itin-detail {
+    color: #ededed;
 }
-
 
 @media (max-width: 768px) {
     .cards-row {
