@@ -1487,7 +1487,7 @@ strong[data-clickable]:hover {
 
 .btn-itin-toggle {
     background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-    color: var(--color-text);
+    color: #fff;
     border: none;
     border-radius: 6px;
     padding: 8px 22px;
@@ -1503,7 +1503,7 @@ strong[data-clickable]:hover {
 .btn-itin-toggle:hover,
 .btn-itin-toggle:focus {
     background: linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
-    color: var(--color-text);
+    color: var(--color-surface);
     transform: translateY(-2px) scale(1.03);
     outline: none;
 }
