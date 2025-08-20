@@ -2258,6 +2258,12 @@ body.dark-mode .card-euro {
     white-space: normal;
 }
 
+@media (prefers-color-scheme: dark) {
+    .itin-detail {
+        color: #ededed;
+    }
+}
+
 
 @media (max-width: 768px) {
     .cards-row {
@@ -2274,8 +2280,17 @@ body.dark-mode .card-euro {
         height: auto;
     }
 
-    .btn-itin-toggle {
-        display: none;
+    .card-itinerary:not(.open) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+    }
+
+    .card-itinerary:not(.open) .btn-itin-toggle {
+        height: 30px;
+        font-size: 0.9em;
+        padding: 4px 6px;
     }
 
     .card-itinerary.open {
