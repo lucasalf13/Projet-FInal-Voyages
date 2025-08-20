@@ -1535,6 +1535,10 @@ body.dark-mode {
     --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);
     --shadow-strong: 0 12px 32px rgba(74, 169, 108, 0.25);
 }
+body.dark-mode .btn-itin-toggle:hover,
+.btn-itin-toggle:focus {
+    color: #F5F5F5;
+}
 
 body.dark-mode {
     background: var(--color-background);
