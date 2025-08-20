@@ -2259,7 +2259,7 @@ body.dark-mode .card-euro {
 }
 
 body.dark-mode .itin-detail {
-    color: #ededed;
+    color: #ededed !important;
 }
 
 @media (max-width: 768px) {
