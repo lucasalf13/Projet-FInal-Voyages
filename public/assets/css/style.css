@@ -2250,16 +2250,11 @@ body.dark-mode .card-euro {
     margin-top: 12px;
     margin-bottom: 24px;
     font-size: 1.03em;
-    color: #34495e;
     line-height: 1.7;
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     white-space: normal;
-}
-
-body.dark-mode .itin-detail {
-    color: #ededed !important;
 }
 
 @media (max-width: 768px) {
