@@ -2298,7 +2298,7 @@ body.dark-mode .card-euro {
         width: 100%;
     }
 
-    .card-itinerary.open .itin-detail {
+    .card-itinerary .itin-detail {
         max-height: none !important;
         overflow: visible !important;
         transition: none !important;
