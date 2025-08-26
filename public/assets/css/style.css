@@ -304,6 +304,7 @@ a:active {
     display: none;
     max-width: 400px;
     margin: 40px auto;
+    margin-bottom: 70px;
     padding: 20px 25px;
     border-radius: 12px;
     background: linear-gradient(135deg, #6CC1FF 0%, #3A8DFF 100%);
