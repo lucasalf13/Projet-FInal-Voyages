@@ -109,5 +109,18 @@ router.get('/api/meteo/top-ville', async (req, res) => {
     res.status(500).json({ error: "Impossible de déterminer la meilleure ville météo" });
   }
 });
+router.get('/mentions', (req, res) => {
+    res.render('pages/mentions.twig', {
+        title: 'Mentions Légales',
+        lng: req.locale || 'fr'
+    });
+});
+router.get('/politique', (req, res) => {
+    res.render('pages/politique.twig', {
+        title: 'Politique de Confidentialité',
+        lng: req.locale || 'fr'
+    });
+});
+
 
 module.exports = router;

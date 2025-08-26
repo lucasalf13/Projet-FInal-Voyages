@@ -2374,3 +2374,29 @@ body.dark-mode .card-euro {
         padding: 3px 5px !important;
     }
 }
+
+.legal-links {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #4360e1;
+    margin: 20px 0;
+    line-height: 1.4;
+}
+
+.legal-links a {
+    color: #5763d0;
+    text-decoration: none;
+    margin: 0 4px;
+    transition: color 0.3s;
+}
+
+.legal-links a:hover {
+    color: #afbfe7;
+    text-decoration: underline;
+}
+
+.legal-links a + a::before {
+    content: "|";
+    margin: 0 4px;
+    color: #4360e1;
+}
