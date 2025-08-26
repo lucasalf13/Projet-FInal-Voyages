@@ -113,11 +113,6 @@
 						{% for itin in voyage.itineraries %}
 							<strong>{{ itin.title }}:</strong>
 							{{ attribute(itin, 'detail_' ~ lng)|default(itin.detail_fr)|striptags }}
-							{% if not loop.last %}
-								·
-							{% endif %}
-						{% else %}
-							<em>{{ t('no_itinerary') }}</em>
 						{% endfor %}
 					</div>
 				</div>
@@ -133,7 +128,6 @@
 								<strong>{{ acc.title }}</strong>
 								{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
 								{% if acc.url %}
-									—
 									<a href="{{ acc.url }}" target="_blank">[lien direct]</a>
 								{% endif %}
 							</div>
@@ -153,7 +147,6 @@
 								<strong>{{ resto.title }}</strong>
 								{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
 								{% if resto.url %}
-									—
 									<a href="{{ resto.url }}" target="_blank">[lien direct]</a>
 								{% endif %}
 							</div>
@@ -170,11 +163,6 @@
 						{% for transport in voyage.transports %}
 							<strong>{{ transport.type|capitalize }}</strong>:
 							{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
-							{% if not loop.last %}
-								·
-							{% endif %}
-						{% else %}
-							<em>{{ t('no_transport') }}</em>
 						{% endfor %}
 					</div>
 				</div>
