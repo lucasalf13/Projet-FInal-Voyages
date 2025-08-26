@@ -159,13 +159,13 @@
 							{% set type = transport.type|lower %}
 							<strong>
 								{% if type == 'commun' %}
-									{{ t('transports_en_commun') }}
+									{{ t('transports_en_commun') }}:
 								{% elseif type == 'velo' %}
-									{{ t('velo') }}
+									{{ t('velo') }}:
 								{% else %}
-									{{ transport.type|capitalize }}
+									{{ transport.type|capitalize }}:
 								{% endif %}
-							</strong>:
+							</strong>
 							{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
 						{% endfor %}
 
