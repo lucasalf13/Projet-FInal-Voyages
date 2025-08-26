@@ -3,39 +3,36 @@
 {% endblock %}
 
 {% block title %}
-    <title>Mentions légales | ÉchappéeVerte</title>
+    <title>{{ t('legal_notice_title') }} | ÉchappéeVerte</title>
 {% endblock %}
 
 {% block main %}
 <main class="legal-page">
     <div class="mentions-container">
-        <h2>Mentions légales</h2>
+        <h2>{{ t('legal_notice_title') }}</h2>
         
-        <section>
-            <h3>Éditeur</h3>
-            <p>Échappée Verte<br/>
-            10 Traverse de la Gaye, 13009 Marseille<br/>
-            Email : <a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a><br/>
-            Téléphone : 06 25 20 07 07<br/>
-            SIRET : 989 742 465 00010</p>
+      <section>
+            <h3>{{ t('legal_notice_editor') }}</h3>
+            <p>{{ t('legal_notice_editor_content')|replace({
+                '{email}':'<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>'
+            })|raw }}</p>
         </section>
-        
+
         <section>
-            <h3>Directeur de la publication</h3>
-            <p>Lucas Alfred</p>
+            <h3>{{ t('legal_notice_director') }}</h3>
+            <p>{{ t('legal_notice_director_content') }}</p>
         </section>
-        
+
         <section>
-            <h3>Hébergeur</h3>
-            <p>OVH<br/>
-            2 rue Kellermann, 59100 Roubaix<br/>
-            Téléphone : 1007<br/>
-            Site : <a href="https://www.ovh.com" target="_blank" rel="noopener noreferrer">https://www.ovh.com</a></p>
+            <h3>{{ t('legal_notice_host') }}</h3>
+            <p>{{ t('legal_notice_host_content')|replace({
+                '{site}':'<a href="https://www.ovh.com" target="_blank" rel="noopener noreferrer">https://www.ovh.com</a>'
+            })|raw }}</p>
         </section>
-        
+
         <section>
-            <h3>Propriété intellectuelle</h3>
-            <p>Tous les contenus présents sur l'application (textes, images, photos) sont protégés par le droit d’auteur.</p>
+            <h3>{{ t('legal_notice_ip') }}</h3>
+            <p>{{ t('legal_notice_ip_content') }}</p>
         </section>
     </div>
 </main>

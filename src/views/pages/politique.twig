@@ -3,18 +3,18 @@
 {% endblock %}
 
 {% block title %}
-    <title>Politique de confidentialité | ÉchappéeVerte</title>
+    <title>{{ t('privacy_policy_title') }} | ÉchappéeVerte</title>
 {% endblock %}
 
 {% block main %}
 <main class="legal-page">
     <div class="privacy-container">
-        <h2>Politique de confidentialité</h2>
+        <h2>{{ t('privacy_policy_title') }}</h2>
 
-        <p>Échappée Verte collecte certaines données personnelles (nom, prénom, email, pays, favoris) pour améliorer votre expérience.</p>
-        <p>Les données sont utilisées uniquement pour gérer votre compte et vos préférences.</p>
-        <p>Vous pouvez à tout moment demander la modification ou la suppression de vos données à <a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>.</p>
-        <p>Les données sont conservées pour une durée maximale de 3 ans.</p>
+        <p>{{ t('privacy_policy_intro') }}</p>
+        <p>{{ t('privacy_policy_use') }}</p>
+        <p>{{ t('privacy_policy_rights')|replace({'{email}':'<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>'})|raw }}</p>
+        <p>{{ t('privacy_policy_retention') }}</p>
     </div>
 </main>
 {% endblock %}

@@ -160,5 +160,21 @@
   "weather_forecast_text": "%s, max %d°C aujourd’hui",
   "weather_icon_alt": "Icône météo %s",
   "transports_en_commun": "Transports en commun",
-  "velo": "Vélo"
+  "velo": "Vélo",
+  "legal_notice": "Mentions légales",
+  "privacy_policy": "Politique de confidentialité",
+  "privacy_policy_title": "Politique de confidentialité",
+  "privacy_policy_intro": "Échappée Verte collecte certaines données personnelles (nom, prénom, email, pays, favoris) pour améliorer votre expérience.",
+  "privacy_policy_use": "Les données sont utilisées uniquement pour gérer votre compte et vos préférences.",
+  "privacy_policy_rights": "Vous pouvez à tout moment demander la modification ou la suppression de vos données à {email}.",
+  "privacy_policy_retention": "Les données sont conservées pour une durée maximale de 3 ans.",
+  "legal_notice_title": "Mentions légales",
+  "legal_notice_editor": "Éditeur",
+  "legal_notice_editor_content": "Échappée Verte\n10 Traverse de la Gaye, 13009 Marseille\nEmail : {email}\nTéléphone : 06 25 20 07 07\nSIRET : 989 742 465 00010",
+  "legal_notice_director": "Directeur de la publication",
+  "legal_notice_director_content": "Lucas Alfred",
+  "legal_notice_host": "Hébergeur",
+  "legal_notice_host_content": "OVH\n2 rue Kellermann, 59100 Roubaix\nTéléphone : 1007\nSite : {site}",
+  "legal_notice_ip": "Propriété intellectuelle",
+  "legal_notice_ip_content": "Tous les contenus présents sur l'application (textes, images, photos) sont protégés par le droit d’auteur."
 }
