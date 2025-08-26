@@ -96,6 +96,11 @@
 			.pdf-content > strong {
 				display: inline;
 			}
+			.item-inline {
+				display: inline-block;
+				margin-right: 6pt;
+				white-space: nowrap;
+			}
 		</style>
 
 		<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet"/>
@@ -124,49 +129,45 @@
 						:</span>
 					<div class="pdf-content">
 						{% for acc in voyage.accommodations %}
-							<div>
+							<span class="item-inline">
 								<strong>{{ acc.title }}</strong>
 								{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
 								{% if acc.url %}
 									<a href="{{ acc.url }}" target="_blank">[lien direct]</a>
 								{% endif %}
+							</span>
+						{% endfor %}
+					</div>
+
+
+					<div class="pdf-section">
+						<span class="pdf-label">{{ t('ou_manger') }}
+							:</span>
+						<div class="pdf-content">
+							{% for resto in voyage.restaurants %}
+								<span class="item-inline">
+									<strong>{{ resto.title }}</strong>
+									{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+									{% if resto.url %}
+										<a href="{{ resto.url }}" target="_blank">[lien direct]</a>
+									{% endif %}
+								</span>
+							{% endfor %}
+						</div>
+
+						<div class="pdf-section">
+							<span class="pdf-label">{{ t('transports') }}
+								:</span>
+							<div class="pdf-content">
+								{% for transport in voyage.transports %}
+									<strong>{{ transport.type|capitalize }}</strong>:
+									{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
+								{% endfor %}
 							</div>
-						{% else %}
-							<em>{{ t('no_accommodation') }}</em>
-						{% endfor %}
+						</div>
 					</div>
 				</div>
-
-
-				<div class="pdf-section">
-					<span class="pdf-label">{{ t('ou_manger') }}
-						:</span>
-					<div class="pdf-content">
-						{% for resto in voyage.restaurants %}
-							<div>
-								<strong>{{ resto.title }}</strong>
-								{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
-								{% if resto.url %}
-									<a href="{{ resto.url }}" target="_blank">[lien direct]</a>
-								{% endif %}
-							</div>
-						{% else %}
-							<em>{{ t('no_restaurant') }}</em>
-						{% endfor %}
-					</div>
-				</div>
-
-				<div class="pdf-section">
-					<span class="pdf-label">{{ t('transports') }}
-						:</span>
-					<div class="pdf-content">
-						{% for transport in voyage.transports %}
-							<strong>{{ transport.type|capitalize }}</strong>:
-							{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
-						{% endfor %}
-					</div>
-				</div>
-			</div>
-		</div>
+			</body>
+		</body>
 	</body>
 </html>
