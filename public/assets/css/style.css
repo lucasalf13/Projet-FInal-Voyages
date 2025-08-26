@@ -1535,6 +1535,7 @@ body.dark-mode {
     --shadow: 0 4px 18px rgba(74, 169, 108, 0.15);
     --shadow-strong: 0 12px 32px rgba(74, 169, 108, 0.25);
 }
+
 body.dark-mode .btn-itin-toggle:hover,
 .btn-itin-toggle:focus {
     color: #F5F5F5;
@@ -2397,19 +2398,23 @@ body.dark-mode .card-euro {
 
 .legal-page {
     display: flex;
-    justify-content: center;  /* centre horizontalement */
-    align-items: center;      /* centre verticalement */
-    min-height: 100vh;        /* prend toute la hauteur de la fenêtre */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 20px;
     text-align: center;
     line-height: 1.6;
-    box-sizing: border-box;   /* pour inclure le padding dans la hauteur */
+    box-sizing: border-box;
+    background: #fdf6e3;
 }
-.mentions-container {
-    max-width: 800px;
-}
+
+.mentions-container,
 .privacy-container {
     max-width: 800px;
+    width: 100%;
+    background: #fff8e1;
+    padding: 40px 20px;
+    text-align: center;
+    line-height: 1.6;
+    border-radius: 8px;
 }
-
-
