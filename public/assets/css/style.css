@@ -2395,12 +2395,6 @@ body.dark-mode .card-euro {
     text-decoration: underline;
 }
 
-.legal-links a + a::before {
-    content: "|";
-    margin: 0 4px;
-    color: #4360e1;
-}
-
 .legal-page {
     max-width: 800px;
     margin: 0 auto;
