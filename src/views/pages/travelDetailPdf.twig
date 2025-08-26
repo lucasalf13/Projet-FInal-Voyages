@@ -108,8 +108,9 @@
 					<span class="pdf-label">{{ t('itinerary') }}
 						:</span>
 					<div class="pdf-content">
+						{% set keys = ['itinerary.title1', 'itinerary.title2', 'itinerary.title3'] %}
 						{% for itin in voyage.itineraries %}
-							<strong>{{ t(itin.title) }}:</strong>
+							<strong>{{ t(keys[loop.index0]) }}:</strong>
 							{{ attribute(itin, 'detail_' ~ lng)|default(itin.detail_fr)|striptags }}
 						{% endfor %}
 					</div>
@@ -155,9 +156,19 @@
 						:</span>
 					<div class="pdf-content">
 						{% for transport in voyage.transports %}
-							<strong>{{ t(transport.type|capitalize) }}</strong>:
+							{% set type = transport.type|lower %}
+							<strong>
+								{% if type == 'commun' %}
+									{{ t('transports_en_commun') }}
+								{% elseif type == 'velo' %}
+									{{ t('velo') }}
+								{% else %}
+									{{ transport.type|capitalize }}
+								{% endif %}
+							</strong>:
 							{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
 						{% endfor %}
+
 					</div>
 				</div>
 			</div>
