@@ -2378,29 +2378,38 @@ body.dark-mode .card-euro {
 .legal-links {
     text-align: center;
     font-size: 0.85rem;
-    color: #4360e1;
+    color: var(--color-primary);
     margin: 20px 0;
     line-height: 1.4;
 }
 
 .legal-links a {
-    color: #5763d0;
+    color: var(--color-primary);
     text-decoration: none;
     margin: 0 4px;
     transition: color 0.3s;
 }
 
 .legal-links a:hover {
-    color: #afbfe7;
+    color: var(--color-primary-light);
     text-decoration: underline;
 }
 
 .legal-page {
-    max-width: 800px;
-    margin: auto;
-    padding: 40px 20px;
+    display: flex;
+    justify-content: center;  /* centre horizontalement */
+    align-items: center;      /* centre verticalement */
+    min-height: 100vh;        /* prend toute la hauteur de la fenêtre */
+    padding: 20px;
     text-align: center;
     line-height: 1.6;
-    font-family: 'Lora', serif;
+    box-sizing: border-box;   /* pour inclure le padding dans la hauteur */
 }
+.mentions-container {
+    max-width: 800px;
+}
+.privacy-container {
+    max-width: 800px;
+}
+
 
