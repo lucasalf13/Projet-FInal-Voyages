@@ -3,18 +3,24 @@
 {% endblock %}
 
 {% block title %}
-    <title>{{ t('privacy_policy_title') }} | ÉchappéeVerte</title>
+	<title>{{ t('privacy_policy_title') }}
+		| ÉchappéeVerte</title>
 {% endblock %}
 
 {% block main %}
-<main class="legal-page">
-    <div class="privacy-container">
-        <h2>{{ t('privacy_policy_title') }}</h2>
+	<main class="legal-page">
+		<div class="privacy-container">
+			<h2>{{ t('privacy_policy_title') }}</h2>
 
-        <p>{{ t('privacy_policy_intro') }}</p>
-        <p>{{ t('privacy_policy_use') }}</p>
-        <p>{{ t('privacy_policy_rights')|replace({'{email}':'<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>'})|raw|nl2br }}</p>
-        <p>{{ t('privacy_policy_retention') }}</p>
-    </div>
-</main>
+			<p>{{ t('privacy_policy_intro') }}</p>
+			<p>{{ t('privacy_policy_use') }}</p>
+			<p>
+				{{ t('privacy_policy_rights')
+        |replace({'{email}':'<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>'})
+        |nl2br
+        |raw }}
+			</p>
+			<p>{{ t('privacy_policy_retention') }}</p>
+		</div>
+	</main>
 {% endblock %}
