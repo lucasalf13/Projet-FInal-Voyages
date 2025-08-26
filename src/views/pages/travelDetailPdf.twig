@@ -129,37 +129,34 @@
 						:</span>
 					<div class="pdf-content">
 						{% for acc in voyage.accommodations %}
-							<strong>{{ acc.title }}</strong>
-							-
-							{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
-							{% if acc.url %}
-								–
-								<a href="{{ acc.url }}" target="_blank">{{ acc.url }}</a>
-							{% endif %}
-							{% if not loop.last %}
-								·
-							{% endif %}
+							<div>
+								<strong>{{ acc.title }}</strong>
+								{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+								{% if acc.url %}
+									—
+									<a href="{{ acc.url }}" target="_blank">[lien direct]</a>
+								{% endif %}
+							</div>
 						{% else %}
 							<em>{{ t('no_accommodation') }}</em>
 						{% endfor %}
 					</div>
 				</div>
 
+
 				<div class="pdf-section">
 					<span class="pdf-label">{{ t('ou_manger') }}
 						:</span>
 					<div class="pdf-content">
 						{% for resto in voyage.restaurants %}
-							<strong>{{ resto.title }}</strong>
-							-
-							{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
-							{% if resto.url %}
-								–
-								<a href="{{ resto.url }}" target="_blank">{{ resto.url }}</a>
-							{% endif %}
-							{% if not loop.last %}
-								·
-							{% endif %}
+							<div>
+								<strong>{{ resto.title }}</strong>
+								{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+								{% if resto.url %}
+									—
+									<a href="{{ resto.url }}" target="_blank">[lien direct]</a>
+								{% endif %}
+							</div>
 						{% else %}
 							<em>{{ t('no_restaurant') }}</em>
 						{% endfor %}
