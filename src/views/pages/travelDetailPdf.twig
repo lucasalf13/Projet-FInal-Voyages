@@ -131,36 +131,36 @@
 							</span>
 						{% endfor %}
 					</div>
+				</div>
 
 
-					<div class="pdf-section">
-						<span class="pdf-label">{{ t('ou_manger') }}
-							:</span>
-						<div class="pdf-content">
-							{% for resto in voyage.restaurants %}
-								<span class="item-inline">
-									<strong>{{ resto.title }}</strong>
-									{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
-									{% if resto.url %}
-										<a href="{{ resto.url }}" target="_blank">[lien direct]</a>
-									{% endif %}
-								</span>
-							{% endfor %}
-						</div>
-
-						<div class="pdf-section">
-							<span class="pdf-label">{{ t('transports') }}
-								:</span>
-							<div class="pdf-content">
-								{% for transport in voyage.transports %}
-									<strong>{{ transport.type|capitalize }}</strong>:
-									{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
-								{% endfor %}
-							</div>
-						</div>
+				<div class="pdf-section">
+					<span class="pdf-label">{{ t('ou_manger') }}
+						:</span>
+					<div class="pdf-content">
+						{% for resto in voyage.restaurants %}
+							<span class="item-inline">
+								<strong>{{ resto.title }}</strong>
+								{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
+								{% if resto.url %}
+									<a href="{{ resto.url }}" target="_blank">[lien direct]</a>
+								{% endif %}
+							</span>
+						{% endfor %}
 					</div>
 				</div>
-			</body>
-		</body>
+
+				<div class="pdf-section">
+					<span class="pdf-label">{{ t('transports') }}
+						:</span>
+					<div class="pdf-content">
+						{% for transport in voyage.transports %}
+							<strong>{{ transport.type|capitalize }}</strong>:
+							{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
