@@ -112,7 +112,7 @@
 					<div class="pdf-content">
 						{% for itin in voyage.itineraries %}
 							<strong>{{ itin.title }}:</strong>
-							{{ itin.detail|striptags }}
+							{{ attribute(itin, 'detail_' ~ lng)|default(itin.detail_fr)|striptags }}
 							{% if not loop.last %}
 								·
 							{% endif %}
@@ -131,7 +131,7 @@
 						{% for acc in voyage.accommodations %}
 							<strong>{{ acc.title }}</strong>
 							-
-							{{ acc.priceCategory }}
+							{{ acc.priceCategory == 'EURO' ? '€' : acc.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
 							{% if acc.url %}
 								–
 								<a href="{{ acc.url }}" target="_blank">{{ acc.url }}</a>
@@ -152,7 +152,7 @@
 						{% for resto in voyage.restaurants %}
 							<strong>{{ resto.title }}</strong>
 							-
-							{{ resto.priceCategory }}
+							{{ resto.priceCategory == 'EURO' ? '€' : resto.priceCategory == 'TWO_EURO' ? '€€' : '€€€' }}
 							{% if resto.url %}
 								–
 								<a href="{{ resto.url }}" target="_blank">{{ resto.url }}</a>
@@ -172,7 +172,7 @@
 					<div class="pdf-content">
 						{% for transport in voyage.transports %}
 							<strong>{{ transport.type|capitalize }}</strong>:
-							{{ transport.detail }}
+							{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
 							{% if not loop.last %}
 								·
 							{% endif %}
