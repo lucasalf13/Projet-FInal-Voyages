@@ -2417,3 +2417,16 @@ body.dark-mode .card-euro {
     line-height: 1.6;
     border-radius: 8px;
 }
+
+@media (max-width: 600px) {
+
+    .mentions-container,
+    .privacy-container {
+        padding: 20px 15px;
+        font-size: 0.9rem;
+    }
+
+    .legal-page {
+        padding: 15px;
+    }
+}
