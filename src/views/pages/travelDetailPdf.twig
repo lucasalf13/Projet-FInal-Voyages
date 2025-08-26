@@ -109,7 +109,7 @@
 						:</span>
 					<div class="pdf-content">
 						{% for itin in voyage.itineraries %}
-							<strong>{{ itin.title }}:</strong>
+							<strong>{{ t(itin.title) }}:</strong>
 							{{ attribute(itin, 'detail_' ~ lng)|default(itin.detail_fr)|striptags }}
 						{% endfor %}
 					</div>
@@ -155,7 +155,7 @@
 						:</span>
 					<div class="pdf-content">
 						{% for transport in voyage.transports %}
-							<strong>{{ transport.type|capitalize }}</strong>:
+							<strong>{{ t(transport.type|capitalize) }}</strong>:
 							{{ attribute(transport, 'detail_' ~ lng)|default(transport.detail_fr)|striptags }}
 						{% endfor %}
 					</div>
