@@ -14,11 +14,11 @@
 
 			<p>{{ t('privacy_policy_intro') }}</p>
 			<p>{{ t('privacy_policy_use') }}</p>
+			{% set parts = t('privacy_policy_rights')|split('{email}') %}
 			<p>
-				{{ t('privacy_policy_rights')
-     |replace({'{email}':'<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>'})
-     |nl2br
-     |raw }}
+				{{ parts[0]|nl2br|raw }}
+				<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>
+				{{ parts[1]|default('')|nl2br|raw }}
 			</p>
 			<p>{{ t('privacy_policy_retention') }}</p>
 		</div>
