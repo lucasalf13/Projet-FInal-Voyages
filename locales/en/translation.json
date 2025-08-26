@@ -174,7 +174,7 @@
   "legal_notice_director": "Publication Director",
   "legal_notice_director_content": "Lucas Alfred",
   "legal_notice_host": "Hosting Provider",
-  "legal_notice_host_content": "OVH\n2 rue Kellermann, 59100 Roubaix\nPhone: 1007\nWebsite: {site}",
+  "legal_notice_host_content": "OVH\nWebsite: {site}",
   "legal_notice_ip": "Intellectual Property",
   "legal_notice_ip_content": "All content on the application (texts, images, photos) is protected by copyright."
 }
