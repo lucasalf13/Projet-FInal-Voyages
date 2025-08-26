@@ -13,7 +13,7 @@
 
         <p>{{ t('privacy_policy_intro') }}</p>
         <p>{{ t('privacy_policy_use') }}</p>
-        <p>{{ t('privacy_policy_rights')|replace({'{email}':'<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>'})|raw }}</p>
+        <p>{{ t('privacy_policy_rights')|replace({'{email}':'<a href="mailto:alfred.lucas13009@gmail.com">alfred.lucas13009@gmail.com</a>'})|nl2br|raw }}</p>
         <p>{{ t('privacy_policy_retention') }}</p>
     </div>
 </main>
