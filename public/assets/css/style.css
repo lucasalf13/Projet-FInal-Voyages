@@ -158,7 +158,8 @@ a:active {
 
 .header-nav-flex li a:hover,
 .header-nav-flex li a:focus {
-    color: var(--color-primary-dark);
+    background: rgba(76, 175, 80, 0.15);
+    color: #1b5e20;
 }
 
 .nav-mobile {
@@ -2124,6 +2125,9 @@ body.dark-mode .card-euro {
     margin-top: 20px;
 }
 
+.card-transport {
+    text-align: left;
+}
 @media (min-width: 770px) {
     .card-transport {
         width: 320px;
