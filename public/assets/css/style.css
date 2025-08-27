@@ -158,7 +158,7 @@ a:active {
 
 .header-nav-flex li a:hover,
 .header-nav-flex li a:focus {
-    background: rgba(76, 175, 80, 0.15);
+    background: var(--color-primary)
 }
 
 .nav-mobile {
