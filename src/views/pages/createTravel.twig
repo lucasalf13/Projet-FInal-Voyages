@@ -114,8 +114,7 @@
 		</form>
 
 		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-document.querySelectorAll("textarea.richtext").forEach((textarea) => {
+			document.querySelectorAll("textarea.richtext").forEach((textarea) => {
 ClassicEditor.create(textarea, {
 toolbar: [
 'undo',
@@ -136,7 +135,7 @@ toolbar: [
 console.error(error);
 });
 });
-});
+
 
 function addPhotoBlock(defaultCaption = '') {
 const container = document.getElementById('photos-list');
@@ -166,7 +165,8 @@ document.getElementById('add-photo-btn').onclick = function () {
 addPhotoBlock();
 };
 
-document.addEventListener('DOMContentLoaded', function (){{ % if not (edit and photosArray|length > 0) %}
+document.addEventListener('DOMContentLoaded', function (){
+{% if not (edit and photosArray|length > 0) %}
 if (!document.getElementById('photos-list').children.length) {
 addPhotoBlock();
 }
@@ -183,6 +183,7 @@ function addAccommodation(data = {}) {
 const container = document.getElementById('accommodations-list');
 if (container.children.length >= 3) 
 return;
+
 
 
 container.insertAdjacentHTML('beforeend', `
@@ -226,6 +227,7 @@ if (container.children.length >= 3)
 return;
 
 
+
 container.insertAdjacentHTML('beforeend', `
             <div class="restaurant-block" style="margin-bottom:10px;">
                 <input type="text" placeholder="Nom restaurant" data-resto="title" value="${
@@ -260,10 +262,13 @@ document.getElementById('add-resto-btn').onclick = addRestaurant;
 document.getElementById('accommodations-list').addEventListener('input', updateAccommodationsJSON);
 document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
 
-window.addEventListener('DOMContentLoaded', function (){{ % if accommodations %}
-{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}{% endif %}
+window.addEventListener('DOMContentLoaded', function (){
+{% if accommodations %}
+{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}
+{% endif %}
 {% if restaurants %}
-{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}{% endif %}
+{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}
+{% endif %}
 });
 		</script>
 	</main>
