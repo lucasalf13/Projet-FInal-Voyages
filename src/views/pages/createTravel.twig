@@ -113,36 +113,23 @@
 			</button>
 		</form>
 
-		<script>
-			document.querySelectorAll("textarea.richtext").forEach((textarea) => {
-ClassicEditor.create(textarea, {
-toolbar: [
-'undo',
-'redo',
-'|',
-'bold',
-'italic',
-'underline',
-'|',
-'link',
-'bulletedList',
-'numberedList',
-'|',
-'blockQuote',
-'codeBlock'
-]
-}).catch(error => {
-console.error(error);
-});
-});
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
+    // ==== CKEditor ====
+    document.querySelectorAll("textarea.richtext").forEach((textarea) => {
+        ClassicEditor.create(textarea, {
+            toolbar: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList']
+        }).catch(error => console.error(error));
+    });
 
-function addPhotoBlock(defaultCaption = '') {
-const container = document.getElementById('photos-list');
-const div = document.createElement('div');
-div.className = 'photo-block';
-div.style.marginBottom = '12px';
-div.innerHTML = `
+    // ==== Photos ====
+    function addPhotoBlock(defaultCaption = '') {
+        const container = document.getElementById('photos-list');
+        const div = document.createElement('div');
+        div.className = 'photo-block';
+        div.style.marginBottom = '12px';
+        div.innerHTML = `
             <label>
                 Photo :
                 <input type="file" name="photos[]" accept="image/*" required>
@@ -150,122 +137,110 @@ div.innerHTML = `
             <label style="margin-left:10px;">
                 Légende :
                 <input type="text" name="captions[]" placeholder="Légende..." value="${
-defaultCaption ? defaultCaption.replace(/"/g, '&quot;') : ''
-}" required>
+                    defaultCaption ? defaultCaption.replace(/"/g, '&quot;') : ''
+                }" required>
             </label>
             <button type="button" class="remove-photo-btn" style="margin-left:10px;">Supprimer</button>
         `;
-div.querySelector('.remove-photo-btn').onclick = function () {
-div.remove();
-};
-container.appendChild(div);
-}
+        div.querySelector('.remove-photo-btn').onclick = function () { div.remove(); };
+        container.appendChild(div);
+    }
 
-document.getElementById('add-photo-btn').onclick = function () {
-addPhotoBlock();
-};
+    document.getElementById('add-photo-btn').onclick = function () {
+        addPhotoBlock();
+    };
 
-document.addEventListener('DOMContentLoaded', function (){{% if not (edit and photosArray|length > 0) %}
-if (!document.getElementById('photos-list').children.length) {
-addPhotoBlock();
-}
-{% endif %}
-});
+    {% if not (edit and photosArray|length > 0) %}
+        if (!document.getElementById('photos-list').children.length) {
+            addPhotoBlock();
+        }
+    {% endif %}
 
-function updateAccommodationsJSON() {
-const blocks = document.querySelectorAll('.accommodation-block');
-const accs = Array.from(blocks).map(block => ({title: block.querySelector('[data-acc="title"]').value, photo: block.querySelector('[data-acc="photo"]').value, priceCategory: block.querySelector('[data-acc="priceCategory"]').value, url: block.querySelector('[data-acc="url"]').value}));
-document.getElementById('accommodations-json').value = JSON.stringify(accs);
-}
+    // ==== Hébergements ====
+    function updateAccommodationsJSON() {
+        const blocks = document.querySelectorAll('.accommodation-block');
+        const accs = Array.from(blocks).map(block => ({
+            title: block.querySelector('[data-acc="title"]').value,
+            photo: block.querySelector('[data-acc="photo"]').value,
+            priceCategory: block.querySelector('[data-acc="priceCategory"]').value,
+            url: block.querySelector('[data-acc="url"]').value
+        }));
+        document.getElementById('accommodations-json').value = JSON.stringify(accs);
+    }
 
-function addAccommodation(data = {}) {
-const container = document.getElementById('accommodations-list');
-if (container.children.length >= 3) 
-return;
+    function addAccommodation(data = {}) {
+        const container = document.getElementById('accommodations-list');
+        if (container.children.length >= 3) return;
 
-
-
-container.insertAdjacentHTML('beforeend', `
+        container.insertAdjacentHTML('beforeend', `
             <div class="accommodation-block" style="margin-bottom:10px;">
-                <input type="text" placeholder="Nom hébergement" data-acc="title" value="${
-data.title || ''
-}" required>
-                <input type="text" placeholder="Photo" data-acc="photo" value="${
-data.photo || ''
-}">
-                            <input type="url" placeholder="Lien vers hébergement (URL)" data-acc="url" value="${
-data.url || ''
-}">
-
+                <input type="text" placeholder="Nom hébergement" data-acc="title" value="${data.title || ''}" required>
+                <input type="text" placeholder="Photo" data-acc="photo" value="${data.photo || ''}">
+                <input type="url" placeholder="Lien vers hébergement (URL)" data-acc="url" value="${data.url || ''}">
                 <select data-acc="priceCategory">
-                    <option value="EURO" ${
-data.priceCategory === 'EURO' ? 'selected' : ''
-}>€</option>
-                    <option value="TWO_EURO" ${
-data.priceCategory === 'TWO_EURO' ? 'selected' : ''
-}>€€</option>
-                    <option value="THREE_EURO" ${
-data.priceCategory === 'THREE_EURO' ? 'selected' : ''
-}>€€€</option>
+                    <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
+                    <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>
+                    <option value="THREE_EURO" ${data.priceCategory === 'THREE_EURO' ? 'selected' : ''}>€€€</option>
                 </select>
                 <button type="button" onclick="this.parentNode.remove();updateAccommodationsJSON();">Supprimer</button>
             </div>
         `);
-updateAccommodationsJSON();
-}
+        updateAccommodationsJSON();
+    }
 
-function updateRestaurantsJSON() {
-const blocks = document.querySelectorAll('.restaurant-block');
-const restos = Array.from(blocks).map(block => ({title: block.querySelector('[data-resto="title"]').value, photo: block.querySelector('[data-resto="photo"]').value, priceCategory: block.querySelector('[data-resto="priceCategory"]').value, url: block.querySelector('[data-resto="url"]').value}));
-document.getElementById('restaurants-json').value = JSON.stringify(restos);
-}
+    document.getElementById('add-acc-btn').onclick = addAccommodation;
+    document.getElementById('accommodations-list').addEventListener('input', updateAccommodationsJSON);
 
-function addRestaurant(data = {}) {
-const container = document.getElementById('restaurants-list');
-if (container.children.length >= 3) 
-return;
+    // ==== Restaurants ====
+    function updateRestaurantsJSON() {
+        const blocks = document.querySelectorAll('.restaurant-block');
+        const restos = Array.from(blocks).map(block => ({
+            title: block.querySelector('[data-resto="title"]').value,
+            photo: block.querySelector('[data-resto="photo"]').value,
+            priceCategory: block.querySelector('[data-resto="priceCategory"]').value,
+            url: block.querySelector('[data-resto="url"]').value
+        }));
+        document.getElementById('restaurants-json').value = JSON.stringify(restos);
+    }
 
+    function addRestaurant(data = {}) {
+        const container = document.getElementById('restaurants-list');
+        if (container.children.length >= 3) return;
 
-
-container.insertAdjacentHTML('beforeend', `
+        container.insertAdjacentHTML('beforeend', `
             <div class="restaurant-block" style="margin-bottom:10px;">
-                <input type="text" placeholder="Nom restaurant" data-resto="title" value="${
-data.title || ''
-}" required>
-                <input type="text" placeholder="Photo" data-resto="photo" value="${
-data.photo || ''
-}">
-                            <input type="url" placeholder="Lien vers restaurant (URL)" data-resto="url" value="${
-data.url || ''
-}"> <!-- ✅ ajout -->
-
+                <input type="text" placeholder="Nom restaurant" data-resto="title" value="${data.title || ''}" required>
+                <input type="text" placeholder="Photo" data-resto="photo" value="${data.photo || ''}">
+                <input type="url" placeholder="Lien vers restaurant (URL)" data-resto="url" value="${data.url || ''}">
                 <select data-resto="priceCategory">
-                    <option value="EURO" ${
-data.priceCategory === 'EURO' ? 'selected' : ''
-}>€</option>
-                    <option value="TWO_EURO" ${
-data.priceCategory === 'TWO_EURO' ? 'selected' : ''
-}>€€</option>
-                    <option value="THREE_EURO" ${
-data.priceCategory === 'THREE_EURO' ? 'selected' : ''
-}>€€€</option>
+                    <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
+                    <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>
+                    <option value="THREE_EURO" ${data.priceCategory === 'THREE_EURO' ? 'selected' : ''}>€€€</option>
                 </select>
                 <button type="button" onclick="this.parentNode.remove();updateRestaurantsJSON();">Supprimer</button>
             </div>
         `);
-updateRestaurantsJSON();
-}
+        updateRestaurantsJSON();
+    }
 
-document.getElementById('add-acc-btn').onclick = addAccommodation;
-document.getElementById('add-resto-btn').onclick = addRestaurant;
-document.getElementById('accommodations-list').addEventListener('input', updateAccommodationsJSON);
-document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
+    document.getElementById('add-resto-btn').onclick = addRestaurant;
+    document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
 
-window.addEventListener('DOMContentLoaded', function (){{% if accommodations %}
-{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}{% endif %}
-{% if restaurants %}
-{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}{% endif %}
+    // ==== Charger les hébergements et restaurants existants ====
+    {% if accommodations %}
+        {% for acc in accommodations %}
+            addAccommodation({{ acc|json_encode|raw }});
+        {% endfor %}
+    {% endif %}
+
+    {% if restaurants %}
+        {% for resto in restaurants %}
+            addRestaurant({{ resto|json_encode|raw }});
+        {% endfor %}
+    {% endif %}
+
 });
-		</script>
+</script>
+
 	</main>
 {% endblock %}
