@@ -117,21 +117,25 @@
 				{% endif %}
 			</button>
 		</form>
-		<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-		<script>
-			document.addEventListener('DOMContentLoaded', function () { // Pour chaque éditeur Quill
-{% for i in 0..2 %}
-var quill {{ i }} = new Quill('#quill-itin- {{ i }}', {theme: 'snow'});
-// Mettre le contenu initial si présent
-quill {{ i }}.root.innerHTML = document.getElementById('quill-itin- {{ i }}').innerHTML;{% endfor %}
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialiser chaque éditeur Quill pour les itinéraires français
+    var quills = [];
+    {% for i in 0..2 %}
+    quills[{{ i }}] = new Quill('#quill-itin-{{ i }}', { theme: 'snow' });
+    // Charger le contenu initial si présent
+    quills[{{ i }}].root.innerHTML = document.getElementById('quill-itin-{{ i }}').innerHTML;
+    {% endfor %}
 
-// À la soumission du formulaire, copier le contenu Quill dans l’input caché
-document.querySelector('.create-travel-form').addEventListener('submit', function (){
-{% for i in 0..2 %}
-document.getElementById('input-itin- {{ i }}').value = quill {{ i }}.root.innerHTML;{% endfor %}
+    // À la soumission du formulaire, copier le contenu Quill dans l’input caché
+    document.querySelector('.create-travel-form').addEventListener('submit', function () {
+        {% for i in 0..2 %}
+        document.getElementById('input-itin-{{ i }}').value = quills[{{ i }}].root.innerHTML;
+        {% endfor %}
+    });
 });
-});
-		</script>
+</script>
 		<script>
 
 			function addPhotoBlock(defaultCaption = '') {
