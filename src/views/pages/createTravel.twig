@@ -67,7 +67,7 @@
 						<input type="text" name="itineraries[{{ i }}][title]" required value="{{ itineraries[i].title|default(itin_titles[i]) }}">
 						{% for locale in locales %}
 							<label>Détail ({{ locale|upper }}):</label>
-							<textarea name="itineraries[{{ i }}][detail_{{ locale }}]" {% if locale == 'fr' %} class="richtext" {% endif %} required>{{ itineraries[i]['detail_' ~ locale]|default('') }}</textarea>
+							<textarea name="itineraries[{{ i }}][detail_{{ locale }}]" class="richtext" required>{{ itineraries[i]['detail_' ~ locale]|default('') }}</textarea>
 						{% endfor %}
 					</div>
 				{% endfor %}
@@ -97,7 +97,7 @@
 						</select>
 						{% for locale in locales %}
 							<label>Détail ({{ locale|upper }}):</label>
-							<textarea name="transports[{{ i }}][detail_{{ locale }}]" {% if locale == 'fr' %} class="richtext" {% endif %} required>{{ transports[i]['detail_' ~ locale]|default('') }}</textarea>
+							<textarea name="transports[{{ i }}][detail_{{ locale }}]" class="richtext" required>{{ transports[i]['detail_' ~ locale]|default('') }}</textarea>
 						{% endfor %}
 					</div>
 				{% endfor %}
@@ -165,8 +165,7 @@ document.getElementById('add-photo-btn').onclick = function () {
 addPhotoBlock();
 };
 
-document.addEventListener('DOMContentLoaded', function (){
-{% if not (edit and photosArray|length > 0) %}
+document.addEventListener('DOMContentLoaded', function (){{% if not (edit and photosArray|length > 0) %}
 if (!document.getElementById('photos-list').children.length) {
 addPhotoBlock();
 }
@@ -262,13 +261,10 @@ document.getElementById('add-resto-btn').onclick = addRestaurant;
 document.getElementById('accommodations-list').addEventListener('input', updateAccommodationsJSON);
 document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
 
-window.addEventListener('DOMContentLoaded', function (){
-{% if accommodations %}
-{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}
-{% endif %}
+window.addEventListener('DOMContentLoaded', function (){{% if accommodations %}
+{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}{% endif %}
 {% if restaurants %}
-{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}
-{% endif %}
+{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}{% endif %}
 });
 		</script>
 	</main>
