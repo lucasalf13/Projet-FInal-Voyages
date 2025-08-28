@@ -2,7 +2,6 @@
 
 {% block style %}
 	<link rel="stylesheet" href="/assets/css/style.css"/>
-	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -67,12 +66,7 @@
 						<input type="text" name="itineraries[{{ i }}][title]" required value="{{ itineraries[i].title|default(itin_titles[i]) }}">
 						{% for locale in locales %}
 							<label>Détail ({{ locale|upper }}):</label>
-							{% if locale == 'fr' %}
-								<div id="quill-itin-{{ i }}" style="height:120px;">{{ itineraries[i]['detail_fr']|default('')|raw }}</div>
-								<input type="hidden" name="itineraries[{{ i }}][detail_fr]" id="input-itin-{{ i }}">
-							{% else %}
-								<textarea name="itineraries[{{ i }}][detail_{{ locale }}]" required>{{ itineraries[i]['detail_' ~ locale]|default('') }}</textarea>
-							{% endif %}
+							<textarea name="itineraries[{{ i }}][detail_{{ locale }}]" required>{{ itineraries[i]['detail_' ~ locale]|default('') }}</textarea>
 						{% endfor %}
 					</div>
 				{% endfor %}
@@ -117,27 +111,8 @@
 				{% endif %}
 			</button>
 		</form>
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Initialiser chaque éditeur Quill pour les itinéraires français
-    var quills = [];
-    {% for i in 0..2 %}
-    quills[{{ i }}] = new Quill('#quill-itin-{{ i }}', { theme: 'snow' });
-    // Charger le contenu initial si présent
-    quills[{{ i }}].root.innerHTML = document.getElementById('quill-itin-{{ i }}').innerHTML;
-    {% endfor %}
 
-    // À la soumission du formulaire, copier le contenu Quill dans l’input caché
-    document.querySelector('.create-travel-form').addEventListener('submit', function () {
-        {% for i in 0..2 %}
-        document.getElementById('input-itin-{{ i }}').value = quills[{{ i }}].root.innerHTML;
-        {% endfor %}
-    });
-});
-</script>
 		<script>
-
 			function addPhotoBlock(defaultCaption = '') {
 const container = document.getElementById('photos-list');
 const div = document.createElement('div');
@@ -166,7 +141,8 @@ document.getElementById('add-photo-btn').onclick = function () {
 addPhotoBlock();
 };
 
-document.addEventListener('DOMContentLoaded', function (){{% if not (edit and photosArray|length > 0) %}
+document.addEventListener('DOMContentLoaded', function (){
+{% if not (edit and photosArray|length > 0) %}
 if (!document.getElementById('photos-list').children.length) {
 addPhotoBlock();
 }
@@ -184,8 +160,9 @@ const container = document.getElementById('accommodations-list');
 if (container.children.length >= 3) 
 return;
 
-
-container.insertAdjacentHTML('beforeend', `
+container.insertAdjacentHTML(
+'beforeend',
+`
             <div class="accommodation-block" style="margin-bottom:10px;">
                 <input type="text" placeholder="Nom hébergement" data-acc="title" value="${
 data.title || ''
@@ -210,7 +187,8 @@ data.priceCategory === 'THREE_EURO' ? 'selected' : ''
                 </select>
                 <button type="button" onclick="this.parentNode.remove();updateAccommodationsJSON();">Supprimer</button>
             </div>
-        `);
+        `
+);
 updateAccommodationsJSON();
 }
 
@@ -225,8 +203,9 @@ const container = document.getElementById('restaurants-list');
 if (container.children.length >= 3) 
 return;
 
-
-container.insertAdjacentHTML('beforeend', `
+container.insertAdjacentHTML(
+'beforeend',
+`
             <div class="restaurant-block" style="margin-bottom:10px;">
                 <input type="text" placeholder="Nom restaurant" data-resto="title" value="${
 data.title || ''
@@ -251,7 +230,8 @@ data.priceCategory === 'THREE_EURO' ? 'selected' : ''
                 </select>
                 <button type="button" onclick="this.parentNode.remove();updateRestaurantsJSON();">Supprimer</button>
             </div>
-        `);
+        `
+);
 updateRestaurantsJSON();
 }
 
@@ -260,10 +240,13 @@ document.getElementById('add-resto-btn').onclick = addRestaurant;
 document.getElementById('accommodations-list').addEventListener('input', updateAccommodationsJSON);
 document.getElementById('restaurants-list').addEventListener('input', updateRestaurantsJSON);
 
-window.addEventListener('DOMContentLoaded', function (){{% if accommodations %}
-{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}{% endif %}
+window.addEventListener('DOMContentLoaded', function (){
+{% if accommodations %}
+{% for acc in accommodations %}addAccommodation({{ acc|json_encode|raw }});{% endfor %}
+{% endif %}
 {% if restaurants %}
-{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}{% endif %}
+{% for resto in restaurants %}addRestaurant({{ resto|json_encode|raw }});{% endfor %}
+{% endif %}
 });
 		</script>
 	</main>
