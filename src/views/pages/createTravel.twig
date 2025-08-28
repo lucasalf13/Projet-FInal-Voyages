@@ -19,7 +19,7 @@
 			<p class="error">{{ error }}</p>
 		{% endif %}
 
-		<form method="post" enctype="multipart/form-data" class="create-travel-form" action="{% if edit %}/voyages/{{ voyage.id }}/edit{% else %}/voyages/new{% endif %}">
+		<form method="post" enctype="multipart/form-data" class="create-travel-form" action="{% if edit %}/voyages/{{ voyage.id }}/edit{% else %}/voyages/new{% endif %}" novalidate>
 
 			<label for="name">{{ t('trip_name') }}
 				:</label>
@@ -117,11 +117,24 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // ==== CKEditor ====
-    document.querySelectorAll("textarea.richtext").forEach((textarea) => {
-        ClassicEditor.create(textarea, {
-            toolbar: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList']
-        }).catch(error => console.error(error));
+   const editors = {};
+
+document.querySelectorAll("textarea.richtext").forEach((textarea) => {
+    ClassicEditor.create(textarea, {
+        toolbar: ['bold', 'italic', 'underline', 'bulletedList', 'numberedList']
+    }).then(editor => {
+        editors[textarea.name] = editor; // Stocke l'instance
+    }).catch(error => {
+        console.error(error);
     });
+});
+
+document.querySelector('form.create-travel-form').addEventListener('submit', function(e) {
+    for (const name in editors) {
+        const editor = editors[name];
+        document.querySelector(`textarea[name="${name}"]`).value = editor.getData();
+    }
+});
 
     // ==== Photos ====
     function addPhotoBlock(defaultCaption = '') {
