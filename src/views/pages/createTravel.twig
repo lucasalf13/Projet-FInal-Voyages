@@ -36,6 +36,7 @@
 
 			<h3>{{ t('photos') }}</h3>
 			<div id="photos-list">
+                            {# Si on édite, affiche les photos existantes avec options de suppression et légende #}
 				{% if edit and photosArray|length > 0 %}
 					{% for i, photo in photosArray %}
 						<div class="photo-block" style="margin-bottom:14px;">
