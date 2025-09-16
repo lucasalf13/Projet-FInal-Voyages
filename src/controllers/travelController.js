@@ -14,7 +14,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-exports.uploadPhotos = upload.array('photos[]', 10);
+exports.uploadPhotos = upload.fields([
+    { name: 'photos[]', maxCount: 10 },              // photos du voyage général
+    { name: 'accommodationPhotos[]', maxCount: 10 }, // photos hébergements
+    { name: 'restaurantPhotos[]', maxCount: 10 }     // photos restaurants
+]);
 
 exports.getCreateForm = (req, res) => {
     if (!req.session.user || req.session.user.role !== 'admin') {
@@ -39,14 +43,25 @@ exports.createTravel = async (req, res) => {
         } = req.body;
 
         const itineraries = req.body.itineraries || [];
-        const accommodations = JSON.parse(req.body.accommodations || '[]');
-        const restaurants = JSON.parse(req.body.restaurants || '[]');
+        const accommodationsRaw = JSON.parse(req.body.accommodations || '[]');
+        const restaurantsRaw = JSON.parse(req.body.restaurants || '[]');
         let transports = req.body.transports || [];
         if (!Array.isArray(transports)) {
             transports = Object.values(transports);
         }
         const captions = req.body.captions || [];
-        const photos = req.files ? req.files.map(file => file.filename) : [];
+        const photos = (req.files['photos[]'] || []).map(f => f.filename);
+        const accommodationPhotos = (req.files['accommodationPhotos[]'] || []).map(f => f.filename);
+        const restaurantPhotos = (req.files['restaurantPhotos[]'] || []).map(f => f.filename);
+        const accommodations = accommodationsRaw.map((acc, i) => ({
+            ...acc,
+            photo: accommodationPhotos[i] || acc.photo || ''
+        }));
+
+        const restaurants = restaurantsRaw.map((resto, i) => ({
+            ...resto,
+            photo: restaurantPhotos[i] || resto.photo || ''
+        }));
         const captionsCorrected = photos.map((_, i) => captions[i] || '');
         const photosString = photos.join(';');
         const captionsString = captionsCorrected.join(';');
@@ -58,35 +73,35 @@ exports.createTravel = async (req, res) => {
                 photoCaptions: captionsString
             }
         });
-  for (const t of transports) {
-  if (t.type) {
-    await prisma.transport.create({
-      data: {
-        type: t.type,
-        detail_fr: t.detail_fr || '',
-        detail_en: t.detail_en || '',
-        detail_es: t.detail_es || '',
-        detail_it: t.detail_it || '',
-        travelId: travel.id
-      }
-    });
-  }
-}
+        for (const t of transports) {
+            if (t.type) {
+                await prisma.transport.create({
+                    data: {
+                        type: t.type,
+                        detail_fr: t.detail_fr || '',
+                        detail_en: t.detail_en || '',
+                        detail_es: t.detail_es || '',
+                        detail_it: t.detail_it || '',
+                        travelId: travel.id
+                    }
+                });
+            }
+        }
 
-       for (const itin of itineraries) {
-  if (itin.title) {
-    await prisma.itinerary.create({
-      data: {
-        title: itin.title,
-        detail_fr: itin.detail_fr || '',
-        detail_en: itin.detail_en || '',
-        detail_es: itin.detail_es || '',
-        detail_it: itin.detail_it || '',
-        travelId: travel.id
-      }
-    });
-  }
-}
+        for (const itin of itineraries) {
+            if (itin.title) {
+                await prisma.itinerary.create({
+                    data: {
+                        title: itin.title,
+                        detail_fr: itin.detail_fr || '',
+                        detail_en: itin.detail_en || '',
+                        detail_es: itin.detail_es || '',
+                        detail_it: itin.detail_it || '',
+                        travelId: travel.id
+                    }
+                });
+            }
+        }
 
 
         for (const acc of accommodations) {
@@ -235,13 +250,13 @@ exports.updateTravel = async (req, res) => {
         if (!Array.isArray(transports)) {
             transports = Object.values(transports);
         }
-        let accommodations = req.body.accommodations || [];
-        if (typeof accommodations === 'string') {
-            try { accommodations = JSON.parse(accommodations); } catch { }
+        let accommodationsRaw = req.body.accommodations || [];
+        if (typeof accommodationsRaw === 'string') {
+            try { accommodationsRaw = JSON.parse(accommodationsRaw); } catch { }
         }
-        let restaurants = req.body.restaurants || [];
-        if (typeof restaurants === 'string') {
-            try { restaurants = JSON.parse(restaurants); } catch { }
+        let restaurantsRaw = req.body.restaurants || [];
+        if (typeof restaurantsRaw === 'string') {
+            try { restaurantsRaw = JSON.parse(restaurantsRaw); } catch { }
         }
         let itineraries = req.body.itineraries || [];
         if (!Array.isArray(itineraries)) {
@@ -269,22 +284,33 @@ exports.updateTravel = async (req, res) => {
                 filteredCaptions.push(captionsExisting[i] || '');
             }
         }
-        if (req.files && req.files.length > 0) {
-            for (let i = 0; i < req.files.length; i++) {
-                filteredPhotos.push(req.files[i].filename);
-                filteredCaptions.push(captionsNew[i] || '');
-            }
+        const photos = (req.files['photos[]'] || []).map(f => f.filename);
+        const accommodationPhotos = (req.files['accommodationPhotos[]'] || []).map(f => f.filename);
+        const restaurantPhotos = (req.files['restaurantPhotos[]'] || []).map(f => f.filename);
+
+        for (let i = 0; i < photos.length; i++) {
+            filteredPhotos.push(photos[i]);
+            filteredCaptions.push(captionsNew[i] || '');
         }
-        const photos = filteredPhotos.join(';');
+        const photosString = filteredPhotos.join(';');
         const photoCaptions = filteredCaptions.join(';');
 
+        const accommodations = accommodationsRaw.map((acc, i) => ({
+            ...acc,
+            photo: accommodationPhotos[i] || acc.photo || ''
+        }));
+
+        const restaurants = restaurantsRaw.map((resto, i) => ({
+            ...resto,
+            photo: restaurantPhotos[i] || resto.photo || ''
+        }));
 
         await prisma.travel.update({
             where: { id },
             data: {
                 name,
                 destination,
-                photos,
+                photos: photosString,
                 photoCaptions
             }
         });
@@ -294,36 +320,36 @@ exports.updateTravel = async (req, res) => {
         await prisma.itinerary.deleteMany({ where: { travelId: id } });
         await prisma.transport.deleteMany({ where: { travelId: id } });
 
-   for (const t of transports) {
-  if (t.type) {
-    await prisma.transport.create({
-      data: {
-        type: t.type,
-        detail_fr: t.detail_fr || '',
-        detail_en: t.detail_en || '',
-        detail_es: t.detail_es || '',
-        detail_it: t.detail_it || '',
-        travelId: id
-      }
-    });
-  }
-}
+        for (const t of transports) {
+            if (t.type) {
+                await prisma.transport.create({
+                    data: {
+                        type: t.type,
+                        detail_fr: t.detail_fr || '',
+                        detail_en: t.detail_en || '',
+                        detail_es: t.detail_es || '',
+                        detail_it: t.detail_it || '',
+                        travelId: id
+                    }
+                });
+            }
+        }
 
 
-for (const itin of itineraries) {
-  if (itin.title) {
-    await prisma.itinerary.create({
-      data: {
-        title: itin.title,
-        detail_fr: itin.detail_fr || '',
-        detail_en: itin.detail_en || '',
-        detail_es: itin.detail_es || '',
-        detail_it: itin.detail_it || '',
-        travelId: id
-      }
-    });
-  }
-}
+        for (const itin of itineraries) {
+            if (itin.title) {
+                await prisma.itinerary.create({
+                    data: {
+                        title: itin.title,
+                        detail_fr: itin.detail_fr || '',
+                        detail_en: itin.detail_en || '',
+                        detail_es: itin.detail_es || '',
+                        detail_it: itin.detail_it || '',
+                        travelId: id
+                    }
+                });
+            }
+        }
         for (const acc of accommodations) {
             await prisma.accommodation.create({
                 data: {
