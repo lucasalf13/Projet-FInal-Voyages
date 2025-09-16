@@ -193,11 +193,23 @@ exports.deleteTravel = async (req, res) => {
     if (!req.session.user || req.session.user.role !== 'admin') {
         return res.status(403).send(req.t('access_denied'));
     }
-    const id = Number(req.params.id);
     try {
+        const id = Number(req.params.id);
+
+        const travel = await prisma.travel.findUnique({ where: { id } });
+        if (!travel) {
+            return res.status(404).send("Voyage non trouvé");
+        }
+
+        await prisma.accommodation.deleteMany({ where: { travelId: id } });
+        await prisma.restaurant.deleteMany({ where: { travelId: id } });
+        await prisma.itinerary.deleteMany({ where: { travelId: id } });
+        await prisma.transport.deleteMany({ where: { travelId: id } });
         await prisma.travel.delete({ where: { id } });
+
         res.redirect('/home');
     } catch (error) {
+        console.error(error);
         res.status(500).send("Erreur lors de la suppression");
     }
 };
