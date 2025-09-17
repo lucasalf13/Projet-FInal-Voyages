@@ -58,7 +58,9 @@
 					{% endif %}
 				{% endfor %}
 			</div>
-
+			<div class="center-image-container">
+				<img src="/assets/img/rose.webp" alt="Rosedesvents"/>
+			</div>
 			<!-- Colonne de droite -->
 			<div class="region-col">
 				{% for destination in ["Nord-Est", "Sud-Est"] %}
@@ -100,7 +102,7 @@
 	</main>
 
 	<script>
-document.querySelectorAll('.fav-btn').forEach(btn => {
+		document.querySelectorAll('.fav-btn').forEach(btn => {
 btn.addEventListener('click', function (e) {
 e.preventDefault();
 const voyageId = this.dataset.voyageId;
@@ -117,40 +119,40 @@ this.innerHTML = data.isFavori ? '❤️' : '🤍';
 });
 
 function normalize(str) {
-	return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 document.getElementById('searchBarDestination').addEventListener('input', function () {
-	const val = normalize(this.value.trim());
+const val = normalize(this.value.trim());
 
-	document.querySelectorAll('.region-section').forEach(section => {
-		const carousel = section.querySelector('.voyages-carousel');
-		const slides = carousel.querySelectorAll('.carousel-slide');
-		let visibleCount = 0;
+document.querySelectorAll('.region-section').forEach(section => {
+const carousel = section.querySelector('.voyages-carousel');
+const slides = carousel.querySelectorAll('.carousel-slide');
+let visibleCount = 0;
 
-		slides.forEach((slide, index) => {
-			const card = slide.querySelector('.voyage-card');
-			const name = normalize(card.dataset.name);
+slides.forEach((slide, index) => {
+const card = slide.querySelector('.voyage-card');
+const name = normalize(card.dataset.name);
 
-			if (val === "" || name.startsWith(val)) {
-				slide.style.display = '';
-				visibleCount++;
-			} else {
-				slide.style.display = 'none';
-			}
-			slide.classList.remove('active');
-		});
+if (val === "" || name.startsWith(val)) {
+slide.style.display = '';
+visibleCount++;
+} else {
+slide.style.display = 'none';
+}
+slide.classList.remove('active');
+});
 
-		if (visibleCount === 0) {
-			section.style.display = 'none';
-		} else {
-			section.style.display = '';
+if (visibleCount === 0) {
+section.style.display = 'none';
+} else {
+section.style.display = '';
 const firstVisible = Array.from(slides).find(slide => slide.style.display !== 'none');
-			if (firstVisible) {
-				firstVisible.classList.add('active');
-			}
-		}
-	});
+if (firstVisible) {
+firstVisible.classList.add('active');
+}
+}
+});
 });
 
 

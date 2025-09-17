@@ -19,31 +19,31 @@
 					!
 				</li>
 				<li>
-					<a href="/home">{{ t('home') }}</a>
+					<a href="/home" class="{% if pathinfo == '/home' %}active{% endif %}">{{ t('home') }}</a>
 				</li>
 				<li>
-					<a href="/favori">{{ t('favorites') }}</a>
+					<a href="/favori" class="{% if pathinfo == '/favori' %}active{% endif %}">{{ t('favorites') }}</a>
 				</li>
 				<li>
-					<a href="/forum">{{ t('forum') }}</a>
+					<a href="" class="{% if pathinfo == '/forum' %}active{% endif %}">{{ t('forum') }}</a>
 				</li>
 				<li>
-					<a href="/about">{{ t('about') }}</a>
+					<a href="/about" class="{% if pathinfo == '/about' or pathinfo == '/' %}active{% endif %}">{{ t('about') }}</a>
 				</li>
 				<li>
 					<a href="/logout">{{ t('logout') }}</a>
 				</li>
 			{% else %}
 				<li>
-					<a href="/register">{{ t('register') }}
+					<a href="/register" class="{% if pathinfo == '/register' %}active{% endif %}">{{ t('register') }}
 					</a>
 				</li>
 				<li>
-					<a href="/login">{{ t('login') }}
+					<a href="/login" class="{% if pathinfo == '/login' %}active{% endif %}">{{ t('login') }}
 					</a>
 				</li>
 				<li>
-					<a href="/about">{{ t('about') }}</a>
+					<a href="/about" class="{% if pathinfo == '/about' or pathinfo == '/' %}active{% endif %}">{{ t('about') }}</a>
 				</li>
 			{% endif %}
 		</ul>
@@ -59,16 +59,16 @@
 			</ul>
 			<ul class="nav-right">
 				<li>
-					<a href="/home">{{ t('home') }}</a>
+					<a href="/home" class="{% if pathinfo == '/home' %}active{% endif %}">{{ t('home') }}</a>
 				</li>
 				<li>
-					<a href="/favori">{{ t('favorites') }}</a>
+					<a href="/favori" class="{% if pathinfo == '/favori' %}active{% endif %}">{{ t('favorites') }}</a>
 				</li>
 				<li>
-					<a href="/forum">{{ t('forum') }}</a>
+					<a href="" class="{% if pathinfo == '/forum' %}active{% endif %}">{{ t('forum') }}</a>
 				</li>
 				<li>
-					<a href="/about">{{ t('about') }}</a>
+					<a href="/about" class="{% if pathinfo == '/about' or pathinfo == '/' %}active{% endif %}">{{ t('about') }}</a>
 				</li>
 				<li>
 					<a href="/logout">{{ t('logout') }}</a>
@@ -77,15 +77,15 @@
 		{% else %}
 			<ul class="nav-right">
 				<li>
-					<a href="/register">{{ t('register') }}
+					<a href="/register" class="{% if pathinfo == '/register' %}active{% endif %}">{{ t('register') }}
 					</a>
 				</li>
 				<li>
-					<a href="/login">{{ t('login') }}
+					<a href="/login" class="{% if pathinfo == '/login' %}active{% endif %}">{{ t('login') }}
 					</a>
 				</li>
 				<li>
-					<a href="/about">{{ t('about') }}</a>
+					<a href="/about" class="{% if pathinfo == '/about' or pathinfo == '/' %}active{% endif %}">{{ t('about') }}</a>
 				</li>
 			</ul>
 		{% endif %}

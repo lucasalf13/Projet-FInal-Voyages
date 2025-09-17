@@ -8,6 +8,7 @@ exports.getAbout = async (req, res) => {
     const aboutCards = req.t('about_cards', { returnObjects: true });
 
     res.render('pages/about.twig', {
+        pathinfo: req.path,
         t: req.t,
         lng: req.language,
         about_cards: aboutCards
@@ -16,6 +17,7 @@ exports.getAbout = async (req, res) => {
 
 exports.getRegister = async (req, res) => {
     res.render('pages/register.twig', {
+        pathinfo: req.path,
         t: req.t,
         lng: req.language
     });
@@ -91,6 +93,7 @@ exports.getLogin = async (req, res) => {
     delete req.session.success;
 
     res.render('pages/login.twig', {
+        pathinfo: req.path,
         success,
         t: req.t,
         lng: req.language
@@ -156,6 +159,7 @@ exports.getFavori = async (req, res) => {
     });
 
     res.render('pages/favori.twig', {
+        pathinfo: req.path,
         user: userWithFavoris,
         favoris,
         t: req.t,

@@ -156,8 +156,13 @@ a:active {
     display: block;
 }
 
+.header-nav-flex li a.active,
 .header-nav-flex li a:hover,
 .header-nav-flex li a:focus {
+    background: var(--color-primary-light);
+}
+
+a.active {
     background: var(--color-primary-light);
 }
 
@@ -955,8 +960,9 @@ a.new:hover {
 }
 
 .voyage-detail-main .fav-btn {
-    border: none;
-    background: transparent;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius);
+    background: var(--color-surface);
     font-size: 1.75rem;
     cursor: pointer;
     padding: 0.25rem;
@@ -1263,10 +1269,29 @@ body.dark-mode .fav-label {
 ========================= */
 .regions-grid-columns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 200px 1fr;
     gap: 36px;
     width: 100%;
     margin: 0 auto;
+    min-height: 400px;
+    align-items: center;
+}
+
+.center-image-container {
+    display: none;
+}
+
+@media (min-width: 901px) {
+    .center-image-container {
+        grid-column: 2 / 3;
+        justify-self: center;
+        align-self: center;
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .region-col {
