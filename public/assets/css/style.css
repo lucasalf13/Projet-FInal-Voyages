@@ -1277,7 +1277,7 @@ body.dark-mode .fav-label {
     align-items: center;
 }
 
-.center-image-container {
+.center-image-container img {
     display: none;
 }
 
@@ -1291,6 +1291,39 @@ body.dark-mode .fav-label {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    body.page-home .home-main {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    body.page-home .home-main::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            url('/assets/img/rose.webp') center center / cover no-repeat;
+        background-size: 100% 90%;
+        opacity: 0;
+        animation: fadein-bg 2s ease-in forwards;
+        z-index: 0;
+    }
+
+    @keyframes fadein-bg {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 0.5;
+        }
+    }
+
+    body.page-home .home-main>* {
+        position: relative;
+        z-index: 1;
     }
 }
 
