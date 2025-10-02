@@ -1270,7 +1270,6 @@ body.dark-mode .fav-label {
 .regions-grid-columns {
     display: grid;
     grid-template-columns: 1fr 200px 1fr;
-    gap: 36px;
     width: 100%;
     margin: 0 auto;
     min-height: 400px;
@@ -1282,33 +1281,20 @@ body.dark-mode .fav-label {
 }
 
 @media (min-width: 901px) {
-    .center-image-container {
+   .regions-grid-columns .center-image-container {
         grid-column: 2 / 3;
         justify-self: center;
         align-self: center;
         width: 100%;
-        height: auto;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    body.page-home .home-main {
-        position: relative;
-        min-height: 100vh;
-        overflow: hidden;
-    }
-
-    body.page-home .home-main::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-            url('/assets/img/rose.webp') center center / cover no-repeat;
-        background-size: 100% 90%;
-        opacity: 0;
-        animation: fadein-bg 2s ease-in forwards;
-        z-index: 0;
+         background:
+            url('/assets/img/logoslogan.webp') center center no-repeat;
+        background-size: contain;
+        opacity: 0.5;
+        animation: fadein-bg 2s ease-in forwards, upMiddleDown 8s ease-in-out;
     }
 
     @keyframes fadein-bg {
@@ -1317,14 +1303,20 @@ body.dark-mode .fav-label {
         }
 
         to {
-            opacity: 0.2;
+            opacity: 0.5;
         }
     }
-
-    body.page-home .home-main>* {
-        position: relative;
-        z-index: 1;
-    }
+@keyframes upMiddleDown {
+  0% {
+    transform: translateY(0); /* milieu */
+  }
+  50% {
+    transform: translateY(-30%); /* haut */
+  }
+  100% {
+    transform: translateY(0); /* milieu */
+  }
+}
 }
 
 .region-col {
@@ -1346,9 +1338,8 @@ body.dark-mode .fav-label {
 
 .region-img {
     display: block;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    height: 300px;
+    object-fit: contain;
     margin-bottom: 20px;
 }
 
