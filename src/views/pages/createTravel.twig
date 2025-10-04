@@ -177,9 +177,21 @@ addPhotoBlock();
 
 // ==== Hébergements ====
 function updateAccommodationsJSON() {
-const blocks = document.querySelectorAll('.accommodation-block');
-const accs = Array.from(blocks).map(block => ({title: block.querySelector('[data-acc="title"]').value, photo: block.querySelector('[data-acc="photo"]').value, priceCategory: block.querySelector('[data-acc="priceCategory"]').value, url: block.querySelector('[data-acc="url"]').value}));
-document.getElementById('accommodations-json').value = JSON.stringify(accs);
+    const blocks = document.querySelectorAll('.accommodation-block');
+    const accs = Array.from(blocks).map(block => {
+        // On récupère la photo existante si présente
+        let photo = '';
+        const hiddenPhoto = block.querySelector('input[name="existing_accommodationPhotos[]"]');
+        if (hiddenPhoto) photo = hiddenPhoto.value;
+        // Si une nouvelle photo est uploadée, elle sera traitée côté serveur
+        return {
+            title: block.querySelector('[data-acc="title"]').value,
+            photo: photo,
+            priceCategory: block.querySelector('[data-acc="priceCategory"]').value,
+            url: block.querySelector('[data-acc="url"]').value
+        };
+    });
+    document.getElementById('accommodations-json').value = JSON.stringify(accs);
 }
 
 function addAccommodation(data = {}) {
@@ -214,9 +226,19 @@ document.getElementById('accommodations-list').addEventListener('input', updateA
 
 // ==== Restaurants ====
 function updateRestaurantsJSON() {
-const blocks = document.querySelectorAll('.restaurant-block');
-const restos = Array.from(blocks).map(block => ({title: block.querySelector('[data-resto="title"]').value, photo: block.querySelector('[data-resto="photo"]').value, priceCategory: block.querySelector('[data-resto="priceCategory"]').value, url: block.querySelector('[data-resto="url"]').value}));
-document.getElementById('restaurants-json').value = JSON.stringify(restos);
+    const blocks = document.querySelectorAll('.restaurant-block');
+    const restos = Array.from(blocks).map(block => {
+        let photo = '';
+        const hiddenPhoto = block.querySelector('input[name="existing_restaurantPhotos[]"]');
+        if (hiddenPhoto) photo = hiddenPhoto.value;
+        return {
+            title: block.querySelector('[data-resto="title"]').value,
+            photo: photo,
+            priceCategory: block.querySelector('[data-resto="priceCategory"]').value,
+            url: block.querySelector('[data-resto="url"]').value
+        };
+    });
+    document.getElementById('restaurants-json').value = JSON.stringify(restos);
 }
 
 function addRestaurant(data = {}) {

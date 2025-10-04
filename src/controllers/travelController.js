@@ -245,23 +245,14 @@ exports.updateTravel = async (req, res) => {
     if (!req.session.user || req.session.user.role !== 'admin') {
         return res.status(403).send(req.t('access_denied'));
     }
-
     const id = Number(req.params.id);
-
     if (!Number.isInteger(id) || id <= 0) {
         return res.status(400).send("ID de voyage manquant ou invalide.");
     }
-
     try {
-        const {
-            name,
-            destination
-        } = req.body;
-
+        const { name, destination } = req.body;
         let transports = req.body.transports || [];
-        if (!Array.isArray(transports)) {
-            transports = Object.values(transports);
-        }
+        if (!Array.isArray(transports)) transports = Object.values(transports);
         let accommodationsRaw = req.body.accommodations || [];
         if (typeof accommodationsRaw === 'string') {
             try { accommodationsRaw = JSON.parse(accommodationsRaw); } catch { }
@@ -271,20 +262,17 @@ exports.updateTravel = async (req, res) => {
             try { restaurantsRaw = JSON.parse(restaurantsRaw); } catch { }
         }
         let itineraries = req.body.itineraries || [];
-        if (!Array.isArray(itineraries)) {
-            itineraries = Object.values(itineraries);
-        }
+        if (!Array.isArray(itineraries)) itineraries = Object.values(itineraries);
+
         const oldVoyage = await prisma.travel.findUnique({ where: { id } });
-        if (!oldVoyage) {
-            return res.status(404).send("Voyage introuvable");
-        }
+        if (!oldVoyage) return res.status(404).send("Voyage introuvable");
+
+        // Gestion des photos du voyage principal
         let captionsExisting = req.body.captions_existing || [];
         if (!Array.isArray(captionsExisting)) captionsExisting = [captionsExisting];
-
         let captionsNew = req.body.captions || [];
         if (!Array.isArray(captionsNew)) captionsNew = [captionsNew];
         let photosArray = oldVoyage.photos ? oldVoyage.photos.split(';') : [];
-
         let toDelete = req.body.delete_photos || [];
         if (!Array.isArray(toDelete)) toDelete = [toDelete];
 
@@ -297,11 +285,6 @@ exports.updateTravel = async (req, res) => {
             }
         }
         const photos = (req.files['photos[]'] || []).map(f => f.filename);
-        const accommodationPhotos = (req.files['accommodationPhotos[]'] || []).map(f => f.filename);
-        const restaurantPhotos = (req.files['restaurantPhotos[]'] || []).map(f => f.filename);
-        const existingAccommodationPhotos = req.body['existing_accommodationPhotos[]'] || [];
-        const existingRestaurantPhotos = req.body['existing_restaurantPhotos[]'] || [];
-
         for (let i = 0; i < photos.length; i++) {
             filteredPhotos.push(photos[i]);
             filteredCaptions.push(captionsNew[i] || '');
@@ -309,26 +292,23 @@ exports.updateTravel = async (req, res) => {
         const photosString = filteredPhotos.join(';');
         const photoCaptions = filteredCaptions.join(';');
 
-        const accommodations = accommodationsRaw.map((acc, i) => {
-            if (accommodationPhotos[i]) return { ...acc, photo: accommodationPhotos[i] };
-            if (existingAccommodationPhotos[i]) return { ...acc, photo: existingAccommodationPhotos[i] };
-            return { ...acc, photo: acc.photo || '' };
-        });
+        // Gestion robuste des photos hébergements/restaurants
+        const accommodationPhotos = (req.files['accommodationPhotos[]'] || []).map(f => f.filename);
+        const restaurantPhotos = (req.files['restaurantPhotos[]'] || []).map(f => f.filename);
 
-        const restaurants = restaurantsRaw.map((resto, i) => {
-            if (restaurantPhotos[i]) return { ...resto, photo: restaurantPhotos[i] };
-            if (existingRestaurantPhotos[i]) return { ...resto, photo: existingRestaurantPhotos[i] };
-            return { ...resto, photo: resto.photo || '' };
-        });
+        const accommodations = accommodationsRaw.map((acc, i) => ({
+            ...acc,
+            photo: accommodationPhotos[i] || acc.photo || ''
+        }));
+
+        const restaurants = restaurantsRaw.map((resto, i) => ({
+            ...resto,
+            photo: restaurantPhotos[i] || resto.photo || ''
+        }));
 
         await prisma.travel.update({
             where: { id },
-            data: {
-                name,
-                destination,
-                photos: photosString,
-                photoCaptions
-            }
+            data: { name, destination, photos: photosString, photoCaptions }
         });
 
         await prisma.accommodation.deleteMany({ where: { travelId: id } });
@@ -350,8 +330,6 @@ exports.updateTravel = async (req, res) => {
                 });
             }
         }
-
-
         for (const itin of itineraries) {
             if (itin.title) {
                 await prisma.itinerary.create({
@@ -377,7 +355,6 @@ exports.updateTravel = async (req, res) => {
                 }
             });
         }
-
         for (const resto of restaurants) {
             await prisma.restaurant.create({
                 data: {
@@ -389,9 +366,7 @@ exports.updateTravel = async (req, res) => {
                 }
             });
         }
-
         res.redirect('/voyages/' + id);
-
     } catch (error) {
         console.error(error);
         res.status(500).send("Erreur lors de la modification");
