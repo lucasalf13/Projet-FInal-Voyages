@@ -309,15 +309,17 @@ exports.updateTravel = async (req, res) => {
         const photosString = filteredPhotos.join(';');
         const photoCaptions = filteredCaptions.join(';');
 
-        const accommodations = accommodationsRaw.map((acc, i) => ({
-            ...acc,
-            photo: accommodationPhotos[i] || existingAccommodationPhotos[i] || acc.photo || ''
-        }));
+        const accommodations = accommodationsRaw.map((acc, i) => {
+            if (accommodationPhotos[i]) return { ...acc, photo: accommodationPhotos[i] };
+            if (existingAccommodationPhotos[i]) return { ...acc, photo: existingAccommodationPhotos[i] };
+            return { ...acc, photo: acc.photo || '' };
+        });
 
-        const restaurants = restaurantsRaw.map((resto, i) => ({
-            ...resto,
-            photo: restaurantPhotos[i] || existingRestaurantPhotos[i] || resto.photo || ''
-        }));
+        const restaurants = restaurantsRaw.map((resto, i) => {
+            if (restaurantPhotos[i]) return { ...resto, photo: restaurantPhotos[i] };
+            if (existingRestaurantPhotos[i]) return { ...resto, photo: existingRestaurantPhotos[i] };
+            return { ...resto, photo: resto.photo || '' };
+        });
 
         await prisma.travel.update({
             where: { id },
