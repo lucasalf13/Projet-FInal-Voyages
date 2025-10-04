@@ -183,38 +183,30 @@ document.getElementById('accommodations-json').value = JSON.stringify(accs);
 }
 
 function addAccommodation(data = {}) {
-const container = document.getElementById('accommodations-list');
-if (container.children.length >= 3) 
-return;
+    const container = document.getElementById('accommodations-list');
+    if (container.children.length >= 3) return;
 
-
-container.insertAdjacentHTML(
-'beforeend',
-`
-            <div class="accommodation-block" style="margin-bottom:10px;">
-                <input type="text" placeholder="Nom hébergement" data-acc="title" value="${
-data.title || ''
-}" required>
-                <input type="file" name="accommodationPhotos[]" accept="image/*" data-acc="photo">
-                <input type="url" placeholder="Lien vers hébergement (URL)" data-acc="url" value="${
-data.url || ''
-}">
-                <select data-acc="priceCategory">
-                    <option value="EURO" ${
-data.priceCategory === 'EURO' ? 'selected' : ''
-}>€</option>
-                    <option value="TWO_EURO" ${
-data.priceCategory === 'TWO_EURO' ? 'selected' : ''
-}>€€</option>
-                    <option value="THREE_EURO" ${
-data.priceCategory === 'THREE_EURO' ? 'selected' : ''
-}>€€€</option>
-                </select>
-                <button type="button" onclick="this.parentNode.remove();updateAccommodationsJSON();">Supprimer</button>
-            </div>
+    container.insertAdjacentHTML(
+        'beforeend',
         `
-);
-updateAccommodationsJSON();
+        <div class="accommodation-block" style="margin-bottom:10px;">
+            <input type="text" placeholder="Nom hébergement" data-acc="title" value="${data.title || ''}" required>
+            ${data.photo ? `
+                <img src="/assets/img/${data.photo}" alt="Photo hébergement" style="width:60px;">
+                <input type="hidden" name="existing_accommodationPhotos[]" value="${data.photo}">
+            ` : ''}
+            <input type="file" name="accommodationPhotos[]" accept="image/*" data-acc="photo">
+            <input type="url" placeholder="Lien vers hébergement (URL)" data-acc="url" value="${data.url || ''}">
+            <select data-acc="priceCategory">
+                <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
+                <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>
+                <option value="THREE_EURO" ${data.priceCategory === 'THREE_EURO' ? 'selected' : ''}>€€€</option>
+            </select>
+            <button type="button" onclick="this.parentNode.remove();updateAccommodationsJSON();">Supprimer</button>
+        </div>
+        `
+    );
+    updateAccommodationsJSON();
 }
 
 document.getElementById('add-acc-btn').onclick = addAccommodation;
@@ -228,38 +220,30 @@ document.getElementById('restaurants-json').value = JSON.stringify(restos);
 }
 
 function addRestaurant(data = {}) {
-const container = document.getElementById('restaurants-list');
-if (container.children.length >= 3) 
-return;
+    const container = document.getElementById('restaurants-list');
+    if (container.children.length >= 3) return;
 
-
-container.insertAdjacentHTML(
-'beforeend',
-`
-            <div class="restaurant-block" style="margin-bottom:10px;">
-                <input type="text" placeholder="Nom restaurant" data-resto="title" value="${
-data.title || ''
-}" required>
-                <input type="file" name="restaurantPhotos[]" accept="image/*" data-resto="photo">
-                <input type="url" placeholder="Lien vers restaurant (URL)" data-resto="url" value="${
-data.url || ''
-}">
-                <select data-resto="priceCategory">
-                    <option value="EURO" ${
-data.priceCategory === 'EURO' ? 'selected' : ''
-}>€</option>
-                    <option value="TWO_EURO" ${
-data.priceCategory === 'TWO_EURO' ? 'selected' : ''
-}>€€</option>
-                    <option value="THREE_EURO" ${
-data.priceCategory === 'THREE_EURO' ? 'selected' : ''
-}>€€€</option>
-                </select>
-                <button type="button" onclick="this.parentNode.remove();updateRestaurantsJSON();">Supprimer</button>
-            </div>
+    container.insertAdjacentHTML(
+        'beforeend',
         `
-);
-updateRestaurantsJSON();
+        <div class="restaurant-block" style="margin-bottom:10px;">
+            <input type="text" placeholder="Nom restaurant" data-resto="title" value="${data.title || ''}" required>
+            ${data.photo ? `
+                <img src="/assets/img/${data.photo}" alt="Photo restaurant" style="width:60px;">
+                <input type="hidden" name="existing_restaurantPhotos[]" value="${data.photo}">
+            ` : ''}
+            <input type="file" name="restaurantPhotos[]" accept="image/*" data-resto="photo">
+            <input type="url" placeholder="Lien vers restaurant (URL)" data-resto="url" value="${data.url || ''}">
+            <select data-resto="priceCategory">
+                <option value="EURO" ${data.priceCategory === 'EURO' ? 'selected' : ''}>€</option>
+                <option value="TWO_EURO" ${data.priceCategory === 'TWO_EURO' ? 'selected' : ''}>€€</option>
+                <option value="THREE_EURO" ${data.priceCategory === 'THREE_EURO' ? 'selected' : ''}>€€€</option>
+            </select>
+            <button type="button" onclick="this.parentNode.remove();updateRestaurantsJSON();">Supprimer</button>
+        </div>
+        `
+    );
+    updateRestaurantsJSON();
 }
 
 document.getElementById('add-resto-btn').onclick = addRestaurant;

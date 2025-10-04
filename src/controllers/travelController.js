@@ -299,6 +299,8 @@ exports.updateTravel = async (req, res) => {
         const photos = (req.files['photos[]'] || []).map(f => f.filename);
         const accommodationPhotos = (req.files['accommodationPhotos[]'] || []).map(f => f.filename);
         const restaurantPhotos = (req.files['restaurantPhotos[]'] || []).map(f => f.filename);
+        const existingAccommodationPhotos = req.body['existing_accommodationPhotos[]'] || [];
+        const existingRestaurantPhotos = req.body['existing_restaurantPhotos[]'] || [];
 
         for (let i = 0; i < photos.length; i++) {
             filteredPhotos.push(photos[i]);
@@ -309,12 +311,12 @@ exports.updateTravel = async (req, res) => {
 
         const accommodations = accommodationsRaw.map((acc, i) => ({
             ...acc,
-            photo: accommodationPhotos[i] || acc.photo || ''
+            photo: accommodationPhotos[i] || existingAccommodationPhotos[i] || acc.photo || ''
         }));
 
         const restaurants = restaurantsRaw.map((resto, i) => ({
             ...resto,
-            photo: restaurantPhotos[i] || resto.photo || ''
+            photo: restaurantPhotos[i] || existingRestaurantPhotos[i] || resto.photo || ''
         }));
 
         await prisma.travel.update({
