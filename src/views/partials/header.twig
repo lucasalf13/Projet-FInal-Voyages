@@ -25,7 +25,7 @@
 					<a href="/favori" class="{% if pathinfo == '/favori' %}active{% endif %}">{{ t('favorites') }}</a>
 				</li>
 				<li>
-					<a href="" class="{% if pathinfo == '/forum' %}active{% endif %}">{{ t('forum') }}</a>
+					<a href="#" class="nav-disabled" tabindex="-1" aria-disabled="true">{{ t('forum') }}</a>
 				</li>
 				<li>
 					<a href="/about" class="{% if pathinfo == '/about' or pathinfo == '/' %}active{% endif %}">{{ t('about') }}</a>
@@ -65,7 +65,7 @@
 					<a href="/favori" class="{% if pathinfo == '/favori' %}active{% endif %}">{{ t('favorites') }}</a>
 				</li>
 				<li>
-					<a href="" class="{% if pathinfo == '/forum' %}active{% endif %}">{{ t('forum') }}</a>
+					<a href="#" class="nav-disabled" tabindex="-1" aria-disabled="true">{{ t('forum') }}</a>
 				</li>
 				<li>
 					<a href="/about" class="{% if pathinfo == '/about' or pathinfo == '/' %}active{% endif %}">{{ t('about') }}</a>

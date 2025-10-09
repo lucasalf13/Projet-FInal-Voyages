@@ -134,6 +134,13 @@ a:active {
     padding: 10px;
 }
 
+.nav-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
 .nav-left,
 .nav-right {
     display: flex;
@@ -1281,7 +1288,7 @@ body.dark-mode .fav-label {
 }
 
 @media (min-width: 901px) {
-   .regions-grid-columns .center-image-container {
+    .regions-grid-columns .center-image-container {
         grid-column: 2 / 3;
         justify-self: center;
         align-self: center;
@@ -1290,7 +1297,7 @@ body.dark-mode .fav-label {
         display: flex;
         justify-content: center;
         align-items: center;
-         background:
+        background:
             url('/assets/img/logoslogan.webp') center center no-repeat;
         background-size: contain;
         opacity: 0.5;
@@ -1306,17 +1313,23 @@ body.dark-mode .fav-label {
             opacity: 0.5;
         }
     }
-@keyframes upMiddleDown {
-  0% {
-    transform: translateY(0); /* milieu */
-  }
-  50% {
-    transform: translateY(-30%); /* haut */
-  }
-  100% {
-    transform: translateY(0); /* milieu */
-  }
-}
+
+    @keyframes upMiddleDown {
+        0% {
+            transform: translateY(0);
+            /* milieu */
+        }
+
+        50% {
+            transform: translateY(-30%);
+            /* haut */
+        }
+
+        100% {
+            transform: translateY(0);
+            /* milieu */
+        }
+    }
 }
 
 .region-col {
