@@ -166,11 +166,11 @@ a:active {
 .header-nav-flex li a.active,
 .header-nav-flex li a:hover,
 .header-nav-flex li a:focus {
-    background: var(--color-primary-light);
+    background: var(--color-primary);
 }
 
 a.active {
-    background: var(--color-primary-light);
+    background: var(--color-primary);
 }
 
 .nav-mobile {
@@ -209,7 +209,7 @@ a.active {
 }
 
 #lang-switcher select:focus {
-    background: linear-gradient(90deg, var(--color-primary) 70%, var(--color-primary-light) 100%);
+    background: var(--color-primary);
 
     outline: none;
     transition: box-shadow var(--transition), border-color var(--transition);
@@ -801,12 +801,12 @@ main {
 .search-bars-row input[type="text"] {
     flex: 1 1 250px;
     max-width: 300px;
-    border: 1.2px solid var(--color-primary-light);
+    border: 1.2px solid var(--color-primary);
     background: #f5faff;
 }
 
 .search-bars-row input[type="text"]:focus {
-    border-color: var(--color-primary);
+    border-color: var(--color-primary-light);
     outline: none;
     box-shadow: 0 0 6px rgba(76, 175, 80, .67);
     background: #f5faff;
@@ -1550,7 +1550,7 @@ strong[data-clickable]:hover {
 }
 
 .btn-itin-toggle {
-    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    background: var(--color-primary);
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -1566,7 +1566,7 @@ strong[data-clickable]:hover {
 
 .btn-itin-toggle:hover,
 .btn-itin-toggle:focus {
-    background: linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+    background: var(--color-primary-light);
     color: var(--color-surface);
     transform: translateY(-2px) scale(1.03);
     outline: none;
