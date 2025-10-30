@@ -1,7 +1,8 @@
 require('dotenv').config();
-const MistralClient = require('@mistralai/mistralai').MistralClient;
 const apiKey = process.env.MISTRAL_API_KEY;
-const client = new MistralClient(apiKey);
+
+// Configuration de base pour l'API Mistral
+const MISTRAL_API_URL = 'https://api.mistral.ai/v1/chat/completions';
 
 exports.proposeVoyage = async (req, res) => {
     const { type, duree, adultes, enfants, budget, periode } = req.body;
@@ -28,16 +29,27 @@ Donne-moi :
 Réponds en ${lang === 'fr' ? 'français' : lang === 'en' ? 'anglais' : lang}.`;
 
     try {
-        const chatResponse = await client.chat({
-            model: "mistral-medium",  // ou "mistral-small" pour une version plus légère
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
-            max_tokens: 800,
-            top_p: 0.95,
-            random_seed: 42  // Pour des résultats plus cohérents
+        const response = await fetch(MISTRAL_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: "mistral-tiny",
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.7,
+                max_tokens: 800,
+                top_p: 0.95
+            })
         });
 
-        const proposition = chatResponse.choices[0]?.message?.content || req.t('no_proposal_generated');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const proposition = data.choices?.[0]?.message?.content || req.t('no_proposal_generated');
         res.json({ proposition });
     } catch (e) {
         console.error("Erreur Mistral AI :", e);
