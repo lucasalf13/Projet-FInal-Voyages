@@ -35,7 +35,8 @@ router.post('/forgotpassword', async (req, res) => {
             },
         });
 
-        const resetLink = `http://141.95.174.197:3000/api/auth/reset-password?token=${resetToken}`;
+        const baseUrl = process.env.BASE_URL || 'http://141.95.174.197:3000';
+        const resetLink = `${baseUrl}/api/auth/reset-password?token=${resetToken}`;
 
         const nodemailer = require('nodemailer');
 
