@@ -45,14 +45,55 @@ router.post('/forgotpassword', async (req, res) => {
             auth: {
                 user: process.env.GMAIL_USER,
                 pass: process.env.GMAIL_PASS
+            },
+            tls: {
+                rejectUnauthorized: false
             }
         });
+
+        const siteName = 'ÉchappéeVerte';
+        const emailTemplate = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">${siteName}</h2>
+                <p style="color: #333; font-size: 16px; line-height: 1.5;">
+                    ${req.t('reset_email_body')}
+                </p>
+                <div style="margin: 30px 0;">
+                    <a href="${resetLink}" 
+                       style="background-color: #4CAF50; 
+                              color: white; 
+                              padding: 12px 24px; 
+                              text-decoration: none; 
+                              border-radius: 5px; 
+                              display: inline-block;">
+                        ${req.t('reset_password')}
+                    </a>
+                </div>
+                <p style="color: #666; font-size: 14px;">
+                    Si vous n'avez pas demandé cette réinitialisation, vous pouvez ignorer cet email.
+                </p>
+                <hr style="border: 1px solid #eee; margin: 20px 0;">
+                <p style="color: #999; font-size: 12px;">
+                    Cet email a été envoyé automatiquement par ${siteName}. Merci de ne pas y répondre.
+                </p>
+            </div>
+        `;
 
         try {
             await transporter.sendMail({
                 to: mail,
+                from: {
+                    name: siteName,
+                    address: process.env.GMAIL_USER
+                },
                 subject: req.t('reset_email_subject'),
-                html: `<p>${req.t('reset_email_body')} <a href="${resetLink}">${resetLink}</a></p>`
+                html: emailTemplate,
+                text: `${req.t('reset_email_body')} ${resetLink}`, // Version texte pour les clients qui ne supportent pas l'HTML
+                headers: {
+                    'X-Priority': '1',
+                    'X-MSMail-Priority': 'High',
+                    'Importance': 'high'
+                }
             });
         } catch (error) {
             console.error('Erreur lors de l’envoi de l’email :', error);
